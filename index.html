@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Resemble.js : Image analysis</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="libs/twitter-bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="demoassets/resemble.css">		
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<div class="page-header">
+					<h1>Resemble.js : Image analysis and comparison</h1>
+				</div>
+			</header>
+	
+			<section role="main">
+				<div class="row">
+					<div class="span12">
+						<div class="hero-unit">
+							<div class="row">
+								<div class="span6">
+									<p>
+										<div id="drop-zone" class="drop-zone">
+											Drop image here.
+										</div>
+									</p>
+								</div>
+								<div class="span4">
+									<h2>What is this?</h2>
+									<p>
+										Resemble.js analyses and compares images with HTML5 canvas and JavaScript.
+									</p>
+									<p>
+										<strong>Try it for yourself.</strong>
+									</p>
+									<div id="image-data" style="display:none">
+
+										RGB
+									    <div class="progress progress-danger">
+										    <div id="red" class="bar" style="width: 0%;"></div>
+									    </div>
+									    <div class="progress progress-success">
+										    <div id="green" class="bar" style="width: 0%;"></div>
+									    </div>
+									    <div class="progress">
+										    <div id="blue" class="bar" style="width: 0%;"></div>
+									    </div>
+
+									    Brightness
+									    <div class="progress progress-warning">
+									    	<div id="brightness" class="bar" style="width: 0%;"></div>
+									    </div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span12">
+						<div class="row">
+							<div class="span6">
+								<div id="dropzone1" class="small-drop-zone">
+									Drop first image
+								</div>
+								<div id="dropzone2" class="small-drop-zone">
+									Drop second image
+								</div>
+							</div>
+							<div class="span6">
+								<h2>Compare two images?</h2>
+								<p>
+									Drop two images on the boxes to the right.  The box below will show a generated 'diff' image, pink areas show mismatch.  This example best works with two very similar but slightly different images.  Try for yourself!
+								</p>
+								<div id="image-diff" class="small-drop-zone">
+									Diff will appear here.
+								</div>
+								<br/>
+								<p id="diff-results" style="display:none;">
+									<strong>The second image is <span id="mismatch"></span>% different compared to the first.
+									<span id="differentdimensions" style="display:none;">And they have different dimensions.</span></strong>
+								</p>
+								<p id="thesame" style="display:none;">
+									<strong>These images are the same!</strong>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/><br/>
+				<div class="row">
+					<div class="span6">
+						<h2>How does it work?</h2>
+						<p>
+							Dark magic.
+						</p>
+						<p>
+							<br/>
+							<a class="btn btn-large btn-primary" href="#"><strong>View project on Github</strong></a>
+						</p>
+					</div>
+					<div class="span6">
+						<h2>How can I use it?</h2>
+						<p>Invoke Resemble on an image or canvas image to extract data</p>
+						<pre>
+var data = resemble('img').onComplete(function(data){
+	return data;
+});
+/*
+{
+	red: 255,
+	green: 255,
+	blue: 255,
+	brightness: 255
+}
+*/</pre>
+						<p>Use resemble to compare two image</p>
+						<pre>
+resemble(file).compareTo(file2).onComplete(function(){
+	return data;
+});
+/*
+{
+	misMatchPercentage : 100, // %
+	isSameDimensions: true, // or false
+	imageDiffFileData: {} // dataUrl of image as png
+}
+*/</pre>
+					</div>
+				</div>
+			</section>
+	  
+			<footer class="footer">
+				<p>
+					Footer message
+				</p>
+			</footer>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="resemble.js"></script>
+		<script src="demoassets/main.js"></script>
+	</body>
+</html>
