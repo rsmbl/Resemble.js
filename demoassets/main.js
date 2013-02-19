@@ -58,6 +58,8 @@ $(function(){
 			window.open(diffImage.src, '_blank');
 		});
 
+		$('#button').show();
+
 		if(data.misMatchPercentage == 0){
 			$('#thesame').show();
 			$('#diff-results').hide();
@@ -75,16 +77,39 @@ $(function(){
 
 	var file1;
 	var file2;
+	var resembleControl;
 	dropZone($('#dropzone1'), function(file){
 		file1 = file;
 		if(file2){
-			resemble(file).compareTo(file2).onComplete(onComplete);
+			resembleControl = resemble(file).compareTo(file2).onComplete(onComplete);
 		}
 	});
 	dropZone($('#dropzone2'), function(file){
 		file2 = file;
 		if(file1){
-			resemble(file).compareTo(file1).onComplete(onComplete);
+			resembleControl = resemble(file).compareTo(file1).onComplete(onComplete);
+		}
+	});
+
+
+	var buttons = $('#raw, #colors, #antialising');
+
+	buttons.click(function(){
+		var $this = $(this);
+
+		buttons.removeClass('active');
+		$this.addClass('active');
+
+		if($this.is('#raw')){
+			resembleControl.ignoreNothing();
+		}
+		else
+		if($this.is('#colors')){
+			resembleControl.ignoreColors();
+		}
+		else
+		if($this.is('#antialising')){
+			resembleControl.ignoreAntialiasing();
 		}
 	});
 
