@@ -423,9 +423,9 @@ URL: ...
 				},
 				ignoreAntialiasing: function(){
 
-					tolerance.red = 24;
-					tolerance.green = 24;
-					tolerance.blue = 24;
+					tolerance.red = 32;
+					tolerance.green = 32;
+					tolerance.blue = 32;
 					tolerance.minBrightness = 64;
 					tolerance.maxBrightness = 96;
 
