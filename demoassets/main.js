@@ -50,15 +50,19 @@ $(function(){
 	});
 
 	function onComplete(data){
+		var time = Date.now();
 		var diffImage = new Image();
-		diffImage.src = data.imageDiffFileData;
+		diffImage.src = data.getImageDataUrl();
+
+		console.log(data.analysisTime);
+
 		$('#image-diff').html(diffImage);
 
 		$(diffImage).click(function(){
 			window.open(diffImage.src, '_blank');
 		});
 
-		$('#button').show();
+		$('#buttons').show();
 
 		if(data.misMatchPercentage == 0){
 			$('#thesame').show();
