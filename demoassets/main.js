@@ -54,8 +54,6 @@ $(function(){
 		var diffImage = new Image();
 		diffImage.src = data.getImageDataUrl();
 
-		console.log(data.analysisTime);
-
 		$('#image-diff').html(diffImage);
 
 		$(diffImage).click(function(){

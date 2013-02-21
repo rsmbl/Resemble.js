@@ -1,4 +1,4 @@
 Resemble.js
 ==========
 
-Analyse and compare image with Javascript and HTML5.
+Analyse and compare images with Javascript and HTML5. [Resemble.js Demo](http://huddle.github.com/resemble.js/)

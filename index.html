@@ -75,7 +75,7 @@
 							<div class="span6">
 								<h2>Compare two images?</h2>
 								<p>
-									Drop two images on the boxes to the right.  The box below will show a generated 'diff' image, pink areas show mismatch.  This example best works with two very similar but slightly different images.  Try for yourself!
+									Drop two images on the boxes to the left.  The box below will show a generated 'diff' image, pink areas show mismatch.  This example best works with two very similar but slightly different images.  Try for yourself!
 								</p>
 								<div id="image-diff" class="small-drop-zone">
 									Diff will appear here.
@@ -88,10 +88,16 @@
 								</div>
 								<br/>
 								<br/>
-								<p id="diff-results" style="display:none;">
-									<strong>The second image is <span id="mismatch"></span>% different compared to the first.
-									<span id="differentdimensions" style="display:none;">And they have different dimensions.</span></strong>
-								</p>
+								<div id="diff-results" style="display:none;">
+									<p>
+										<strong>The second image is <span id="mismatch"></span>% different compared to the first.
+										<span id="differentdimensions" style="display:none;">And they have different dimensions.</span></strong>
+									</p>
+									<p>
+										Use the buttons above to change the comparison algorithm.  Perhaps you don't care about color? Annoying antialiasing causing too much noise?  Resemble.js offers multiple comparison options.
+									</p>
+								</div>
+								
 								<p id="thesame" style="display:none;">
 									<strong>These images are the same!</strong>
 								</p>
@@ -102,49 +108,53 @@
 				<br/><br/>
 				<div class="row">
 					<div class="span6">
-						<h2>How does it work?</h2>
+						<h2>Why?</h2>
 						<p>
-							Dark magic.
+							Resemble.js can be used for any image analysis and comparison requirement you might have in the browser. However, it has been designed and built for use by the PhantomJS powered visual regression library <a href="https://github.com/Huddle/PhantomCSS" target="_blank">PhantomCSS</a>. PhantomCSS needs to be able to ignore antialiasing as this would cause differences between screenshots derived from different machines.
+						</p>
+						<p>
+							Resemble.js uses the <a href="https://github.com/Huddle/PhantomCSS" target="_blank">HTML5 File API</a> to parse image data, and canvas for rendering image diffs.  
 						</p>
 						<p>
 							<br/>
-							<a class="btn btn-large btn-primary" href="#"><strong>View project on Github</strong></a>
+							<a class="btn btn-large btn-primary" href="https://github.com/Huddle/Resemble.js"><strong>View project on Github</strong></a>
 						</p>
 					</div>
 					<div class="span6">
 						<h2>How can I use it?</h2>
-						<p>Invoke Resemble on an image or canvas image to extract data</p>
+						<p>Retrieve basic analysis on image.</p>
 						<pre>
-var data = resemble('img').onComplete(function(data){
+var api = resemble(fileData).onComplete(function(data){
 	return data;
-});
-/*
-{
-	red: 255,
-	green: 255,
-	blue: 255,
-	brightness: 255
-}
-*/</pre>
-						<p>Use resemble to compare two image</p>
+	/*
+	{
+	  red: 255,
+	  green: 255,
+	  blue: 255,
+	  brightness: 255
+	}
+	*/
+});</pre>
+						<p>Use resemble to compare two images.</p>
 						<pre>
 resemble(file).compareTo(file2).onComplete(function(){
 	return data;
-});
-/*
-{
-	misMatchPercentage : 100, // %
-	isSameDimensions: true, // or false
-	imageDiffFileData: {} // dataUrl of image as png
-}
-*/</pre>
+	/*
+	{
+	  misMatchPercentage : 100, // %
+	  isSameDimensions: true, // or false
+	  getImageDataUrl: function(){}
+	}
+	*/
+});</pre>
+<p>Take a look at the <a href="demoassets/main.js" target="_blank">JavaScript for this demo page</a> from a better example</p>
 					</div>
 				</div>
 			</section>
 	  
 			<footer class="footer">
-				<p>
-					Footer message
+				<p>	
+				Created by <a href="https://github.com/jamescryer">James Cryer</a> and the Huddle development team.
 				</p>
 			</footer>
 		</div>

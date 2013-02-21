@@ -156,9 +156,9 @@ URL: ...
 
 		function getHue(r,g,b){
 
-			var r = r / 255;
-			var g = g / 255;
-			var b = b / 255;
+			r = r / 255;
+			g = g / 255;
+			b = b / 255;
 			var max = Math.max(r, g, b), min = Math.min(r, g, b);
 			var h;
 			var d;
@@ -365,10 +365,44 @@ URL: ...
 			data.misMatchPercentage = (mismatchCount / (height*width) * 100).toFixed(2);
 			data.analysisTime = Date.now() - time;
 
-			data.getImageDataUrl = function(){
-				context.putImageData(imgd, 0,0);
+			data.getImageDataUrl = function(text){
+				var barHeight = 0;
+
+				if(text){
+					barHeight = addLabel(text,context,hiddenCanvas);
+				}
+
+				context.putImageData(imgd, 0, barHeight);
+
 				return hiddenCanvas.toDataURL("image/png");
 			};
+		}
+
+		function addLabel(text, context, hiddenCanvas){
+			var textPadding = 2;
+
+			context.font = '12px sans-serif';
+
+			var textWidth = context.measureText(text).width + textPadding*2;
+			var barHeight = 22;
+
+			if(textWidth > hiddenCanvas.width){
+				hiddenCanvas.width = textWidth;
+			}
+
+			hiddenCanvas.height += barHeight;
+
+			context.fillStyle = "#666";
+			context.fillRect(0,0,hiddenCanvas.width,barHeight -4);
+			context.fillStyle = "#fff";
+			context.fillRect(0,barHeight -4,hiddenCanvas.width, 4);
+
+			context.fillStyle = "#fff";
+			context.textBaseline = "top";
+			context.font = '12px sans-serif';
+			context.fillText(text, textPadding, 1);
+
+			return barHeight;
 		}
 
 		function compare(one, two){
