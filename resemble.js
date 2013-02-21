@@ -1,8 +1,8 @@
 /*
 Author: James Cryer
 Company: Huddle
-Last updated date: 19 Feb 2013
-URL: ...
+Last updated date: 21 Feb 2013
+URL: https://github.com/Huddle/Resemble.js
 */
 
 (function(_this){
