@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="libs/twitter-bootstrap/bootstrap.min.css">
-		<link rel="stylesheet" href="demoassets/resemble.css">		
+		<link rel="stylesheet" href="demoassets/resemble.css?v1">		
 	</head>
 	<body>
 		<div class="container">
@@ -76,6 +76,9 @@
 								<h2>Compare two images?</h2>
 								<p>
 									Drop two images on the boxes to the left.  The box below will show a generated 'diff' image, pink areas show mismatch.  This example best works with two very similar but slightly different images.  Try for yourself!
+								</p>
+								<p>
+								Don't have any images to compare? <button class="btn" id="example-images">Use example images</button>
 								</p>
 								<div id="image-diff" class="small-drop-zone">
 									Diff will appear here.
@@ -154,7 +157,10 @@ resemble(file).compareTo(file2).onComplete(function(){
 	  
 			<footer class="footer">
 				<p>	
-				Created by <a href="https://github.com/jamescryer" target="_blank">James Cryer</a> and the Huddle development team.
+					Created by <a href="https://github.com/jamescryer" target="_blank">James Cryer</a> and the Huddle development team.
+				</p>
+				<p>
+					The image used in the comparison example was created by <a href="https://twitter.com/Shadowise" target="_blank">Daniel Rajendran</a>
 				</p>
 			</footer>
 		</div>
