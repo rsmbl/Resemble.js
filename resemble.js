@@ -6,6 +6,7 @@ URL: https://github.com/Huddle/Resemble.js
 */
 
 (function(_this){
+	'use strict';
 
 	_this['resemble'] = function( fileData ){
 
@@ -84,7 +85,7 @@ URL: https://github.com/Huddle/Resemble.js
 			};
 
 			hiddenImage.onload = function() {
-				
+
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
 				var width = hiddenImage.width;
@@ -94,7 +95,7 @@ URL: https://github.com/Huddle/Resemble.js
 				hiddenCanvas.height = height;
 				hiddenCanvas.getContext('2d').drawImage(hiddenImage, 0, 0, width, height);
 				imageData = hiddenCanvas.getContext('2d').getImageData(0, 0, width, height);
-				
+
 				images.push(imageData);
 
 				callback(imageData, width, height);
@@ -338,7 +339,7 @@ URL: https://github.com/Huddle/Resemble.js
 					}
 					return;
 				}
-				
+
 				if( isRGBSimilar(pixel1, pixel2) ){
 					copyPixel(targetPix, offset, pixel2);
 
@@ -449,7 +450,8 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function getCompareApi(param){
 
-			var hasMethod = typeof param === 'function';
+			var secondFileData,
+				hasMethod = typeof param === 'function';
 
 			if( !hasMethod ){
 				// assume it's file data
@@ -458,7 +460,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 			var self = {
 				ignoreNothing: function(){
-					
+
 					tolerance.red = 16;
 					tolerance.green = 16;
 					tolerance.blue = 16;
@@ -486,7 +488,7 @@ URL: https://github.com/Huddle/Resemble.js
 					return self;
 				},
 				ignoreColors: function(){
-					
+
 					tolerance.minBrightness = 16;
 					tolerance.maxBrightness = 240;
 
