@@ -1,7 +1,7 @@
 /*
 Author: James Cryer
 Company: Huddle
-Last updated date: 21 Feb 2013
+Last updated date: 23 Jul 2013
 URL: https://github.com/Huddle/Resemble.js
 */
 
@@ -77,8 +77,8 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function loadImageData( fileData, callback ){
-			var fileReader,
-				hiddenImage = new Image();
+			var fileReader;
+			var hiddenImage = new Image();
 
 			hiddenImage.onload = function() {
 
