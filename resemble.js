@@ -1,7 +1,7 @@
 /*
 Author: James Cryer
 Company: Huddle
-Last updated date: 23 Jul 2013
+Last updated date: 17 Sep 2013
 URL: https://github.com/Huddle/Resemble.js
 */
 
@@ -439,8 +439,9 @@ URL: https://github.com/Huddle/Resemble.js
 						data.isSameDimensions = true;
 					} else {
 						data.isSameDimensions = false;
-					        data.dimensionDifference = { width: images[0].width - images[1].width, height: images[0].height - images[1].height };
 					}
+
+					data.dimensionDifference = { width: images[0].width - images[1].width, height: images[0].height - images[1].height };
 
 					analyseImages( normalise(images[0],width, height), normalise(images[1],width, height), width, height);
 
