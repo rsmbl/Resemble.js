@@ -18,6 +18,7 @@ URL: https://github.com/Huddle/Resemble.js
 			red: 16,
 			green: 16,
 			blue: 16,
+			alpha: 16,
 			minBrightness: 16,
 			maxBrightness: 240
 		};
@@ -133,7 +134,9 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function isPixelBrightnessSimilar(d1, d2){
-			return Math.abs(d1.brightness - d2.brightness) < tolerance.minBrightness;
+			var alpha = isColorSimilar(d1.a, d2.a, 'alpha');
+			var brightness = isColorSimilar(d1.brightness, d2.brightness, 'minBrightness');
+			return brightness && alpha;
 		}
 
 		function getBrightness(r,g,b){
@@ -151,8 +154,9 @@ URL: https://github.com/Huddle/Resemble.js
 			var red = isColorSimilar(d1.r,d2.r,'red');
 			var green = isColorSimilar(d1.g,d2.g,'green');
 			var blue = isColorSimilar(d1.b,d2.b,'blue');
+			var alpha = isColorSimilar(d1.a, d2.a, 'alpha');
 
-			return red && green && blue;
+			return red && green && blue && alpha;
 		}
 
 		function isContrasting(d1, d2){
@@ -249,14 +253,14 @@ URL: https://github.com/Huddle/Resemble.js
 			px[offset] = data.r; //r
 			px[offset + 1] = data.g; //g
 			px[offset + 2] = data.b; //b
-			px[offset + 3] = 255; //a
+			px[offset + 3] = data.a; //a
 		}
 
 		function copyGrayScalePixel(px, offset, data){
 			px[offset] = data.brightness; //r
 			px[offset + 1] = data.brightness; //g
 			px[offset + 2] = data.brightness; //b
-			px[offset + 3] = 255; //a
+			px[offset + 3] = data.a; //a
 		}
 
 
@@ -265,15 +269,18 @@ URL: https://github.com/Huddle/Resemble.js
 			var g;
 			var b;
 			var d;
+			var a;
 
 			if(typeof data[offset] !== 'undefined'){
 				r = data[offset];
 				g = data[offset+1];
 				b = data[offset+2];
+				a = data[offset+3];
 				d = {
 					r: r,
 					g: g,
-					b: b
+					b: b,
+					a: a
 				};
 
 				return d;
@@ -470,6 +477,7 @@ URL: https://github.com/Huddle/Resemble.js
 					tolerance.red = 16;
 					tolerance.green = 16;
 					tolerance.blue = 16;
+					tolerance.alpha = 16;
 					tolerance.minBrightness = 16;
 					tolerance.maxBrightness = 240;
 
@@ -484,6 +492,7 @@ URL: https://github.com/Huddle/Resemble.js
 					tolerance.red = 32;
 					tolerance.green = 32;
 					tolerance.blue = 32;
+					tolerance.alpha = 32;
 					tolerance.minBrightness = 64;
 					tolerance.maxBrightness = 96;
 
@@ -495,6 +504,7 @@ URL: https://github.com/Huddle/Resemble.js
 				},
 				ignoreColors: function(){
 
+					tolerance.alpha = 16;
 					tolerance.minBrightness = 16;
 					tolerance.maxBrightness = 240;
 
