@@ -271,8 +271,9 @@ URL: https://github.com/Huddle/Resemble.js
 			var d;
 			var a;
 
-			if(typeof data[offset] !== 'undefined'){
-				r = data[offset];
+			r = data[offset];
+
+			if(typeof r !== 'undefined'){
 				g = data[offset+1];
 				b = data[offset+2];
 				a = data[offset+3];

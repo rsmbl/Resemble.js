@@ -25,12 +25,12 @@ $(function(){
 
 				var droppedImage = new Image();
 				var fileReader = new FileReader();
-				
+
 				fileReader.onload = function (event) {
 					droppedImage.src = event.target.result;
 					$target.html(droppedImage);
 				};
-				
+
 				fileReader.readAsDataURL(file);
 
 				onDrop(file);
@@ -143,7 +143,11 @@ $(function(){
 			$('#dropzone2').html('<img src="demoassets/People2.jpg"/>');
 
 			$.when(done, dtwo).done(function(file, file1){
-				resembleControl = resemble(file).compareTo(file1).onComplete(onComplete);
+				if (typeof FileReader === 'undefined') {
+					resembleControl = resemble('demoassets/People.jpg').compareTo('demoassets/People2.jpg').onComplete(onComplete);
+				} else {
+					resembleControl = resemble(file).compareTo(file1).onComplete(onComplete);
+				}
 			});
 
 			return false;
