@@ -1,0 +1,24 @@
+{
+  "name": "Resemble.js",
+  "version": "0.0.0",
+  "description": "Image analysis and comparison with HTML5",
+  "main": "resemble.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Huddle/Resemble.js.git"
+  },
+  "keywords": [
+    "comparison",
+    "visual",
+    "image",
+    "diff",
+    "compare",
+    "html5"
+  ],
+  "author": "James Cryer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Huddle/Resemble.js/issues"
+  },
+  "homepage": "https://github.com/Huddle/Resemble.js"
+}
