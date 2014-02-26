@@ -11,7 +11,7 @@ $(function(){
 				$target.removeClass( 'drag-over' );
 				return false;
 			}).
-			bind("mouseout", function () {
+			bind("dragleave", function () {
 				$target.removeClass( 'drag-over' );
 				return false;
 			}).
