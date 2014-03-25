@@ -60,7 +60,7 @@ $(function(){
 			window.open(diffImage.src, '_blank');
 		});
 
-		$('#buttons').show();
+		$('.buttons').show();
 
 		if(data.misMatchPercentage == 0){
 			$('#thesame').show();
@@ -80,13 +80,14 @@ $(function(){
 	var file1;
 	var file2;
 	var resembleControl;
+
 	dropZone($('#dropzone1'), function(file){
-		console.log(file);
 		file1 = file;
 		if(file2){
 			resembleControl = resemble(file).compareTo(file2).onComplete(onComplete);
 		}
 	});
+
 	dropZone($('#dropzone2'), function(file){
 		file2 = file;
 		if(file1){
@@ -94,13 +95,12 @@ $(function(){
 		}
 	});
 
-
-	var buttons = $('#raw, #colors, #antialising');
+	var buttons = $('.buttons button');
 
 	buttons.click(function(){
 		var $this = $(this);
 
-		buttons.removeClass('active');
+		$this.parent('.buttons').find('button').removeClass('active');
 		$this.addClass('active');
 
 		if($this.is('#raw')){
@@ -114,8 +114,57 @@ $(function(){
 		if($this.is('#antialising')){
 			resembleControl.ignoreAntialiasing();
 		}
+		else
+		if($this.is('#pink')){
+			resemble.outputSettings({
+				errorColor: {
+					red: 255,
+					green: 0,
+					blue: 255
+				}
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#yellow')){
+			resemble.outputSettings({
+				errorColor: {
+					red: 255,
+					green: 255,
+					blue: 0
+				}
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#flat')){
+			resemble.outputSettings({
+				errorType: 'flat'
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#movement')){
+			resemble.outputSettings({
+				errorType: 'movement'
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#opaque')){
+			resemble.outputSettings({
+				transparency: 1
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#transparent')){
+			resemble.outputSettings({
+				transparency: 0.3
+			});
+			resembleControl.repaint();
+		}
 	});
-
 
 	(function(){
 		var xhr = new XMLHttpRequest();

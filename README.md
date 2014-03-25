@@ -3,6 +3,8 @@ Resemble.js
 
 Analyse and compare images with Javascript and HTML5. [Resemble.js Demo](http://huddle.github.com/Resemble.js/)
 
+![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
+
 ### Get it
 
 `npm install resemblejs`
@@ -49,6 +51,21 @@ You can also change the comparison method after the first analysis.
 // diff.ignoreNothing();
 // diff.ignoreColors();
 diff.ignoreAntialiasing();
+```
+
+And change the output display style.
+
+```javascript
+resemble.outputSettings({
+  errorColor: {
+    red: 255,
+    green: 0,
+    blue: 255
+  },
+  errorType: 'movement',
+  transparency: 0.3
+});
+// resembleControl.repaint();
 ```
 
 --------------------------------------
