@@ -344,20 +344,8 @@ URL: https://github.com/Huddle/Resemble.js
 			var mismatchCount = 0;
 
 			var time = Date.now();
-
-			var skip;
-
-			if( (width > 1200 || height > 1200) && ignoreAntialiasing){
-				skip = 6;
-			}
-
+			
 			loop(height, width, function(verticalPos, horizontalPos){
-
-				if(skip){ // only skip if the image isn't small
-					if(verticalPos % skip === 0 || horizontalPos % skip === 0){
-						return;
-					}
-				}
 
 				var offset = (verticalPos*width + horizontalPos) * 4;
 				var pixel1 = getPixelInfo(data1, offset, 1);
