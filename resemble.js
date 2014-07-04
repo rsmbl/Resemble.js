@@ -2,9 +2,15 @@
 James Cryer / Huddle 2014
 URL: https://github.com/Huddle/Resemble.js
 */
+'use strict';
 
-(function(_this){
-	'use strict';
+//var pngparse = require('pngparse');
+var PNG = require('pngjs').PNG;
+var fs = require('fs');
+
+
+//keeping wrong indentation and '_this' for better diff with origin resemble.js
+var _this = {};
 
 	var pixelTransparency = 1;
 
@@ -106,36 +112,18 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function loadImageData( fileData, callback ){
-			var fileReader;
-			var hiddenImage = new Image();
-                        hiddenImage.setAttribute("crossOrigin", "crossOrigin");
+      //TODO: suport fileName and/or string buffer
 
-			hiddenImage.onload = function() {
-
-				var hiddenCanvas =  document.createElement('canvas');
-				var imageData;
-				var width = hiddenImage.width;
-				var height = hiddenImage.height;
-
-				hiddenCanvas.width = width;
-				hiddenCanvas.height = height;
-				hiddenCanvas.getContext('2d').drawImage(hiddenImage, 0, 0, width, height);
-				imageData = hiddenCanvas.getContext('2d').getImageData(0, 0, width, height);
-
-				images.push(imageData);
-
-				callback(imageData, width, height);
-			};
-
-			if (typeof fileData === 'string') {
-				hiddenImage.src = fileData;
-			} else {
-				fileReader = new FileReader();
-				fileReader.onload = function (event) {
-					hiddenImage.src = event.target.result;
-				};
-				fileReader.readAsDataURL(fileData);
-			}
+      //does exists some way hot to be independent on png library (pngparse/jspng/...)?
+      //PNG.parseFile(fileData, function (err, imageData) {
+      fs.createReadStream(fileData)
+        .pipe(new PNG({
+          filterType: 4
+        }))
+        .on('parsed', function() {
+          console.log('image parsed, name:', fileData);
+				  callback(this, this.width, this.height);
+        });
 		}
 
 		function isColorSimilar(a, b, color){
@@ -329,16 +317,17 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function analyseImages(img1, img2, width, height){
 
-			var hiddenCanvas = document.createElement('canvas');
-
 			var data1 = img1.data;
 			var data2 = img2.data;
 
-			hiddenCanvas.width = width;
-			hiddenCanvas.height = height;
-
-			var context = hiddenCanvas.getContext('2d');
-			var imgd = context.createImageData(width,height);
+      //TODO
+      var imgd = new PNG({
+          width: img1.width,
+          height: img1.height,
+          deflateChunkSize: img1.deflateChunkSize,
+          deflateLevel: img1.deflateLevel,
+          deflateStrategy: img1.deflateStrategy,
+        });
 			var targetPix = imgd.data;
 
 			var mismatchCount = 0;
@@ -407,67 +396,18 @@ URL: https://github.com/Huddle/Resemble.js
 			data.misMatchPercentage = (mismatchCount / (height*width) * 100).toFixed(2);
 			data.analysisTime = Date.now() - time;
 
-			data.getImageDataUrl = function(text){
-				var barHeight = 0;
-
-				if(text){
-					barHeight = addLabel(text,context,hiddenCanvas);
-				}
-
-				context.putImageData(imgd, 0, barHeight);
-
-				return hiddenCanvas.toDataURL("image/png");
+			data.getDiffImage = function(text){
+        return imgd;
 			};
-		}
-
-		function addLabel(text, context, hiddenCanvas){
-			var textPadding = 2;
-
-			context.font = '12px sans-serif';
-
-			var textWidth = context.measureText(text).width + textPadding*2;
-			var barHeight = 22;
-
-			if(textWidth > hiddenCanvas.width){
-				hiddenCanvas.width = textWidth;
-			}
-
-			hiddenCanvas.height += barHeight;
-
-			context.fillStyle = "#666";
-			context.fillRect(0,0,hiddenCanvas.width,barHeight -4);
-			context.fillStyle = "#fff";
-			context.fillRect(0,barHeight -4,hiddenCanvas.width, 4);
-
-			context.fillStyle = "#fff";
-			context.textBaseline = "top";
-			context.font = '12px sans-serif';
-			context.fillText(text, textPadding, 1);
-
-			return barHeight;
-		}
-
-		function normalise(img, w, h){
-			var c;
-			var context;
-
-			if(img.height < h || img.width < w){
-				c = document.createElement('canvas');
-				c.width = w;
-				c.height = h;
-				context = c.getContext('2d');
-				context.putImageData(img, 0, 0);
-				return context.getImageData(0, 0, w, h);
-			}
-
-			return img;
 		}
 
 		function compare(one, two){
 
-			function onceWeHaveBoth(){
+			function onceWeHaveBoth(img){
 				var width;
 				var height;
+
+        images.push(img);
 				if(images.length === 2){
 					width = images[0].width > images[1].width ? images[0].width : images[1].width;
 					height = images[0].height > images[1].height ? images[0].height : images[1].height;
@@ -480,7 +420,8 @@ URL: https://github.com/Huddle/Resemble.js
 
 					data.dimensionDifference = { width: images[0].width - images[1].width, height: images[0].height - images[1].height };
 
-					analyseImages( normalise(images[0],width, height), normalise(images[1],width, height), width, height);
+          //lksv: normalization removed
+					analyseImages( images[0], images[1], width, height);
 
 					triggerDataUpdate();
 				}
@@ -598,4 +539,4 @@ URL: https://github.com/Huddle/Resemble.js
 		return this;
 	};
 
-}(this));
+module.exports = _this['resemble']

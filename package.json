@@ -1,24 +1,25 @@
 {
-  "name": "resemblejs",
-  "version": "1.1.0",
-  "description": "Image analysis and comparison with HTML5",
+  "name": "node-resemble.js",
+  "version": "0.0.1",
+  "description": "Image analysis and comparison for nodejs",
   "main": "resemble.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Huddle/Resemble.js.git"
+    "url": "https://github.com/lksv/node-resemble.js.git"
   },
   "keywords": [
     "comparison",
-    "visual",
     "image",
     "diff",
-    "compare",
-    "html5"
+    "compare"
   ],
-  "author": "James Cryer",
+  "author": "Lukas Svoboda <lukas.svoboda@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Huddle/Resemble.js/issues"
+    "url": "https://github.com/lksv/node-resemble.js/issues"
   },
-  "homepage": "https://github.com/Huddle/Resemble.js"
+  "homepage": "https://github.com/lksv/node-resemble.js",
+  "dependencies": {
+    "pngjs": "~0.4.0"
+  }
 }

@@ -1,15 +1,13 @@
-Resemble.js
-==========
+node-resebmle.js
+================
 
-Analyse and compare images with Javascript and HTML5. [Resemble.js Demo](http://huddle.github.com/Resemble.js/)
+Analyse and compare images with Javascript. This is project do not need canvas or any other binary denpendances.
+It it modification of [Resemble.js](https://github.com/Huddle/Resemble.js)
 
-![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
 ### Get it
 
-`npm install resemblejs`
-
-`bower install resemblejs`
+`npm install node-resemblejs`
 
 ### Example
 
@@ -70,4 +68,6 @@ resemble.outputSettings({
 
 --------------------------------------
 
-Created by [James Cryer](http://github.com/jamescryer) and the Huddle development team.
+Credits:
+ * Created by [James Cryer](http://github.com/jamescryer) and the Huddle development team.
+ * [Lukas Svoboda](http://github.com/lksv) - modification for node.js
