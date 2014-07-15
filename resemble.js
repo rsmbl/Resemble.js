@@ -597,7 +597,9 @@ URL: https://github.com/Huddle/Resemble.js
 
 		pixelTransparency = options.transparency || pixelTransparency;
 
-		largeImageThreshold = options.largeImageThreshold || largeImageThreshold;
+		if (options.largeImageThreshold !== undefined) {
+			largeImageThreshold = options.largeImageThreshold;
+		}
 
 		return this;
 	};
