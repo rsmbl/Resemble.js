@@ -110,7 +110,7 @@ URL: https://github.com/Huddle/Resemble.js
 		function loadImageData( fileData, callback ){
 			var fileReader;
 			var hiddenImage = new Image();
-                        hiddenImage.setAttribute("crossOrigin", "crossOrigin");
+						hiddenImage.setAttribute("crossOrigin", "crossOrigin");
 
 			hiddenImage.onload = function() {
 
@@ -132,11 +132,11 @@ URL: https://github.com/Huddle/Resemble.js
 			if (typeof fileData === 'string') {
 				hiddenImage.src = fileData;
 			} else if (typeof fileData.data !== 'undefined'
-                    && typeof fileData.width === 'number'
-                    && typeof fileData.height === 'number') {
-                images.push(fileData);
-                callback(fileData, fileData.width, fileData.height);
-            } else {
+					&& typeof fileData.width === 'number'
+					&& typeof fileData.height === 'number') {
+				images.push(fileData);
+				callback(fileData, fileData.width, fileData.height);
+			} else {
 				fileReader = new FileReader();
 				fileReader.onload = function (event) {
 					hiddenImage.src = event.target.result;
