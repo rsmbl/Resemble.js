@@ -78,7 +78,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function parseImage(sourceImageData, width, height){
 
-			var pixleCount = 0;
+			var pixelCount = 0;
 			var redTotal = 0;
 			var greenTotal = 0;
 			var blueTotal = 0;
@@ -91,7 +91,7 @@ URL: https://github.com/Huddle/Resemble.js
 				var blue = sourceImageData[offset + 2];
 				var brightness = getBrightness(red,green,blue);
 
-				pixleCount++;
+				pixelCount++;
 
 				redTotal += red / 255 * 100;
 				greenTotal += green / 255 * 100;
@@ -99,10 +99,10 @@ URL: https://github.com/Huddle/Resemble.js
 				brightnessTotal += brightness / 255 * 100;
 			});
 
-			data.red = Math.floor(redTotal / pixleCount);
-			data.green = Math.floor(greenTotal / pixleCount);
-			data.blue = Math.floor(blueTotal / pixleCount);
-			data.brightness = Math.floor(brightnessTotal / pixleCount);
+			data.red = Math.floor(redTotal / pixelCount);
+			data.green = Math.floor(greenTotal / pixelCount);
+			data.blue = Math.floor(blueTotal / pixelCount);
+			data.brightness = Math.floor(brightnessTotal / pixelCount);
 
 			triggerDataUpdate();
 		}
@@ -131,7 +131,12 @@ URL: https://github.com/Huddle/Resemble.js
 
 			if (typeof fileData === 'string') {
 				hiddenImage.src = fileData;
-			} else {
+			} else if (typeof fileData.data !== 'undefined'
+                    && typeof fileData.width === 'number'
+                    && typeof fileData.height === 'number') {
+                images.push(fileData);
+                callback(fileData, fileData.width, fileData.height);
+            } else {
 				fileReader = new FileReader();
 				fileReader.onload = function (event) {
 					hiddenImage.src = event.target.result;
