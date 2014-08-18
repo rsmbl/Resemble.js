@@ -25,7 +25,8 @@ var fileData2 = fs.readFileSync('People2.png');
 resemble(fileData1).compareTo(fileData2)
   //.ignoreAntialiasing()
   //.ignoreColors()
+  .ignoreRectangles([[325,170,100,40]])
   .onComplete(function(data){
-    console.log(data);
-    data.getDiffImage().pack().pipe(fs.createWriteStream('diff.png'));
+    console.log('with ignore rectangle:', data);
+    data.getDiffImage().pack().pipe(fs.createWriteStream('diffr.png'));
   });

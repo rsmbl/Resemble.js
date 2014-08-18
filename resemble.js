@@ -59,6 +59,7 @@ var _this = {};
 
 		var ignoreAntialiasing = false;
 		var ignoreColors = false;
+    var ignoreRectangles = null;
 
 		function triggerDataUpdate(){
 			var len = updateCallbackArray.length;
@@ -121,7 +122,6 @@ var _this = {};
         fs.createReadStream(fileData)
           .pipe(png)
           .on('parsed', function() {
-            console.log('image parsed, name:', fileData);
             callback(this, this.width, this.height);
           });
       };
@@ -337,6 +337,9 @@ var _this = {};
 
 			var skip;
 
+      var currentRectangle = null;
+      var rectagnlesIdx = 0;
+
 			if( (width > 1200 || height > 1200) && ignoreAntialiasing){
 				skip = 6;
 			}
@@ -356,6 +359,23 @@ var _this = {};
 				if(pixel1 === null || pixel2 === null){
 					return;
 				}
+
+        if (ignoreRectangles) {
+          for(rectagnlesIdx = 0; rectagnlesIdx < ignoreRectangles.length; rectagnlesIdx++) {
+            currentRectangle = ignoreRectangles[rectagnlesIdx];
+            //console.log(currentRectangle, verticalPos, horizontalPos);
+            if (
+              (verticalPos >= currentRectangle[1]) &&
+              (verticalPos < currentRectangle[1] + currentRectangle[3]) &&
+              (horizontalPos >= currentRectangle[0]) &&
+              (horizontalPos < currentRectangle[0] + currentRectangle[2])
+            ) {
+						  copyGrayScalePixel(targetPix, offset, pixel2);
+					    //copyPixel(targetPix, offset, pixel1, pixel2);
+              return;
+            }
+          }
+        }
 
 				if (ignoreColors){
 
@@ -486,6 +506,12 @@ var _this = {};
 					if(hasMethod) { param(); }
 					return self;
 				},
+        //array of rectangles, each rectangle is defined as (x, y, width. height)
+        //e.g. [[325, 170, 100, 40]]
+        ignoreRectangles: function(rectangles) {
+          ignoreRectangles = rectangles;
+          return self;
+        },
 				repaint: function(){
 					if(hasMethod) { param(); }
 					return self;
