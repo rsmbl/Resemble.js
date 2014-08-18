@@ -112,18 +112,19 @@ var _this = {};
 		}
 
 		function loadImageData( fileData, callback ){
-      //TODO: suport fileName and/or string buffer
-
-      //does exists some way hot to be independent on png library (pngparse/jspng/...)?
-      //PNG.parseFile(fileData, function (err, imageData) {
-      fs.createReadStream(fileData)
-        .pipe(new PNG({
-          filterType: 4
-        }))
-        .on('parsed', function() {
-          console.log('image parsed, name:', fileData);
-				  callback(this, this.width, this.height);
+      var png = new PNG({ filterType: 4 });
+      if (Buffer.isBuffer(fileData)) {
+        png.parse(fileData, function (err, data) {
+          callback(data, data.width, data.height);
         });
+      } else {
+        fs.createReadStream(fileData)
+          .pipe(png)
+          .on('parsed', function() {
+            console.log('image parsed, name:', fileData);
+            callback(this, this.width, this.height);
+          });
+      };
 		}
 
 		function isColorSimilar(a, b, color){
