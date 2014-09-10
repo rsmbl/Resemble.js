@@ -600,7 +600,7 @@ URL: https://github.com/Huddle/Resemble.js
 			errorPixelTransformer = errorPixelTransform[options.errorType];
 		}
 
-		pixelTransparency = options.transparency || pixelTransparency;
+		pixelTransparency = isNaN(Number(options.transparency)) ? pixelTransparency : options.transparency;
 
 		if (options.largeImageThreshold !== undefined) {
 			largeImageThreshold = options.largeImageThreshold;
