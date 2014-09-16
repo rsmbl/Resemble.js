@@ -1,13 +1,13 @@
 node-resebmle.js
 ================
 
-Analyse and compare images with Javascript. This is project do not need canvas or any other binary denpendances.
-It it modification of [Resemble.js](https://github.com/Huddle/Resemble.js)
+Analyse and compare images with Javascript. This project does not need canvas or any other binary denpendencies.
+It is a modification of [Resemble.js](https://github.com/Huddle/Resemble.js)
 
 
 ### Get it
 
-`npm install node-resemblejs`
+`npm install node-resemble.js`
 
 ### Example
 
