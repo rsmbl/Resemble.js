@@ -7,7 +7,7 @@ It is a modification of [Resemble.js](https://github.com/Huddle/Resemble.js)
 
 ### Get it
 
-`npm install node-resemble.js`
+`npm install node-resemble-js`
 
 ### Example
 

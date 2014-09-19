@@ -1,6 +1,6 @@
 {
-  "name": "node-resemble.js",
-  "version": "0.0.3",
+  "name": "node-resemble-js",
+  "version": "0.0.4",
   "description": "Image analysis and comparison for nodejs",
   "main": "resemble.js",
   "repository": {
