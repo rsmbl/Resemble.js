@@ -15,6 +15,10 @@ URL: https://github.com/Huddle/Resemble.js
 		alpha: 255
 	};
 
+  function colorsDistance(c1, c2){
+   return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b))/3;
+  }
+
 	var errorPixelTransform = {
 		flat : function (d1, d2){
 			return {
@@ -29,6 +33,23 @@ URL: https://github.com/Huddle/Resemble.js
 				r: ((d2.r*(errorPixelColor.red/255)) + errorPixelColor.red)/2,
 				g: ((d2.g*(errorPixelColor.green/255)) + errorPixelColor.green)/2,
 				b: ((d2.b*(errorPixelColor.blue/255)) + errorPixelColor.blue)/2,
+				a: d2.a
+			}
+		},
+		flatWithDistanceBasedIntensity: function (d1, d2){
+			return {
+				r: errorPixelColor.red,
+				g: errorPixelColor.green,
+				b: errorPixelColor.blue,
+				a: colorsDistance(d1, d2)
+			}
+		},
+		movementWithDistanceBasedIntensity: function (d1, d2){
+			var ratio = colorsDistance(d1, d2)/255 * 0.8;
+			return {
+				r: ((1-ratio)*(d2.r*(errorPixelColor.red/255)) + ratio*errorPixelColor.red),
+				g: ((1-ratio)*(d2.g*(errorPixelColor.green/255)) + ratio*errorPixelColor.green),
+				b: ((1-ratio)*(d2.b*(errorPixelColor.blue/255)) + ratio*errorPixelColor.blue),
 				a: d2.a
 			}
 		}
