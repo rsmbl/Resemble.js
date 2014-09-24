@@ -1,7 +1,7 @@
 {
   "name": "resemblejs",
-  "main": "Resemble.js",
-  "version": "1.0.1",
+  "main": "resemble.js",
+  "version": "1.2.0",
   "homepage": "https://github.com/Huddle/Resemble.js",
   "authors": [
     "James Cryer <james.cryer@huddle.com>"
