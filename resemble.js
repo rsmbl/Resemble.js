@@ -58,6 +58,9 @@ URL: https://github.com/Huddle/Resemble.js
 	var errorPixelTransformer = errorPixelTransform.flat;
 
 	var largeImageThreshold = 1200;
+	
+	var httpRegex = /^https?:\/\//;
+	var documentDomainRegex = new RegExp('^https?://' + document.domain);
 
 	_this['resemble'] = function( fileData ){
 
@@ -131,7 +134,10 @@ URL: https://github.com/Huddle/Resemble.js
 		function loadImageData( fileData, callback ){
 			var fileReader;
 			var hiddenImage = new Image();
-						hiddenImage.setAttribute("crossOrigin", "crossOrigin");
+			
+			if (httpRegex.test(fileData) && !documentDomainRegex.test(fileData)) {
+				hiddenImage.setAttribute('crossorigin', 'anonymous');
+			}
 
 			hiddenImage.onload = function() {
 
