@@ -151,16 +151,16 @@ $(function(){
 			resembleControl.repaint();
 		}
 		else
-		if($this.is('#flatWithDistanceBasedIntensity')){
+		if($this.is('#flatDifferenceIntensity')){
 			resemble.outputSettings({
-				errorType: 'flatWithDistanceBasedIntensity'
+				errorType: 'flatDifferenceIntensity'
 			});
 			resembleControl.repaint();
 		}
 		else
-		if($this.is('#movementWithDistanceBasedIntensity')){
+		if($this.is('#movementDifferenceIntensity')){
 			resemble.outputSettings({
-				errorType: 'movementWithDistanceBasedIntensity'
+				errorType: 'movementDifferenceIntensity'
 			});
 			resembleControl.repaint();
 		}
