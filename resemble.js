@@ -60,6 +60,7 @@ URL: https://github.com/Huddle/Resemble.js
 	var largeImageThreshold = 1200;
 	
 	var httpRegex = /^https?:\/\//;
+	var document = typeof window != "undefined" ? window.document : {};
 	var documentDomainRegex = new RegExp('^https?://' + document.domain);
 
 	_this['resemble'] = function( fileData ){
