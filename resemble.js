@@ -379,6 +379,18 @@ URL: https://github.com/Huddle/Resemble.js
 			var targetPix = imgd.data;
 
 			var mismatchCount = 0;
+			var diffBounds = {
+				top: height,
+				left: width,
+				bottom: 0,
+				right: 0
+			};
+			var updateBounds = function(x, y) {
+				diffBounds.left = Math.min(x, diffBounds.left);
+				diffBounds.right = Math.max(x, diffBounds.right);
+				diffBounds.top = Math.min(y, diffBounds.top);
+				diffBounds.bottom = Math.max(y, diffBounds.bottom);
+			}
 
 			var time = Date.now();
 
@@ -414,6 +426,7 @@ URL: https://github.com/Huddle/Resemble.js
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
 						mismatchCount++;
+						updateBounds(horizontalPos, verticalPos);
 					}
 					return;
 				}
@@ -433,15 +446,18 @@ URL: https://github.com/Huddle/Resemble.js
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
 						mismatchCount++;
+						updateBounds(horizontalPos, verticalPos);
 					}
 				} else {
 					errorPixel(targetPix, offset, pixel1, pixel2);
 					mismatchCount++;
+					updateBounds(horizontalPos, verticalPos);
 				}
 
 			});
 
 			data.misMatchPercentage = (mismatchCount / (height*width) * 100).toFixed(2);
+			data.diffBounds = diffBounds;
 			data.analysisTime = Date.now() - time;
 
 			data.getImageDataUrl = function(text){
