@@ -262,7 +262,7 @@ URL: https://github.com/Huddle/Resemble.js
 			var j;
 			var hasHighContrastSibling = 0;
 			var hasSiblingWithDifferentHue = 0;
-			var hasEquivilantSibling = 0;
+			var hasEquivalentSibling = 0;
 
 			addHueInfo(sourcePix);
 
@@ -288,7 +288,7 @@ URL: https://github.com/Huddle/Resemble.js
 						}
 
 						if( isRGBSame(sourcePix,targetPix) ){
-							hasEquivilantSibling++;
+							hasEquivalentSibling++;
 						}
 
 						if( Math.abs(targetPix.h - sourcePix.h) > 0.3 ){
@@ -302,7 +302,7 @@ URL: https://github.com/Huddle/Resemble.js
 				}
 			}
 
-			if(hasEquivilantSibling < 2){
+			if(hasEquivalentSibling < 2){
 				return true;
 			}
 
