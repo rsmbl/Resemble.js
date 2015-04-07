@@ -63,10 +63,15 @@ resemble.outputSettings({
     blue: 255
   },
   errorType: 'movement',
-  transparency: 0.3
+  transparency: 0.3,
+  largeImageThreshold: 1200
 });
 // resembleControl.repaint();
 ```
+
+By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
+
+You can switch this modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
 
 --------------------------------------
 

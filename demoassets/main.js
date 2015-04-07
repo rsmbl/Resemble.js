@@ -151,6 +151,20 @@ $(function(){
 			resembleControl.repaint();
 		}
 		else
+		if($this.is('#flatDifferenceIntensity')){
+			resemble.outputSettings({
+				errorType: 'flatDifferenceIntensity'
+			});
+			resembleControl.repaint();
+		}
+		else
+		if($this.is('#movementDifferenceIntensity')){
+			resemble.outputSettings({
+				errorType: 'movementDifferenceIntensity'
+			});
+			resembleControl.repaint();
+		}
+		else
 		if($this.is('#opaque')){
 			resemble.outputSettings({
 				transparency: 1
