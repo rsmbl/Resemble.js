@@ -4,8 +4,7 @@ URL: https://github.com/Huddle/Resemble.js
 */
 'use strict';
 
-//var pngparse = require('pngparse');
-var PNG = require('pngjs').PNG;
+var PNG = require('pngjs2').PNG;
 var fs = require('fs');
 
 
@@ -113,7 +112,7 @@ var _this = {};
 		}
 
 		function loadImageData( fileData, callback ){
-      var png = new PNG({ filterType: 4 });
+      var png = new PNG();
       if (Buffer.isBuffer(fileData)) {
         png.parse(fileData, function (err, data) {
           callback(data, data.width, data.height);
