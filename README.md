@@ -67,6 +67,28 @@ resemble.outputSettings({
 ```
 
 --------------------------------------
+## Example usuage (in cucumber step definition)
+
+
+     this.Then(/^Screenshot should match image "(.*)"$/, function (image, callback) {
+        browser.takeScreenshot().then(function(pngString) {
+          var screenshot = new Buffer(pngString, 'base64');
+     
+          resemble(image)
+            .compareTo(screenshot)
+            .onComplete(function(data){
+     
+              if (Number(data.misMatchPercentage) <= 0.01) {
+                callback();
+              } else {
+                data.getDiffImage().pack().pipe(fs.createWriteStream(image + 'diff.png'));
+                callback.fail(new Error("Screenshot '" + image+  "' differ " + data.misMatchPercentage + "%"));
+              }
+            });
+        });
+      })
+
+--------------------------------------
 
 Credits:
  * Created by [James Cryer](http://github.com/jamescryer) and the Huddle development team.
