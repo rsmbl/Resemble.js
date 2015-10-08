@@ -3,7 +3,15 @@ James Cryer / Huddle 2014
 URL: https://github.com/Huddle/Resemble.js
 */
 
-(function(_this){
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define([], factory);
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory();
+	} else {
+		root.resemble = factory();
+	}
+}(this, function () {
 	'use strict';
 
 	var pixelTransparency = 1;
@@ -63,7 +71,7 @@ URL: https://github.com/Huddle/Resemble.js
 	var document = typeof window != "undefined" ? window.document : {};
 	var documentDomainRegex = new RegExp('^https?://' + document.domain);
 
-	_this['resemble'] = function( fileData ){
+	var resemble = function( fileData ){
 
 		var data = {};
 		var images = [];
@@ -633,7 +641,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 	};
 
-	_this['resemble'].outputSettings = function(options){
+	resemble.outputSettings = function(options){
 		var key;
 		var undefined;
 
@@ -656,4 +664,5 @@ URL: https://github.com/Huddle/Resemble.js
 		return this;
 	};
 
-}(this));
+	return resemble;
+}));
