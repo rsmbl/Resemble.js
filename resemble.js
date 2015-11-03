@@ -1,5 +1,5 @@
 /*
-James Cryer / Huddle 2014
+James Cryer / Huddle 2015
 URL: https://github.com/Huddle/Resemble.js
 */
 
@@ -399,7 +399,7 @@ URL: https://github.com/Huddle/Resemble.js
 				diffBounds.right = Math.max(x, diffBounds.right);
 				diffBounds.top = Math.min(y, diffBounds.top);
 				diffBounds.bottom = Math.max(y, diffBounds.bottom);
-			}
+			};
 
 			var time = Date.now();
 
