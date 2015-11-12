@@ -40,6 +40,7 @@ var _this = {};
 	};
 	
 	var errorPixelTransformer = errorPixelTransform.flat;
+	var largeImageThreshold = 1200;
 
 	_this['resemble'] = function( fileData ){
 
@@ -339,7 +340,7 @@ var _this = {};
       var currentRectangle = null;
       var rectagnlesIdx = 0;
 
-			if( (width > 1200 || height > 1200) && ignoreAntialiasing){
+			if(!!largeImageThreshold && ignoreAntialiasing && (width > largeImageThreshold || height > largeImageThreshold)){
 				skip = 6;
 			}
 
@@ -561,6 +562,10 @@ var _this = {};
 		}
 		
 		pixelTransparency = options.transparency || pixelTransparency;
+
+		if (options.largeImageThreshold !== undefined) {
+			largeImageThreshold = options.largeImageThreshold;
+		}
 
 		return this;
 	};

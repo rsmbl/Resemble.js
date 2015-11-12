@@ -3,6 +3,9 @@
   "version": "0.0.4",
   "description": "Image analysis and comparison for nodejs",
   "main": "resemble.js",
+  "scripts": {
+    "test": "gulp test"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lksv/node-resemble.js.git"
@@ -21,5 +24,10 @@
   "homepage": "https://github.com/lksv/node-resemble.js",
   "dependencies": {
     "pngjs": "~2.2.0"
+  },
+  "devDependencies": {
+    "gulp": "3.9.0",
+    "gulp-jasmine": "2.2.1",
+    "gulp-util": "3.0.7"
   }
 }
