@@ -465,7 +465,8 @@ URL: https://github.com/Huddle/Resemble.js
 
 			});
 
-			data.misMatchPercentage = (mismatchCount / (height*width) * 100).toFixed(2);
+			data.rawMisMatchPercentage = (mismatchCount / (height*width) * 100);
+			data.misMatchPercentage = data.rawMisMatchPercentage.toFixed(2);
 			data.diffBounds = diffBounds;
 			data.analysisTime = Date.now() - time;
 
