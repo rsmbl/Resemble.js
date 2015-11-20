@@ -148,7 +148,14 @@ URL: https://github.com/Huddle/Resemble.js
 				hiddenImage.setAttribute('crossorigin', 'anonymous');
 			}
 
+			hiddenImage.onerror = function () { 
+				hiddenImage.onerror = null; //fixes pollution between calls
+				images.push({ error : "Image load error."});
+				callback(); 
+			};
+
 			hiddenImage.onload = function() {
+				hiddenImage.onload = null; //fixes pollution between calls
 
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
@@ -531,6 +538,12 @@ URL: https://github.com/Huddle/Resemble.js
 				var width;
 				var height;
 				if(images.length === 2){
+					if( images[0].error || images[1].error ){
+						data = {};
+						data.error = images[0].error ?  images[0].error : images[1].error;
+						triggerDataUpdate();
+						return;
+					}
 					width = images[0].width > images[1].width ? images[0].width : images[1].width;
 					height = images[0].height > images[1].height ? images[0].height : images[1].height;
 
