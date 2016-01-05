@@ -10,10 +10,15 @@ function request_success () {
 		.compareTo("../demoassets/People2.jpg")
 		.onComplete( function ( data ) {
 			console.info("Reached oncomplete for request_success");
-			expect(data.diffBounds).to.deep.equal({ bottom: 431, left: 22, right: 454, top: 58 });
-			expect(data.dimensionDifference).to.deep.equal({ height: 0, width: 0 });
+			expect(data.diffBounds).to.have.all.keys('bottom', 'left', 'top', 'right');
+			expect(data.diffBounds.bottom).to.equal(431);
+			expect(data.diffBounds.left).to.equal(22);
+			expect(data.diffBounds.right).to.equal(450);
+			expect(data.diffBounds.top).to.equal(58);
+			expect(data.dimensionDifference.height).to.equal(0);
+			expect(data.dimensionDifference.width).to.equal(0);
 			expect(data.isSameDimensions).to.be.true;
-			expect(data.misMatchPercentage).to.equal("8.65");
+			expect(data.misMatchPercentage).to.equal("8.66");
 			resolve();
 		});
 	});
@@ -26,10 +31,14 @@ function base64_string () {
 		.compareTo(people2_src)
 		.onComplete( function ( data ) {
 			console.info("Reached oncomplete for base64_string");
-			expect(data.diffBounds).to.deep.equal({ bottom: 431, left: 22, right: 454, top: 58 });
-			expect(data.dimensionDifference).to.deep.equal({ height: 0, width: 0 });
+			expect(data.diffBounds.bottom).to.equal(431);
+			expect(data.diffBounds.left).to.equal(22);
+			expect(data.diffBounds.right).to.equal(450);
+			expect(data.diffBounds.top).to.equal(58);
+			expect(data.dimensionDifference.height).to.equal(0);
+			expect(data.dimensionDifference.width).to.equal(0);
 			expect(data.isSameDimensions).to.be.true;
-			expect(data.misMatchPercentage).to.equal("8.65");
+			expect(data.misMatchPercentage).to.equal("8.66");
 			resolve();
 		});
 	});
