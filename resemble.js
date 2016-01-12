@@ -4,7 +4,7 @@ URL: https://github.com/Huddle/Resemble.js
 */
 'use strict';
 
-var PNG = require('pngjs2').PNG;
+var PNG = require('pngjs').PNG;
 var fs = require('fs');
 
 
