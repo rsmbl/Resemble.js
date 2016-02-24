@@ -45,6 +45,12 @@ var diff = resemble(file).compareTo(file2).ignoreColors().onComplete(function(da
 });
 ```
 
+Scale second image to dimensions of the first one:
+```javascript
+//diff.useOriginalSize();
+diff.scaleToSameSize();
+```
+
 You can also change the comparison method after the first analysis.
 
 ```javascript
@@ -52,6 +58,7 @@ You can also change the comparison method after the first analysis.
 // diff.ignoreColors();
 diff.ignoreAntialiasing();
 ```
+
 
 And change the output display style.
 

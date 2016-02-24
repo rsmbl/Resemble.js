@@ -88,6 +88,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 		var ignoreAntialiasing = false;
 		var ignoreColors = false;
+		var scaleToSameSize = false;
 
 		function triggerDataUpdate(){
 			var len = updateCallbackArray.length;
@@ -165,6 +166,12 @@ URL: https://github.com/Huddle/Resemble.js
 
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
+
+				if( scaleToSameSize && images.length == 1 ){
+					hiddenImage.width 	= images[0].width;
+					hiddenImage.height 	= images[0].height;
+				}
+
 				var width = hiddenImage.width;
 				var height = hiddenImage.height;
 
@@ -584,6 +591,18 @@ URL: https://github.com/Huddle/Resemble.js
 			}
 
 			var self = {
+				scaleToSameSize: function(){
+					scaleToSameSize = true;
+
+					if(hasMethod) { param(); }
+					return self;
+				},
+				useOriginalSize: function(){
+					scaleToSameSize = false;
+
+					if(hasMethod) { param(); }
+					return self;
+				},
 				ignoreNothing: function(){
 
 					tolerance.red = 0;

@@ -115,6 +115,14 @@ $(function(){
 			resembleControl.ignoreAntialiasing();
 		}
 		else
+		if($this.is('#same-size')){
+			resembleControl.scaleToSameSize();
+		}
+		else
+		if($this.is('#original-size')){
+			resembleControl.useOriginalSize();
+		}
+		else
 		if($this.is('#pink')){
 			resemble.outputSettings({
 				errorColor: {
