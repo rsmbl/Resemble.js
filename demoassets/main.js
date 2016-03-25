@@ -44,6 +44,7 @@ $(function(){
 			$('#red').css('width',data.red+'%');
 			$('#green').css('width',data.green+'%');
 			$('#blue').css('width',data.blue+'%');
+			$('#alpha').css('width',data.alpha+'%');
 			$('#brightness').css('width',data.brightness+'%');
 		});
 

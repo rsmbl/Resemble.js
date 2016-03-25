@@ -116,6 +116,7 @@ URL: https://github.com/Huddle/Resemble.js
 			var redTotal = 0;
 			var greenTotal = 0;
 			var blueTotal = 0;
+			var alphaTotal = 0;
 			var brightnessTotal = 0;
 
 			loop(height, width, function(verticalPos, horizontalPos){
@@ -123,6 +124,7 @@ URL: https://github.com/Huddle/Resemble.js
 				var red = sourceImageData[offset];
 				var green = sourceImageData[offset + 1];
 				var blue = sourceImageData[offset + 2];
+				var alpha = sourceImageData[offset + 3];
 				var brightness = getBrightness(red,green,blue);
 
 				pixelCount++;
@@ -130,12 +132,14 @@ URL: https://github.com/Huddle/Resemble.js
 				redTotal += red / 255 * 100;
 				greenTotal += green / 255 * 100;
 				blueTotal += blue / 255 * 100;
+				alphaTotal += (255 - alpha) / 255 * 100;
 				brightnessTotal += brightness / 255 * 100;
 			});
 
 			data.red = Math.floor(redTotal / pixelCount);
 			data.green = Math.floor(greenTotal / pixelCount);
 			data.blue = Math.floor(blueTotal / pixelCount);
+			data.alpha = Math.floor(alphaTotal / pixelCount);
 			data.brightness = Math.floor(brightnessTotal / pixelCount);
 
 			triggerDataUpdate();
