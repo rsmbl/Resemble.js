@@ -148,7 +148,8 @@ URL: https://github.com/Huddle/Resemble.js
 		function loadImageData( fileData, callback ){
 			var fileReader;
 			var hiddenImage = new Image();
-			
+			hiddenImage.setAttribute('crossorigin', 'anonymous');
+				
 			if (!(typeof fileData === 'string' 
 				&& fileData.length > 6 
 				&& fileData.charAt(4)===':' 
