@@ -148,17 +148,9 @@ URL: https://github.com/Huddle/Resemble.js
 		function loadImageData( fileData, callback ){
 			var fileReader;
 			var hiddenImage = new Image();
-			
-			if (!(typeof fileData === 'string' 
-				&& fileData.length > 6 
-				&& fileData.charAt(4)===':' 
-				&& fileData.charAt(5)!=='/'
-			)) {
-				if (httpRegex.test(fileData) && !documentDomainRegex.test(fileData)) {
-					hiddenImage.setAttribute('crossorigin', 'anonymous');
-				}
-			}
-			
+
+			hiddenImage.setAttribute('crossorigin', 'anonymous');
+
 			hiddenImage.onerror = function () { 
 				hiddenImage.onerror = null; //fixes pollution between calls
 				images.push({ error : "Image load error."});
@@ -615,6 +607,21 @@ URL: https://github.com/Huddle/Resemble.js
 					tolerance.alpha = 0;
 					tolerance.minBrightness = 0;
 					tolerance.maxBrightness = 255;
+
+					ignoreAntialiasing = false;
+					ignoreColors = false;
+
+					if(hasMethod) { param(); }
+					return self;
+				},
+				ignoreLess: function(){
+
+					tolerance.red = 16;
+					tolerance.green = 16;
+					tolerance.blue = 16;
+					tolerance.alpha = 16;
+					tolerance.minBrightness = 16;
+					tolerance.maxBrightness = 240;
 
 					ignoreAntialiasing = false;
 					ignoreColors = false;

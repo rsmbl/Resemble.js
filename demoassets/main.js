@@ -108,6 +108,9 @@ $(function(){
 			resembleControl.ignoreNothing();
 		}
 		else
+		if($this.is('#less')){
+			resembleControl.ignoreLess();
+		}
 		if($this.is('#colors')){
 			resembleControl.ignoreColors();
 		}
