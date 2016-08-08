@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/lksv/node-resemble.js",
   "dependencies": {
-    "pngjs": "~2.2.0"
+    "pngjs": "~2.2.0",
+    "jpeg-js": "0.2.0"
   },
   "devDependencies": {
     "gulp": "3.9.0",

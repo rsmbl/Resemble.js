@@ -19,6 +19,14 @@ resemble('People.png').compareTo('People2.png')
     data.getDiffImage().pack().pipe(fs.createWriteStream('diff.png'));
   });
 
+// jpeg comparison
+resemble('People.jpg').compareTo('People2.jpg')
+  //.ignoreAntialiasing()
+  //.ignoreColors()
+  .onComplete(function(data){
+    console.log(data);
+    data.getDiffImage().pack().pipe(fs.createWriteStream('diffjpg.png'));
+  });
 
 var fileData1 = fs.readFileSync('People.png');
 var fileData2 = fs.readFileSync('People2.png');
