@@ -1,3 +1,11 @@
+#0.2.0
+
+  * added support for jpeg
+
+#0.1.0
+
+  * wrong release - kept back
+
 #0.0.4
 
   * rename package name to node-resemble-js
