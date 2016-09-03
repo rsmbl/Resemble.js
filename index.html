@@ -52,6 +52,12 @@
 									    <div class="progress">
 										    <div id="alpha" class="bar" style="width: 0%;"></div>
 									    </div>
+										<div class="progress">
+											<div id="white" class="bar" style="width: 0%;"></div>
+										</div>
+										<div class="progress">
+											<div id="black" class="bar" style="width: 0%;"></div>
+										</div>
 
 									    Brightness
 									    <div class="progress progress-warning">
@@ -168,10 +174,13 @@ var api = resemble(fileData).onComplete(function(data){
 	return data;
 	/*
 	{
-	  red: 255,
-	  green: 255,
-	  blue: 255,
-	  brightness: 255
+	  red: 100,
+	  green: 100,
+	  blue: 100,
+	  brightness: 100,
+	  alpha: 100,
+	  white: 100,
+	  black: 100
 	}
 	*/
 });</pre>
