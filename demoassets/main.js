@@ -46,6 +46,8 @@ $(function(){
 			$('#blue').css('width',data.blue+'%');
 			$('#alpha').css('width',data.alpha+'%');
 			$('#brightness').css('width',data.brightness+'%');
+			$('#white').css('width',data.white+'%');
+			$('#black').css('width',data.black+'%');
 		});
 
 	});

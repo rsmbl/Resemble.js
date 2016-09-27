@@ -1,20 +1,19 @@
 
-
 h1 {
     text-align: center;
 }
 
 body {
-    padding-top: 60px;  
+    padding-top: 60px;
 }
-    
+
 footer {
     margin-top: 45px;
     padding: 35px 0 36px;
     border-top: 1px solid #e5e5e5;
 }
 
-.drop-zone{
+.drop-zone {
     border: 10px dashed #ccc;
     color: #ccc;
     font-size: 32px;
@@ -25,17 +24,19 @@ footer {
     overflow: hidden;
     position: relative;
 }
-    .drop-zone.drag-over{
-        border: 10px dashed #0088CC;		
-    }
-    .drop-zone img {
-        width: 400px;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
 
-.small-drop-zone{
+.drop-zone.drag-over {
+    border: 10px dashed #08c;
+}
+
+.drop-zone img {
+    width: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.small-drop-zone {
     margin-top: 20px;
     margin-left: 90px;
     border: 10px dashed #ccc;
@@ -48,17 +49,58 @@ footer {
     overflow: hidden;
     position: relative;
 }
-    .small-drop-zone.drag-over{
-        border: 10px dashed #0088CC;        
-    }
-    .small-drop-zone img {
-        width: 330px;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    #image-diff {
-        margin-left: 0;
-        margin-top: 50px;
-        border-style: solid;
-    }
+
+.small-drop-zone.drag-over {
+    border: 10px dashed #08c;
+}
+
+.small-drop-zone img {
+    width: 330px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#image-diff {
+    margin-left: 0;
+    margin-top: 50px;
+    border-style: solid;
+}
+
+.progress {
+    margin-bottom: 4px;
+}
+.progress.last {
+    margin-bottom: 8px;
+}
+
+.progress #alpha {
+    background-color: #eee;
+    background-image: linear-gradient(45deg, darkgrey 25%, transparent 25%, transparent 75%, darkgrey 75%, darkgrey),
+    linear-gradient(45deg, darkgrey 25%, lightgrey 25%, lightgrey 75%, darkgrey 75%, darkgrey);
+    background-size: 14px 14px;
+    background-position: 0 0, 7px 7px;
+    background-repeat: repeat;
+}
+
+.progress #white {
+    background-color: #fff;
+    background-image: -moz-linear-gradient(top, #fff, #ddd);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#ddd));
+    background-image: -webkit-linear-gradient(top, #fff, #ddd);
+    background-image: -o-linear-gradient(top, #fff, #ddd);
+    background-image: linear-gradient(to bottom, #fff, #ddd);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffdddddd', GradientType=0)
+}
+
+.progress #black {
+    background-color: #000;
+    background-image: -moz-linear-gradient(top, #555, #000);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#555), to(#000));
+    background-image: -webkit-linear-gradient(top, #555, #000);
+    background-image: -o-linear-gradient(top, #555, #000);
+    background-image: linear-gradient(to bottom, #555, #000);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff555555', endColorstr='#ff000000', GradientType=0)
+}

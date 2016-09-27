@@ -100,12 +100,12 @@ URL: https://github.com/Huddle/Resemble.js
 			}
 		}
 
-		function loop(x, y, callback){
-			var i,j;
+		function loop(w, h, callback){
+			var x,y;
 
-			for (i=0;i<x;i++){
-				for (j=0;j<y;j++){
-					callback(i, j);
+			for (x=0;x<w;x++){
+				for (y=0;y<h;y++){
+					callback(x, y);
 				}
 			}
 		}
@@ -118,6 +118,8 @@ URL: https://github.com/Huddle/Resemble.js
 			var blueTotal = 0;
 			var alphaTotal = 0;
 			var brightnessTotal = 0;
+			var whiteTotal = 0;
+			var blackTotal = 0;
 
 			loop(height, width, function(verticalPos, horizontalPos){
 				var offset = (verticalPos*width + horizontalPos) * 4;
@@ -126,6 +128,14 @@ URL: https://github.com/Huddle/Resemble.js
 				var blue = sourceImageData[offset + 2];
 				var alpha = sourceImageData[offset + 3];
 				var brightness = getBrightness(red,green,blue);
+
+				if (red == green && red == blue && alpha) {
+					if (red == 0) {
+						blackTotal++
+					} else if (red == 255) {
+						whiteTotal++
+					}
+				}
 
 				pixelCount++;
 
@@ -141,6 +151,8 @@ URL: https://github.com/Huddle/Resemble.js
 			data.blue = Math.floor(blueTotal / pixelCount);
 			data.alpha = Math.floor(alphaTotal / pixelCount);
 			data.brightness = Math.floor(brightnessTotal / pixelCount);
+			data.white = Math.floor(whiteTotal / pixelCount * 100);
+			data.black = Math.floor(blackTotal / pixelCount * 100);
 
 			triggerDataUpdate();
 		}
