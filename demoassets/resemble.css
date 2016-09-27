@@ -67,6 +67,13 @@ footer {
     border-style: solid;
 }
 
+.progress {
+    margin-bottom: 4px;
+}
+.progress.last {
+    margin-bottom: 8px;
+}
+
 .progress #alpha {
     background-color: #eee;
     background-image: linear-gradient(45deg, darkgrey 25%, transparent 25%, transparent 75%, darkgrey 75%, darkgrey),
