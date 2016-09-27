@@ -1,7 +1,7 @@
 Resemble.js
 ==========
 
-Analyse and compare images with Javascript and HTML5. [Resemble.js More info & Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble](https://github.com/ddo/node-resemble)
+Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble](https://github.com/ddo/node-resemble)
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
@@ -81,7 +81,7 @@ By default, the comparison algorithm skips pixels when the image width or height
 
 You can switch this modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
 
-`useCrossOrigin` is true by default, you might need to set to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+`useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
 
 --------------------------------------
