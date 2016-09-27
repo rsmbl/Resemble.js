@@ -64,12 +64,9 @@ URL: https://github.com/Huddle/Resemble.js
 	};
 
 	var errorPixelTransformer = errorPixelTransform.flat;
-
 	var largeImageThreshold = 1200;
-	
-	var httpRegex = /^https?:\/\//;
+	var useCrossOrigin = true;
 	var document = typeof window != "undefined" ? window.document : {};
-	var documentDomainRegex = new RegExp('^https?://' + document.domain);
 
 	var resemble = function( fileData ){
 
@@ -161,7 +158,9 @@ URL: https://github.com/Huddle/Resemble.js
 			var fileReader;
 			var hiddenImage = new Image();
 
-			hiddenImage.setAttribute('crossorigin', 'anonymous');
+			if(useCrossOrigin) {
+				hiddenImage.setAttribute('crossorigin', 'anonymous');
+			}
 
 			hiddenImage.onerror = function () { 
 				hiddenImage.onerror = null; //fixes pollution between calls
@@ -721,6 +720,10 @@ URL: https://github.com/Huddle/Resemble.js
 
 		if (options.largeImageThreshold !== undefined) {
 			largeImageThreshold = options.largeImageThreshold;
+		}
+
+		if (options.useCrossOrigin !== undefined) {
+			useCrossOrigin = options.useCrossOrigin;
 		}
 
 		return this;
