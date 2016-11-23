@@ -1,7 +1,7 @@
 Resemble.js
 ==========
 
-Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble](https://github.com/ddo/node-resemble)
+Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble-v2](https://github.com/peter-mouland/node-resemble-v2)
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
