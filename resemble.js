@@ -175,15 +175,15 @@ URL: https://github.com/Huddle/Resemble.js
 				var imageData;
 
 				var width = hiddenImage.width;
-                var height = hiddenImage.height;
+				var height = hiddenImage.height;
 
-                if( scaleToSameSize && images.length == 1 ){
-                    width   = images[0].width;
-                    height  = images[0].height;
-                }
+				if( scaleToSameSize && images.length == 1 ){
+				width   = images[0].width;
+				height  = images[0].height;
+				}
 
-                hiddenCanvas.width = width;
-                hiddenCanvas.height = height;
+				hiddenCanvas.width = width;
+				hiddenCanvas.height = height;
 				hiddenCanvas.getContext('2d').drawImage(hiddenImage, 0, 0, width, height);
 				imageData = hiddenCanvas.getContext('2d').getImageData(0, 0, width, height);
 
