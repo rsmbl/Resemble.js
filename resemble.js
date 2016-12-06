@@ -174,16 +174,18 @@ URL: https://github.com/Huddle/Resemble.js
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
 
+				// don't assign to hiddenImage, see https://github.com/Huddle/Resemble.js/pull/87/commits/300d43352a2845aad289b254bfbdc7cd6a37e2d7
 				var width = hiddenImage.width;
 				var height = hiddenImage.height;
 
 				if( scaleToSameSize && images.length == 1 ){
-				width   = images[0].width;
-				height  = images[0].height;
+					width   = images[0].width;
+					height  = images[0].height;
 				}
 
 				hiddenCanvas.width = width;
 				hiddenCanvas.height = height;
+
 				hiddenCanvas.getContext('2d').drawImage(hiddenImage, 0, 0, width, height);
 				imageData = hiddenCanvas.getContext('2d').getImageData(0, 0, width, height);
 
@@ -200,8 +202,11 @@ URL: https://github.com/Huddle/Resemble.js
 			} else if (typeof fileData.data !== 'undefined'
 					&& typeof fileData.width === 'number'
 					&& typeof fileData.height === 'number') {
+
 				images.push(fileData);
+
 				callback(fileData, fileData.width, fileData.height);
+
 			} else {
 				fileReader = new FileReader();
 				fileReader.onload = function (event) {
@@ -229,10 +234,6 @@ URL: https://github.com/Huddle/Resemble.js
 			} else {
 				return false;
 			}
-		}
-
-		function isNumber(n) {
-			return !isNaN(parseFloat(n));
 		}
 
 		function isPixelBrightnessSimilar(d1, d2){
