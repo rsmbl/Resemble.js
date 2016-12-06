@@ -174,13 +174,13 @@ URL: https://github.com/Huddle/Resemble.js
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
 
-				if( scaleToSameSize && images.length == 1 ){
-					hiddenImage.width 	= images[0].width;
-					hiddenImage.height 	= images[0].height;
-				}
-
 				var width = hiddenImage.width;
 				var height = hiddenImage.height;
+
+				if( scaleToSameSize && images.length == 1 ){
+				width   = images[0].width;
+				height  = images[0].height;
+				}
 
 				hiddenCanvas.width = width;
 				hiddenCanvas.height = height;
