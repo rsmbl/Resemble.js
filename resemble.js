@@ -23,6 +23,8 @@ URL: https://github.com/Huddle/Resemble.js
 		alpha: 255
 	};
 
+	var targetPix = {r: 0, g: 0, b: 0, a: 0}; // isAntialiased
+
 	function colorsDistance(c1, c2){
 		return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b))/3;
 	}
@@ -285,7 +287,6 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function isAntialiased(sourcePix, data, cacheSet, verticalPos, horizontalPos, width){
 			var offset;
-			var targetPix = {r: 0, g: 0, b: 0, a: 0};
 			var distance = 1;
 			var i;
 			var j;
