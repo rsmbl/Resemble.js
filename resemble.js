@@ -285,7 +285,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function isAntialiased(sourcePix, data, cacheSet, verticalPos, horizontalPos, width){
 			var offset;
-			var targetPix;
+			var targetPix = {r: 0, g: 0, b: 0, a: 0};
 			var distance = 1;
 			var i;
 			var j;
@@ -303,9 +303,8 @@ URL: https://github.com/Huddle/Resemble.js
 					} else {
 
 						offset = ((verticalPos+j)*width + (horizontalPos+i)) * 4;
-						targetPix = getPixelInfo(data, offset, cacheSet);
 
-						if(targetPix === null){
+						if(!getPixelInfo(targetPix , data, offset, cacheSet)){
 							continue;
 						}
 
