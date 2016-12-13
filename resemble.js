@@ -113,7 +113,7 @@ URL: https://github.com/Huddle/Resemble.js
 			var whiteTotal = 0;
 			var blackTotal = 0;
 
-			loop(height, width, function(verticalPos, horizontalPos){
+			loop(width, height, function(horizontalPos, verticalPos){
 				var offset = (verticalPos*width + horizontalPos) * 4;
 				var red = sourceImageData[offset];
 				var green = sourceImageData[offset + 1];
@@ -412,7 +412,7 @@ URL: https://github.com/Huddle/Resemble.js
 			var pixel1 = {r: 0, g: 0, b: 0, a: 0};
 			var pixel2 = { r: 0, g: 0, b: 0, a: 0 };
 
-			loop(height, width, function(verticalPos, horizontalPos){
+			loop(width, height, function(horizontalPos, verticalPos){
 
 				if(skip){ // only skip if the image isn't small
 					if(verticalPos % skip === 0 || horizontalPos % skip === 0){
