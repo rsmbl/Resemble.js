@@ -13,7 +13,7 @@ Analyse and compare images with Javascript and HTML5. [More info & Resemble.js D
 
 ### Example
 
-Retrieve basic analysis on image.
+Retrieve basic analysis on an image:
 
 ```javascript
 var api = resemble(fileData).onComplete(function(data){
@@ -29,7 +29,7 @@ var api = resemble(fileData).onComplete(function(data){
 });
 ```
 
-Use resemble to compare two images.
+Use resemble to compare two images:
 
 ```javascript
 var diff = resemble(file).compareTo(file2).ignoreColors().onComplete(function(data){
@@ -51,7 +51,7 @@ Scale second image to dimensions of the first one:
 diff.scaleToSameSize();
 ```
 
-You can also change the comparison method after the first analysis.
+You can also change the comparison method after the first analysis:
 
 ```javascript
 // diff.ignoreNothing();
@@ -60,7 +60,7 @@ diff.ignoreAntialiasing();
 ```
 
 
-And change the output display style.
+And change the output display style:
 
 ```javascript
 resemble.outputSettings({
@@ -79,7 +79,7 @@ resemble.outputSettings({
 
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
 
-You can switch this modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
+You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
 
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
