@@ -1,5 +1,5 @@
 /*
-James Cryer / Huddle 2015
+James Cryer / Huddle
 URL: https://github.com/Huddle/Resemble.js
 */
 
