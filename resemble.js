@@ -690,6 +690,10 @@ URL: https://github.com/Huddle/Resemble.js
 			errorPixel = errorPixelTransform[options.errorType];
 		}
 
+		if(options.errorPixel && typeof options.errorPixel === "function") {
+			errorPixel = options.errorPixel;
+		}
+
 		pixelTransparency = isNaN(Number(options.transparency)) ? pixelTransparency : options.transparency;
 
 		if (options.largeImageThreshold !== undefined) {
