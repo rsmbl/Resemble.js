@@ -21,4 +21,8 @@
     "url": "https://github.com/Huddle/Resemble.js/issues"
   },
   "homepage": "https://github.com/Huddle/Resemble.js"
+  "homepage": "https://github.com/Huddle/Resemble.js",
+  "devDependencies": {
+    "chai": "^3.4.1",
+  },
 }
