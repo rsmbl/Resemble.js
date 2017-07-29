@@ -61,7 +61,13 @@ URL: https://github.com/Huddle/Resemble.js
 	var errorPixel = errorPixelTransform.flat;
 	var largeImageThreshold = 1200;
 	var useCrossOrigin = true;
-	var document = typeof window != "undefined" ? window.document : {};
+	var document = typeof window != "undefined" ? window.document : {
+		createElement: function() {
+			// This will work as long as only createElement is used on window.document
+			var Canvas = require('canvas');
+			return new Canvas();
+		}
+	};
 
 	var resemble = function( fileData ){
 
@@ -151,16 +157,24 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function loadImageData( fileData, callback ){
 			var fileReader;
-			var hiddenImage = new Image();
+			var hiddenImage;
+			if (typeof Image !== 'undefined') {
+				hiddenImage = new Image();
+			} else {
+				var CanvasImage = require('canvas').Image;
+				hiddenImage = new CanvasImage();
+				hiddenImage.setAttribute = function setAttribute() { };
+			}
+
 
 			if(useCrossOrigin) {
 				hiddenImage.setAttribute('crossorigin', 'anonymous');
 			}
 
-			hiddenImage.onerror = function () { 
+			hiddenImage.onerror = function () {
 				hiddenImage.onerror = null; //fixes pollution between calls
 				images.push({ error : "Image load error."});
-				callback(); 
+				callback();
 			};
 
 			hiddenImage.onload = function() {
@@ -201,7 +215,9 @@ URL: https://github.com/Huddle/Resemble.js
 				images.push(fileData);
 
 				callback(fileData, fileData.width, fileData.height);
-
+			} else if (typeof Buffer !== 'undefined' && fileData instanceof Buffer){
+				// If we have Buffer, assume we're on Node+Canvas and its supported
+				hiddenImage.src = fileData;
 			} else {
 				fileReader = new FileReader();
 				fileReader.onload = function (event) {
@@ -482,6 +498,13 @@ URL: https://github.com/Huddle/Resemble.js
 
 				return hiddenCanvas.toDataURL("image/png");
 			};
+
+			if (hiddenCanvas.toBuffer) {
+				data.getBuffer = function() {
+					context.putImageData(imgd, 0, 0);
+					return hiddenCanvas.toBuffer();
+				}
+			}
 		}
 
 		function addLabel(text, context, hiddenCanvas){
