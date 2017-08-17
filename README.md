@@ -1,7 +1,7 @@
 Resemble.js
 ==========
 
-Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). Now compatible with Node.js.
+Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). Compatible with Node.js.
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
@@ -85,11 +85,23 @@ You can modify this behaviour by setting the `largeImageThreshold` option to a d
 
 ### Node.js
 
-Ensure you also have the `canvas` peer dependency installed alongside resemblejs. See [here](https://www.npmjs.com/package/canvas) for instructions on how to install `canvas` on your platform.
+#### Installation
 
-The API under Node is the same as the browser API with an additional Promise based convenience method called `compareImages` that also allows you to read/write from Node Buffers.
+On Node, Resemble uses the `canvas` package instead of the native canvas support in the browser. In order to prevent browser users to be forced into installing canvas, it's included as a peer dependency which means you have to install it alongside resemble.
 
-#### Node Example
+Canvas relies on some native image manipulation libraries to be install on the system. Simple, detailed instructions for OSX/Windows/Linux can be found [here](https://www.npmjs.com/package/canvas).
+
+*Example commands for installation on OSX*
+
+``` bash
+npm install resemblejs
+brew install pkg-config cairo libpng jpeg giflib
+npm install canvas
+```
+
+#### Usage
+
+The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
 
 ``` js
 const compareImage = require('resemblejs/compareImage');
@@ -102,6 +114,14 @@ const data = await compareImages(
 );
 
 fs.writeFileSync('./output.png', data.getBuffer());
+```
+
+#### Tests
+
+To run the tests on Node (using Jest), type:
+
+``` bash
+npm run test
 ```
 
 --------------------------------------
