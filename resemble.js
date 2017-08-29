@@ -29,15 +29,15 @@ URL: https://github.com/Huddle/Resemble.js
 		return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b))/3;
 	}
 
-	function withinBoundingBox(x, y) {
+	function withinBoundingBox(x, y, width, height) {
 		if (boundingBox === null) {
 			return true;
     }
 
-    return x > boundingBox.x1 &&
-      x < boundingBox.x2 &&
-      y > boundingBox.y1 &&
-      y < boundingBox.y2;
+    return x > (boundingBox.x1 || 0) &&
+      x < (boundingBox.x2 || width) &&
+      y > (boundingBox.y1 || 0) &&
+      y < (boundingBox.y2 || height);
   }
 
 	var errorPixelTransform = {
@@ -433,7 +433,7 @@ URL: https://github.com/Huddle/Resemble.js
 				}
 
 				var offset = (verticalPos*width + horizontalPos) * 4;
-				var isWithinBoundingBox = withinBoundingBox(horizontalPos, verticalPos);
+				var isWithinBoundingBox = withinBoundingBox(horizontalPos, verticalPos, width, height);
 
 				if (!getPixelInfo(pixel1, data1, offset, 1) || !getPixelInfo(pixel2, data2, offset, 2)) {
 					return;

@@ -77,6 +77,20 @@ resemble.outputSettings({
 // resembleControl.repaint();
 ```
 
+It is possible to narrow down the area of comparison, by specifying bounding box:
+
+```javascript
+resemble.outputSettings({
+  boundingBox: {
+    x1: 100,  // left
+    y1: 200,  // top
+    x2: 200,  // right
+    y2: 600,  // bottom
+  }
+});
+// resembleControl.repaint();
+```
+
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
 
 You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
