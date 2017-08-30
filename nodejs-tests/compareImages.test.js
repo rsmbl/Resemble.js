@@ -17,7 +17,7 @@ describe('compareImages', () => {
     expect(buffer.length).toBe(91876);
 
     const comparison = fs.readFileSync(
-      './demoassets/PeopleComparedToPeople2.png'
+      './nodejs-tests/PeopleComparedToPeople2.png'
     );
 
     expect(buffer.equals(comparison)).toBe(true);

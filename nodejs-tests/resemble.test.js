@@ -1,4 +1,4 @@
-const resemble = require('./resemble');
+const resemble = require('../resemble');
 const fs = require('fs');
 
 describe('resemble', () => {

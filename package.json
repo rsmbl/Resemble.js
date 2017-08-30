@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/Huddle/Resemble.js",
   "scripts": {
-    "test": "jest .",
-    "test-watch": "jest --watch ."
+    "test": "jest ./nodejs-tests",
+    "test-watch": "jest --watch ./nodejs-tests"
   },
   "devDependencies": {
     "chai": "^3.4.1",
