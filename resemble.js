@@ -30,15 +30,15 @@ URL: https://github.com/Huddle/Resemble.js
 	}
 
 	function withinBoundingBox(x, y, width, height) {
-		if (boundingBox === null) {
+		if (!boundingBox) {
 			return true;
-    }
+		}
 
-    return x > (boundingBox.x1 || 0) &&
-      x < (boundingBox.x2 || width) &&
-      y > (boundingBox.y1 || 0) &&
-      y < (boundingBox.y2 || height);
-  }
+        return x > (boundingBox.x1 || 0) &&
+            x < (boundingBox.x2 || width) &&
+            y > (boundingBox.y1 || 0) &&
+            y < (boundingBox.y2 || height);
+	}
 
 	var errorPixelTransform = {
 		flat: function (px, offset, d1, d2) {
@@ -70,7 +70,7 @@ URL: https://github.com/Huddle/Resemble.js
 	};
 
 	var errorPixel = errorPixelTransform.flat;
-	var boundingBox = null;
+	var boundingBox;
 	var largeImageThreshold = 1200;
 	var useCrossOrigin = true;
 	var document = typeof window != "undefined" ? window.document : {
