@@ -1,7 +1,7 @@
 Resemble.js
 ==========
 
-Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). If you need NodeJS support, take a look at [node-resemble](https://github.com/ddo/node-resemble) or [node-resemble-v2](https://github.com/peter-mouland/node-resemble-v2).
+Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddle.github.com/Resemble.js/). Compatible with Node.js.
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/Huddle/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
@@ -83,6 +83,46 @@ You can modify this behaviour by setting the `largeImageThreshold` option to a d
 
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
+### Node.js
+
+#### Installation
+
+On Node, Resemble uses the `canvas` package instead of the native canvas support in the browser. In order to prevent browser users to be forced into installing canvas, it's included as a peer dependency which means you have to install it alongside resemble.
+
+Canvas relies on some native image manipulation libraries to be install on the system. Simple, detailed instructions for OSX/Windows/Linux can be found [here](https://www.npmjs.com/package/canvas).
+
+*Example commands for installation on OSX*
+
+``` bash
+npm install resemblejs
+brew install pkg-config cairo libpng jpeg giflib
+npm install canvas
+```
+
+#### Usage
+
+The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
+
+``` js
+const compareImage = require('resemblejs/compareImage');
+
+// The parameters can be Node Buffers
+// data is the same as usual with an additional getBuffer() function
+const data = await compareImages(
+	fs.readFileSync('./demoassets/People.jpg'),
+	fs.readFileSync('./demoassets/People2.jpg')
+);
+
+fs.writeFileSync('./output.png', data.getBuffer());
+```
+
+#### Tests
+
+To run the tests on Node (using Jest), type:
+
+``` bash
+npm run test
+```
 
 --------------------------------------
 

@@ -20,5 +20,20 @@
   "bugs": {
     "url": "https://github.com/Huddle/Resemble.js/issues"
   },
-  "homepage": "https://github.com/Huddle/Resemble.js"
+  "homepage": "https://github.com/Huddle/Resemble.js",
+  "scripts": {
+    "test": "jest ./nodejs-tests",
+    "test-watch": "jest --watch ./nodejs-tests"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4"
+  },
+  "peerDependencies": {
+    "canvas": "^1.6.5"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
