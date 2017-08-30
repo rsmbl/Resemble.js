@@ -34,10 +34,10 @@ URL: https://github.com/Huddle/Resemble.js
 			return true;
 		}
 
-        return x > (boundingBox.x1 || 0) &&
-            x < (boundingBox.x2 || width) &&
-            y > (boundingBox.y1 || 0) &&
-            y < (boundingBox.y2 || height);
+        return x > (boundingBox.left || 0) &&
+            x < (boundingBox.right || width) &&
+            y > (boundingBox.top || 0) &&
+            y < (boundingBox.bottom || height);
 	}
 
 	var errorPixelTransform = {

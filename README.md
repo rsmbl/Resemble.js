@@ -77,15 +77,15 @@ resemble.outputSettings({
 // resembleControl.repaint();
 ```
 
-It is possible to narrow down the area of comparison, by specifying bounding box:
+It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
 resemble.outputSettings({
   boundingBox: {
-    x1: 100,  // left
-    y1: 200,  // top
-    x2: 200,  // right
-    y2: 600,  // bottom
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
   }
 });
 // resembleControl.repaint();
