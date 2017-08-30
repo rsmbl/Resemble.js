@@ -87,9 +87,9 @@ You can modify this behaviour by setting the `largeImageThreshold` option to a d
 
 #### Installation
 
-On Node, Resemble uses the `canvas` package instead of the native canvas support in the browser. In order to prevent browser users to be forced into installing canvas, it's included as a peer dependency which means you have to install it alongside resemble.
+On Node, Resemble uses the `canvas` package instead of the native canvas support in the browser. To prevent browser users from being forced into installing Canvas, it's included as a peer dependency which means you have to install it alongside Resemble.
 
-Canvas relies on some native image manipulation libraries to be install on the system. Simple, detailed instructions for OSX/Windows/Linux can be found [here](https://www.npmjs.com/package/canvas).
+Canvas relies on some native image manipulation libraries to be install on the system. Please read the [Canvas installation instructions](https://www.npmjs.com/package/canvas) for OSX/Windows/Linux.
 
 *Example commands for installation on OSX*
 
@@ -104,7 +104,7 @@ npm install canvas
 The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
 
 ``` js
-const compareImage = require('resemblejs/compareImage');
+const compareImage = require('resemblejs/compareImages');
 
 // The parameters can be Node Buffers
 // data is the same as usual with an additional getBuffer() function
@@ -123,6 +123,17 @@ To run the tests on Node (using Jest), type:
 ``` bash
 npm run test
 ```
+
+#### Dockerfile
+
+For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubuntu container  
+
+``` bash
+docker build -t huddle/resemble .
+docker run huddle/resemble
+```
+
+
 
 --------------------------------------
 
