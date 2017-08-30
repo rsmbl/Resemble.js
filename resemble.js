@@ -29,6 +29,17 @@ URL: https://github.com/Huddle/Resemble.js
 		return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b))/3;
 	}
 
+	function withinBoundingBox(x, y, width, height) {
+		if (boundingBox === null) {
+			return true;
+    }
+
+    return x > (boundingBox.x1 || 0) &&
+      x < (boundingBox.x2 || width) &&
+      y > (boundingBox.y1 || 0) &&
+      y < (boundingBox.y2 || height);
+  }
+
 	var errorPixelTransform = {
 		flat: function (px, offset, d1, d2) {
 			px[offset] = errorPixelColor.red;
@@ -59,6 +70,7 @@ URL: https://github.com/Huddle/Resemble.js
 	};
 
 	var errorPixel = errorPixelTransform.flat;
+	var boundingBox = null;
 	var largeImageThreshold = 1200;
 	var useCrossOrigin = true;
 	var document = typeof window != "undefined" ? window.document : {
@@ -437,6 +449,7 @@ URL: https://github.com/Huddle/Resemble.js
 				}
 
 				var offset = (verticalPos*width + horizontalPos) * 4;
+				var isWithinBoundingBox = withinBoundingBox(horizontalPos, verticalPos, width, height);
 
 				if (!getPixelInfo(pixel1, data1, offset, 1) || !getPixelInfo(pixel2, data2, offset, 2)) {
 					return;
@@ -447,7 +460,7 @@ URL: https://github.com/Huddle/Resemble.js
 					addBrightnessInfo(pixel1);
 					addBrightnessInfo(pixel2);
 
-					if( isPixelBrightnessSimilar(pixel1, pixel2) ){
+					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinBoundingBox ){
 						copyGrayScalePixel(targetPix, offset, pixel2);
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
@@ -457,7 +470,7 @@ URL: https://github.com/Huddle/Resemble.js
 					return;
 				}
 
-				if( isRGBSimilar(pixel1, pixel2) ){
+				if( isRGBSimilar(pixel1, pixel2)  || !isWithinBoundingBox ){
 					copyPixel(targetPix, offset, pixel1, pixel2);
 
 				} else if( ignoreAntialiasing && (
@@ -467,7 +480,7 @@ URL: https://github.com/Huddle/Resemble.js
 						isAntialiased(pixel2, data2, 2, verticalPos, horizontalPos, width)
 					)){
 
-					if( isPixelBrightnessSimilar(pixel1, pixel2) ){
+					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinBoundingBox ){
 						copyGrayScalePixel(targetPix, offset, pixel2);
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
@@ -725,6 +738,10 @@ URL: https://github.com/Huddle/Resemble.js
 
 		if (options.useCrossOrigin !== undefined) {
 			useCrossOrigin = options.useCrossOrigin;
+		}
+
+		if (options.boundingBox !== undefined) {
+			boundingBox = options.boundingBox;
 		}
 
 		return this;

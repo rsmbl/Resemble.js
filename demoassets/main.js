@@ -192,6 +192,19 @@ $(function(){
 			});
 			resembleControl.repaint();
 		}
+		else
+		if($this.is('#boundingBox')){
+			resemble.outputSettings({
+				boundingBox: {
+					x1: $("#x1").val(),
+					y1: $("#y1").val(),
+					x2: $("#x2").val(),
+					y2: $("#y2").val(),
+				}
+			});
+			resembleControl.repaint();
+			$this.removeClass('active');
+		}
 	});
 
 	(function(){

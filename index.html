@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="libs/twitter-bootstrap/bootstrap.min.css">
-		<link rel="stylesheet" href="demoassets/resemble.css?v1">		
+		<link rel="stylesheet" href="demoassets/resemble.css?v1">
 	</head>
 	<body>
 		<div class="container">
@@ -16,7 +16,7 @@
 					<h1>Resemble.js : Image analysis and comparison</h1>
 				</div>
 			</header>
-	
+
 			<section role="main">
 				<div class="row">
 					<div class="span12">
@@ -127,7 +127,33 @@
 									<button class="btn active" id="opaque">Opaque</button>
 									<button class="btn" id="transparent">Transparent</button>
 								</div>
+								<br/>
+								<br/>
 
+								<div class="btn-group buttons" style="display:none">
+									<div class="row">
+										<div class="span1">
+											<label>X1</label>
+											<input type="number" class="input-mini" id="x1" value="100" />
+										</div>
+										<div class="span1">
+											<label>Y1</label>
+											<input type="number" class="input-mini" id="y1" value="100" />
+										</div>
+										<div class="span1">
+											<label>X2</label>
+											<input type="number" class="input-mini" id="x2" value="400" />
+										</div>
+										<div class="span1">
+											<label>Y2</label>
+											<input type="number" class="input-mini" id="y2" value="300" />
+										</div>
+										<div class="span2">
+											<label>&nbsp;</label>
+											<button class="btn" id="boundingBox">Set bounding box</button>
+										</div>
+									</div>
+								</div>
 								<br/>
 								<br/>
 								<div id="diff-results" style="display:none;">
@@ -139,7 +165,7 @@
 										Use the buttons above to change the comparison algorithm.  Perhaps you don't care about color? Annoying antialiasing causing too much noise?  Resemble.js offers multiple comparison options.
 									</p>
 								</div>
-								
+
 								<p id="thesame" style="display:none;">
 									<strong>These images are the same!</strong>
 								</p>
@@ -155,7 +181,7 @@
 							Resemble.js can be used for any image analysis and comparison requirement you might have in the browser. However, it has been designed and built for use by the PhantomJS powered visual regression library <a href="https://github.com/Huddle/PhantomCSS" target="_blank">PhantomCSS</a>. PhantomCSS needs to be able to ignore antialiasing as this would cause differences between screenshots derived from different machines.
 						</p>
 						<p>
-							Resemble.js uses the <a href="http://www.w3.org/TR/file-upload/" target="_blank">HTML5 File API</a> to parse image data, and canvas for rendering image diffs.  
+							Resemble.js uses the <a href="http://www.w3.org/TR/file-upload/" target="_blank">HTML5 File API</a> to parse image data, and canvas for rendering image diffs.
 						</p>
 						<p>
 							<br/>
@@ -196,7 +222,7 @@ resemble(file).compareTo(file2).onComplete(function(){
 					</div>
 				</div>
 			</section>
-	  
+
 			<footer class="footer">
 				<p>	
 					Created by <a href="https://github.com/jamescryer" target="_blank">James Cryer</a> and the Huddle development team.
