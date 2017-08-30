@@ -1,4 +1,4 @@
-const resemble = require('../resemble');
+const resemble = require('./resemble');
 
 module.exports = async function(image1, image2) {
   return new Promise(function(resolve, reject) {

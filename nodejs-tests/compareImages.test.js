@@ -1,4 +1,4 @@
-const compareImages = require('./compareImages');
+const compareImages = require('../compareImages');
 const fs = require('fs');
 
 describe('compareImages', () => {
