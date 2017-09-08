@@ -21,6 +21,12 @@ describe('compareImages', () => {
     );
 
     expect(buffer.equals(comparison)).toBe(true);
+
+    const buffer2 = data.getBuffer(true);
+    const comparison2 = fs.readFileSync(
+      './nodejs-tests/PeopleComparedToPeople2WithOriginal.png'
+    );
+    expect(buffer2.equals(comparison2)).toBe(true);
   });
 
   test('throws when failed', async () => {
