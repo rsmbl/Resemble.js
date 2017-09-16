@@ -72,7 +72,8 @@ resemble.outputSettings({
   errorType: 'movement',
   transparency: 0.3,
   largeImageThreshold: 1200,
-  useCrossOrigin: false
+  useCrossOrigin: false,
+  outputDiff: true
 });
 // resembleControl.repaint();
 ```

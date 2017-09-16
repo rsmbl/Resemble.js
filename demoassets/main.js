@@ -179,6 +179,13 @@ $(function(){
 			resembleControl.repaint();
 		}
 		else
+		if($this.is('#outputDiff')){
+			resemble.outputSettings({
+				outputDiff: true
+			});
+			resembleControl.repaint();
+		}
+		else
 		if($this.is('#opaque')){
 			resemble.outputSettings({
 				transparency: 1
