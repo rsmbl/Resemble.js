@@ -66,6 +66,12 @@ URL: https://github.com/Huddle/Resemble.js
 			px[offset + 1] = ((1 - ratio) * (d2.g * (errorPixelColor.green / 255)) + ratio * errorPixelColor.green);
 			px[offset + 2] = ((1 - ratio) * (d2.b * (errorPixelColor.blue / 255)) + ratio * errorPixelColor.blue);
 			px[offset + 3] = d2.a;
+		},
+		copySecondImage: function (px, offset, d1, d2) {
+			px[offset] = d2.r;
+			px[offset + 1] = d2.g;
+			px[offset + 2] = d2.b;
+			px[offset + 3] = d2.a;
 		}
 	};
 
@@ -73,6 +79,7 @@ URL: https://github.com/Huddle/Resemble.js
 	var boundingBox;
 	var largeImageThreshold = 1200;
 	var useCrossOrigin = true;
+	var outputDiff = false;
 	var document = typeof window != "undefined" ? window.document : {
 		createElement: function() {
 			// This will work as long as only createElement is used on window.document
@@ -367,6 +374,10 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function copyPixel(px, offset, data){
+			if (outputDiff) {
+				return;
+			}
+
 			px[offset] = data.r; //r
 			px[offset + 1] = data.g; //g
 			px[offset + 2] = data.b; //b
@@ -374,6 +385,10 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function copyGrayScalePixel(px, offset, data){
+			if (outputDiff) {
+				return;
+			}
+
 			px[offset] = data.brightness; //r
 			px[offset + 1] = data.brightness; //g
 			px[offset + 2] = data.brightness; //b
@@ -742,6 +757,11 @@ URL: https://github.com/Huddle/Resemble.js
 
 		if (options.boundingBox !== undefined) {
 			boundingBox = options.boundingBox;
+		}
+
+		if (options.outputDiff) {
+			outputDiff = options.outputDiff;
+			errorPixel = errorPixelTransform.copySecondImage;
 		}
 
 		return this;
