@@ -67,7 +67,7 @@ URL: https://github.com/Huddle/Resemble.js
 			px[offset + 2] = ((1 - ratio) * (d2.b * (errorPixelColor.blue / 255)) + ratio * errorPixelColor.blue);
 			px[offset + 3] = d2.a;
 		},
-		copySecondImage: function (px, offset, d1, d2) {
+		diffOnly: function (px, offset, d1, d2) {
 			px[offset] = d2.r;
 			px[offset + 1] = d2.g;
 			px[offset + 2] = d2.b;
@@ -76,10 +76,10 @@ URL: https://github.com/Huddle/Resemble.js
 	};
 
 	var errorPixel = errorPixelTransform.flat;
+	var errorType;
 	var boundingBox;
 	var largeImageThreshold = 1200;
 	var useCrossOrigin = true;
-	var outputDiff = false;
 	var document = typeof window != "undefined" ? window.document : {
 		createElement: function() {
 			// This will work as long as only createElement is used on window.document
@@ -374,7 +374,7 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function copyPixel(px, offset, data){
-			if (outputDiff) {
+			if (errorType === 'diffOnly') {
 				return;
 			}
 
@@ -385,7 +385,7 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		function copyGrayScalePixel(px, offset, data){
-			if (outputDiff) {
+			if (errorType === 'diffOnly') {
 				return;
 			}
 
@@ -739,6 +739,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 		if(options.errorType && errorPixelTransform[options.errorType] ){
 			errorPixel = errorPixelTransform[options.errorType];
+			errorType = options.errorType;
 		}
 
 		if(options.errorPixel && typeof options.errorPixel === "function") {
@@ -757,11 +758,6 @@ URL: https://github.com/Huddle/Resemble.js
 
 		if (options.boundingBox !== undefined) {
 			boundingBox = options.boundingBox;
-		}
-
-		if (options.outputDiff) {
-			outputDiff = options.outputDiff;
-			errorPixel = errorPixelTransform.copySecondImage;
 		}
 
 		return this;

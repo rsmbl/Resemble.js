@@ -179,9 +179,9 @@ $(function(){
 			resembleControl.repaint();
 		}
 		else
-		if($this.is('#outputDiff')){
+		if($this.is('#diffOnly')){
 			resemble.outputSettings({
-				outputDiff: true
+				errorType: 'diffOnly'
 			});
 			resembleControl.repaint();
 		}
