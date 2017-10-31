@@ -56,6 +56,7 @@ You can also change the comparison method after the first analysis:
 ```javascript
 // diff.ignoreNothing();
 // diff.ignoreColors();
+// diff.ignoreAlpha();
 diff.ignoreAntialiasing();
 ```
 
