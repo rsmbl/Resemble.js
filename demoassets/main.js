@@ -121,6 +121,10 @@ $(function(){
 			resembleControl.ignoreAntialiasing();
 		}
 		else
+		if($this.is('#alpha')){
+			resembleControl.ignoreAlpha();
+		}
+		else
 		if($this.is('#same-size')){
 			resembleControl.scaleToSameSize();
 		}

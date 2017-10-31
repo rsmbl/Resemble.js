@@ -692,6 +692,21 @@ URL: https://github.com/Huddle/Resemble.js
 					if(hasMethod) { param(); }
 					return self;
 				},
+				ignoreAlpha: function() {
+
+					tolerance.red = 16;
+					tolerance.green = 16;
+					tolerance.blue = 16;
+					tolerance.alpha = 255;
+					tolerance.minBrightness = 16;
+					tolerance.maxBrightness = 240;
+
+					ignoreAntialiasing = false;
+					ignoreColors = false;
+
+					if(hasMethod) { param(); }
+					return self;
+				},
 				repaint: function(){
 					if(hasMethod) { param(); }
 					return self;
