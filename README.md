@@ -119,7 +119,7 @@ npm install canvas
 The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
 
 ``` js
-const compareImage = require('resemblejs/compareImages');
+const compareImages = require('resemblejs/compareImages');
 
 // The parameters can be Node Buffers
 // data is the same as usual with an additional getBuffer() function
