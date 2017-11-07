@@ -121,6 +121,10 @@ $(function(){
 			resembleControl.ignoreAntialiasing();
 		}
 		else
+		if($this.is('#alpha')){
+			resembleControl.ignoreAlpha();
+		}
+		else
 		if($this.is('#same-size')){
 			resembleControl.scaleToSameSize();
 		}
@@ -217,8 +221,10 @@ $(function(){
 	(function(){
 		var xhr = new XMLHttpRequest();
 		var xhr2 = new XMLHttpRequest();
+		var xhr3 = new XMLHttpRequest();
 		var done = $.Deferred();
 		var dtwo = $.Deferred();
+		var dthree = $.Deferred();
 
 		xhr.open('GET', 'demoassets/People.jpg', true);
 		xhr.responseType = 'blob';
@@ -234,6 +240,13 @@ $(function(){
 		};
 		xhr2.send();
 
+		xhr3.open('GET', 'demoassets/PeopleAlpha.png', true);
+		xhr3.responseType = 'blob';
+		xhr3.onload = function(e) {
+			dthree.resolve(this.response);
+		};
+		xhr3.send();
+
 		$('#example-images').click(function(){
 
 			$('#dropzone1').html('<img src="demoassets/People.jpg"/>');
@@ -242,6 +255,22 @@ $(function(){
 			$.when(done, dtwo).done(function(file, file1){
 				if (typeof FileReader === 'undefined') {
 					resembleControl = resemble('demoassets/People.jpg').compareTo('demoassets/People2.jpg').onComplete(onComplete);
+				} else {
+					resembleControl = resemble(file).compareTo(file1).onComplete(onComplete);
+				}
+			});
+
+			return false;
+		});
+
+		$('#example-images-alpha').click(function(){
+
+			$('#dropzone1').html('<img src="demoassets/People.jpg"/>');
+			$('#dropzone2').html('<img src="demoassets/PeopleAlpha.png"/>');
+
+			$.when(done, dthree).done(function(file, file1){
+				if (typeof FileReader === 'undefined') {
+					resembleControl = resemble('demoassets/People.jpg').compareTo('demoassets/PeopleAlpha.png').onComplete(onComplete);
 				} else {
 					resembleControl = resemble(file).compareTo(file1).onComplete(onComplete);
 				}
