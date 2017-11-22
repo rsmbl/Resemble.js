@@ -528,8 +528,16 @@ URL: https://github.com/Huddle/Resemble.js
 			};
 
 			if (hiddenCanvas.toBuffer) {
-				data.getBuffer = function() {
-					context.putImageData(imgd, 0, 0);
+				data.getBuffer = function(includeOriginal) {
+					if (includeOriginal) {
+						var imageWidth = hiddenCanvas.width + 2;
+						hiddenCanvas.width = imageWidth * 3;
+						context.putImageData(img1, 0, 0);
+						context.putImageData(img2, imageWidth, 0);
+						context.putImageData(imgd, imageWidth * 2, 0);
+					} else {
+						context.putImageData(imgd, 0, 0);
+					}
 					return hiddenCanvas.toBuffer();
 				}
 			}
