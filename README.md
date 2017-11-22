@@ -120,8 +120,10 @@ npm install canvas
 The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
 
 ``` js
-const compareImage = require('resemblejs/compareImages');
+const compareImages = require('resemblejs/compareImages');
+const fs = require("fs");
 
+async function getDiff(){
 // The parameters can be Node Buffers
 // data is the same as usual with an additional getBuffer() function
 const data = await compareImages(
@@ -130,6 +132,11 @@ const data = await compareImages(
 );
 
 fs.writeFileSync('./output.png', data.getBuffer());
+
+}
+
+getDiff();
+
 ```
 
 #### Tests
