@@ -784,5 +784,50 @@ URL: https://github.com/Huddle/Resemble.js
 
 	};
 
+	function applyIgnore(api, ignore) {
+		switch (ignore) {
+			case 'nothing': api.ignoreNothing();
+			case 'less': api.ignoreLess();
+			case 'antialiasing': api.ignoreAntialiasing();
+			case 'colors': api.ignoreColors();
+			case 'alpha': api.ignoreAlpha();
+			default: throw new Error('Invalid ignore: ' + ignore);
+		}
+	}
+
+	resemble.compare = function (image1, image2, options, callback) {
+		if (typeof options === 'function') {
+			callback = options;
+			options = undefined;
+		}
+		var res = resemble(image1), opt = options || {}, compare;
+		if (opt.output) {
+			res.outputSettings(opt.output);
+		}
+
+		compare = res.compareTo(image2);
+
+		if (opt.scaleToSameSize) {
+			compare.scaleToSameSize();
+		}
+
+		if (typeof opt.ignore === 'string') {
+			applyIgnore(compare, opt.ignore);
+		} else if (opt.ignore && opt.ignore.forEach) {
+			opt.ignore.forEach(function (v) {
+				applyIgnore(compare, v);
+			});
+		}
+
+		compare.onComplete(function(data) {
+			if (data.error) {
+				callback(data.error);
+			} else {
+				callback(null, data);
+			}
+		});
+	});
+
 	return resemble;
+};
 }));

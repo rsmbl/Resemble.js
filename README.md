@@ -99,6 +99,50 @@ You can modify this behaviour by setting the `largeImageThreshold` option to a d
 
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
+### Single callback api
+
+The resemble.compare API provides a convenience function that is used as follows:
+
+``` js
+const compare = require('resemblejs').compare;
+
+function getDiff(){
+
+const options = {
+  output: {
+    errorColor: {
+      red: 255,
+      green: 0,
+      blue: 255
+    },
+    errorType: 'movement',
+    transparency: 0.3,
+    largeImageThreshold: 1200,
+    useCrossOrigin: false,
+    outputDiff: true
+  },
+  scaleToSameSize: true,
+  ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
+};
+// The parameters can be Node Buffers
+// data is the same as usual with an additional getBuffer() function
+compareImages(image1, image2, options, function (err, data) {
+	if (err) {
+		console.log('An error!')
+	} else {
+		console.log(data);
+		/*
+		{
+		  misMatchPercentage : 100, // %
+		  isSameDimensions: true, // or false
+		  dimensionDifference: { width: 0, height: -1 }, // defined if dimensions are not the same
+		  getImageDataUrl: function(){}
+		}
+		*/
+
+	}
+);
+
 ### Node.js
 
 #### Installation
@@ -117,7 +161,7 @@ npm install canvas
 
 #### Usage
 
-The API under Node is the same as on the browser with one addition, a promise based `compareImage` convenience function that is used as follows:
+The API under Node is the same as on the `resemble.compare` but promise based:
 
 ``` js
 const compareImages = require('resemblejs/compareImages');
