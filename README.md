@@ -64,7 +64,7 @@ diff.ignoreAntialiasing();
 And change the output display style:
 
 ```javascript
-resemble.outputSettings({
+resembleControl.outputSettings({
   errorColor: {
     red: 255,
     green: 0,
@@ -75,22 +75,22 @@ resemble.outputSettings({
   largeImageThreshold: 1200,
   useCrossOrigin: false,
   outputDiff: true
-});
-// resembleControl.repaint();
+})
+// .repaint();
 ```
 
 It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
-resemble.outputSettings({
+resembleControl.outputSettings({
   boundingBox: {
     left: 100,
     top: 200,
     right: 200,
     bottom: 600
   }
-});
-// resembleControl.repaint();
+})
+// .repaint();
 ```
 
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
