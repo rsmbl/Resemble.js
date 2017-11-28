@@ -121,17 +121,35 @@ The API under Node is the same as on the browser with one addition, a promise ba
 
 ``` js
 const compareImages = require('resemblejs/compareImages');
-const fs = require("fs");
+const fs = require("mz/fs");
 
 async function getDiff(){
+
+const options = {
+  output: {
+    errorColor: {
+      red: 255,
+      green: 0,
+      blue: 255
+    },
+    errorType: 'movement',
+    transparency: 0.3,
+    largeImageThreshold: 1200,
+    useCrossOrigin: false,
+    outputDiff: true
+  },
+  scaleToSameSize: true,
+  ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
+};
 // The parameters can be Node Buffers
 // data is the same as usual with an additional getBuffer() function
 const data = await compareImages(
-	fs.readFileSync('./demoassets/People.jpg'),
-	fs.readFileSync('./demoassets/People2.jpg')
+	await fs.readFile('./demoassets/People.jpg'),
+	await fs.readFile('./demoassets/People2.jpg'),
+	options,
 );
 
-fs.writeFileSync('./output.png', data.getBuffer());
+await fs.writeFile('./output.png', data.getBuffer());
 
 }
 
