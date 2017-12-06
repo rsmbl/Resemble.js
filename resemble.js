@@ -620,6 +620,41 @@ URL: https://github.com/Huddle/Resemble.js
 			loadImageData(two, onceWeHaveBoth);
 		}
 
+		function outputSettings(options){
+			var key;
+			var undefined;
+
+			if(options.errorColor){
+				for (key in options.errorColor) {
+					errorPixelColor[key] = options.errorColor[key] === undefined ? errorPixelColor[key] : options.errorColor[key];
+				}
+			}
+
+			if(options.errorType && errorPixelTransform[options.errorType] ){
+				errorPixel = errorPixelTransform[options.errorType];
+				errorType = options.errorType;
+			}
+
+			if(options.errorPixel && typeof options.errorPixel === "function") {
+				errorPixel = options.errorPixel;
+			}
+
+			pixelTransparency = isNaN(Number(options.transparency)) ? pixelTransparency : options.transparency;
+
+			if (options.largeImageThreshold !== undefined) {
+				largeImageThreshold = options.largeImageThreshold;
+			}
+
+			if (options.useCrossOrigin !== undefined) {
+				useCrossOrigin = options.useCrossOrigin;
+			}
+
+			if (options.boundingBox !== undefined) {
+				boundingBox = options.boundingBox;
+			}
+
+		}
+
 		function getCompareApi(param){
 
 			var secondFileData,
@@ -719,6 +754,10 @@ URL: https://github.com/Huddle/Resemble.js
 					if(hasMethod) { param(); }
 					return self;
 				},
+        outputSettings: function(options) {
+          outputSettings(options);
+          return self;
+        },
 				onComplete: function( callback ){
 
 					updateCallbackArray.push(callback);
@@ -736,7 +775,7 @@ URL: https://github.com/Huddle/Resemble.js
 			return self;
 		}
 
-		return {
+		var rootSelf = {
 			onComplete: function( callback ){
 				updateCallbackArray.push(callback);
 				loadImageData(fileData, function(imageData, width, height){
@@ -745,44 +784,13 @@ URL: https://github.com/Huddle/Resemble.js
 			},
 			compareTo: function(secondFileData){
 				return getCompareApi(secondFileData);
-			},
-			outputSettings: function(options){
-				var key;
-				var undefined;
-
-				if(options.errorColor){
-					for (key in options.errorColor) {
-						errorPixelColor[key] = options.errorColor[key] === undefined ? errorPixelColor[key] : options.errorColor[key];
-					}
-				}
-
-				if(options.errorType && errorPixelTransform[options.errorType] ){
-					errorPixel = errorPixelTransform[options.errorType];
-					errorType = options.errorType;
-				}
-
-				if(options.errorPixel && typeof options.errorPixel === "function") {
-					errorPixel = options.errorPixel;
-				}
-
-				pixelTransparency = isNaN(Number(options.transparency)) ? pixelTransparency : options.transparency;
-
-				if (options.largeImageThreshold !== undefined) {
-					largeImageThreshold = options.largeImageThreshold;
-				}
-
-				if (options.useCrossOrigin !== undefined) {
-					useCrossOrigin = options.useCrossOrigin;
-				}
-
-				if (options.boundingBox !== undefined) {
-					boundingBox = options.boundingBox;
-				}
-
-				return this;
+			}
+			outputSettings: function(options) {
+				outputSettings(options);
+				return rootSelf;
 			}
 		};
-
+		return rootSelf;
 	};
 
 	function applyIgnore(api, ignore) {
