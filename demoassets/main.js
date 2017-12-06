@@ -134,86 +134,76 @@ $(function(){
 		}
 		else
 		if($this.is('#pink')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorColor: {
 					red: 255,
 					green: 0,
 					blue: 255
 				}
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#yellow')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorColor: {
 					red: 255,
 					green: 255,
 					blue: 0
 				}
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#flat')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorType: 'flat'
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#movement')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorType: 'movement'
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#flatDifferenceIntensity')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorType: 'flatDifferenceIntensity'
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#movementDifferenceIntensity')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorType: 'movementDifferenceIntensity'
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#diffOnly')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				errorType: 'diffOnly'
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#opaque')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				transparency: 1
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#transparent')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				transparency: 0.3
-			});
-			resembleControl.repaint();
+			}).repaint();
 		}
 		else
 		if($this.is('#boundingBox')){
-			resemble.outputSettings({
+			resembleControl.outputSettings({
 				boundingBox: {
 					left: $("#x1").val(),
 					top: $("#y1").val(),
 					right: $("#x2").val(),
 					bottom: $("#y2").val()
 				}
-			});
-			resembleControl.repaint();
+			}).repaint();
 			$this.removeClass('active');
 		}
 	});
