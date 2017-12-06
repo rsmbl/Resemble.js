@@ -4,6 +4,7 @@ URL: https://github.com/Huddle/Resemble.js
 */
 
 (function (root, factory) {
+	'use strict';
 	if (typeof define === 'function' && define.amd) {
 		define([], factory);
 	} else if (typeof module === 'object' && module.exports) {
@@ -826,8 +827,7 @@ URL: https://github.com/Huddle/Resemble.js
 				callback(null, data);
 			}
 		});
-	});
+	};
 
 	return resemble;
-};
 }));
