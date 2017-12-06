@@ -126,7 +126,7 @@ const options = {
 };
 // The parameters can be Node Buffers
 // data is the same as usual with an additional getBuffer() function
-compareImages(image1, image2, options, function (err, data) {
+compare(image1, image2, options, function (err, data) {
 	if (err) {
 		console.log('An error!')
 	} else {
@@ -141,7 +141,8 @@ compareImages(image1, image2, options, function (err, data) {
 		*/
 
 	}
-);
+});
+```
 
 ### Node.js
 
