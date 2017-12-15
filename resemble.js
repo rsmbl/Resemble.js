@@ -192,7 +192,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 			hiddenImage.onerror = function (err) {
 				hiddenImage.onerror = null; //fixes pollution between calls
-				images.push({ error : err ? err + "" : "Image load error" });
+				images.push({ error : err ? err + "" : "Image load error." });
 				callback();
 			};
 
