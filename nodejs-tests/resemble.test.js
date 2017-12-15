@@ -64,7 +64,7 @@ describe('resemble', () => {
         .onComplete(function(data) {
           // console.info('Reached oncomplete for request_404');
           // console.log(data);
-          expect(data.error).toEqual('Image load error.');
+          expect(data.error).toEqual('Error: error while reading from input stream');
           resolve();
         });
     });
