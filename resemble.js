@@ -23,17 +23,6 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 	};
 
-    var oldGlobalSettings = {};
-    var globalOutputSettings = oldGlobalSettings;
-
-	function setGlobalOutputSettings(settings) {
-		var msg = 'warning resemble.outputSettings mutates global state, and ' +
-							'will be removed in 3.0.0';
-		console.warn(msg);
-		globalOutputSettings = settings;
-		return this
-	}
-
 	var resemble = function( fileData ){
 		var pixelTransparency = 1;
 
@@ -596,6 +585,40 @@ URL: https://github.com/Huddle/Resemble.js
 			return img;
 		}
 
+		function compare(one, two){
+
+			function onceWeHaveBoth(){
+				var width;
+				var height;
+				if(images.length === 2){
+					if( images[0].error || images[1].error ){
+						data = {};
+						data.error = images[0].error ?  images[0].error : images[1].error;
+						triggerDataUpdate();
+						return;
+					}
+					width = images[0].width > images[1].width ? images[0].width : images[1].width;
+					height = images[0].height > images[1].height ? images[0].height : images[1].height;
+
+					if( (images[0].width === images[1].width) && (images[0].height === images[1].height) ){
+						data.isSameDimensions = true;
+					} else {
+						data.isSameDimensions = false;
+					}
+
+					data.dimensionDifference = { width: images[0].width - images[1].width, height: images[0].height - images[1].height };
+
+					analyseImages( normalise(images[0],width, height), normalise(images[1],width, height), width, height);
+
+					triggerDataUpdate();
+				}
+			}
+
+			images = [];
+			loadImageData(one, onceWeHaveBoth);
+			loadImageData(two, onceWeHaveBoth);
+		}
+
 		function outputSettings(options){
 			var key;
 			var undefined;
@@ -629,43 +652,6 @@ URL: https://github.com/Huddle/Resemble.js
 				boundingBox = options.boundingBox;
 			}
 
-		}
-
-		function compare(one, two){
-			if (globalOutputSettings !== oldGlobalSettings) {
-				outputSettings(options);
-			}
-
-			function onceWeHaveBoth(){
-				var width;
-				var height;
-				if(images.length === 2){
-					if( images[0].error || images[1].error ){
-						data = {};
-						data.error = images[0].error ?  images[0].error : images[1].error;
-						triggerDataUpdate();
-						return;
-					}
-					width = images[0].width > images[1].width ? images[0].width : images[1].width;
-					height = images[0].height > images[1].height ? images[0].height : images[1].height;
-
-					if( (images[0].width === images[1].width) && (images[0].height === images[1].height) ){
-						data.isSameDimensions = true;
-					} else {
-						data.isSameDimensions = false;
-					}
-
-					data.dimensionDifference = { width: images[0].width - images[1].width, height: images[0].height - images[1].height };
-
-					analyseImages( normalise(images[0],width, height), normalise(images[1],width, height), width, height);
-
-					triggerDataUpdate();
-				}
-			}
-
-			images = [];
-			loadImageData(one, onceWeHaveBoth);
-			loadImageData(two, onceWeHaveBoth);
 		}
 
 		function getCompareApi(param){
@@ -797,7 +783,7 @@ URL: https://github.com/Huddle/Resemble.js
 			},
 			compareTo: function(secondFileData){
 				return getCompareApi(secondFileData);
-			},
+			}
 			outputSettings: function(options) {
 				outputSettings(options);
 				return rootSelf;
@@ -852,6 +838,5 @@ URL: https://github.com/Huddle/Resemble.js
 		});
 	};
 
-	resemble.outputSettings = setGlobalOutputSettings;
 	return resemble;
 }));
