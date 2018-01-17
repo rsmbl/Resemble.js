@@ -23,13 +23,13 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 	};
 
-	var oldOutputSettings = {};
-	var globalOutputSettings = oldOutputSettings;
+    var oldGlobalSettings = {};
+    var globalOutputSettings = oldGlobalSettings;
 
 	function setGlobalOutputSettings(settings) {
 		var msg = 'warning resemble.outputSettings mutates global state, and ' +
 							'will be removed in 3.0.0';
-		console.error(msg);
+		console.warn(msg);
 		globalOutputSettings = settings;
 		return this
 	}
@@ -62,7 +62,7 @@ URL: https://github.com/Huddle/Resemble.js
 		}
 
 		var errorPixelTransform = {
-			flat: function (px, offset, d1, d2) {
+			flat: function (px, offset) {
 				px[offset] = errorPixelColor.red;
 				px[offset + 1] = errorPixelColor.green;
 				px[offset + 2] = errorPixelColor.blue;
@@ -195,7 +195,6 @@ URL: https://github.com/Huddle/Resemble.js
 				hiddenImage = new CanvasImage();
 				hiddenImage.setAttribute = function setAttribute() { };
 			}
-
 
 			if(useCrossOrigin) {
 				hiddenImage.setAttribute('crossorigin', 'anonymous');
@@ -406,7 +405,7 @@ URL: https://github.com/Huddle/Resemble.js
 			px[offset + 3] = data.a * pixelTransparency; //a
 		}
 
-		function getPixelInfo(dst, data, offset, cacheSet) {
+		function getPixelInfo(dst, data, offset) {
 			if (data.length > offset) {
 				dst.r = data[offset];
 				dst.g = data[offset + 1];
@@ -768,10 +767,10 @@ URL: https://github.com/Huddle/Resemble.js
 					if(hasMethod) { param(); }
 					return self;
 				},
-        outputSettings: function(options) {
-          outputSettings(options);
-          return self;
-        },
+				outputSettings: function(options) {
+					outputSettings(options);
+					return self;
+				},
 				onComplete: function( callback ){
 
 					updateCallbackArray.push(callback);
@@ -823,7 +822,9 @@ URL: https://github.com/Huddle/Resemble.js
 			callback = options;
 			options = undefined;
 		}
+
 		var res = resemble(image1), opt = options || {}, compare;
+
 		if (opt.output) {
 			res.outputSettings(opt.output);
 		}

@@ -64,7 +64,7 @@ diff.ignoreAntialiasing();
 And change the output display style:
 
 ```javascript
-resembleControl.outputSettings({
+resemble.outputSettings({
   errorColor: {
     red: 255,
     green: 0,
@@ -82,7 +82,7 @@ resembleControl.outputSettings({
 It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
-resembleControl.outputSettings({
+resemble.outputSettings({
   boundingBox: {
     left: 100,
     top: 200,
