@@ -200,9 +200,9 @@ URL: https://github.com/Huddle/Resemble.js
 				hiddenImage.setAttribute('crossorigin', 'anonymous');
 			}
 
-			hiddenImage.onerror = function () {
+			hiddenImage.onerror = function (err) {
 				hiddenImage.onerror = null; //fixes pollution between calls
-				images.push({ error : "Image load error."});
+				images.push({ error : err ? err + "" : "Image load error." });
 				callback();
 			};
 

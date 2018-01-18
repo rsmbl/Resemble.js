@@ -34,6 +34,6 @@ describe('compareImages', () => {
       fs.readFileSync('./demoassets/People.jpg'),
       'bogus data'
     );
-    await expect(promise).rejects.toMatch('Image load error.');
+    await expect(promise).rejects.toMatch('Error: error while reading from input stream');
   });
 });
