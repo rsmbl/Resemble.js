@@ -70,7 +70,7 @@ describe('resemble', () => {
     });
   });
 
-  test('node buffers', () => {
+  test('node buffers jpg', () => {
     const people = fs.readFileSync('./demoassets/People.jpg');
     const people2 = fs.readFileSync('./demoassets/People2.jpg');
 
@@ -89,4 +89,28 @@ describe('resemble', () => {
       });
     });
   });
+
+
+  test('node buffers png', () => {
+      const people = fs.readFileSync('./demoassets/ghost1.png');
+      const people2 = fs.readFileSync('./demoassets/ghost2.png');
+
+      return new Promise(function(resolve, reject) {
+          resemble(people).compareTo(people2).onComplete(function(data) {
+              // console.info('Reached oncomplete for base64_string');
+              expect(data.diffBounds.bottom).toEqual(138);
+              expect(data.diffBounds.left).toEqual(90);
+              expect(data.diffBounds.right).toEqual(157);
+              expect(data.diffBounds.top).toEqual(107);
+              expect(data.dimensionDifference.height).toEqual(0);
+              expect(data.dimensionDifference.width).toEqual(0);
+              expect(data.isSameDimensions).toBe(true);
+              expect(data.misMatchPercentage).toEqual('0.27');
+              resolve();
+          });
+      });
+    });
+
+
+
 });
