@@ -25,11 +25,13 @@
     "test": "jest nodejs-tests",
     "test-watch": "jest --watch nodejs-tests"
   },
+  "dependencies": {
+    "canvas-prebuilt": "^1.6.5-prerelease.1"
+  },
   "devDependencies": {
     "chai": "^3.4.1",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
-    "canvas-prebuilt": "^1.6.5-prerelease.1",
     "color-convert": "^1.9.0"
   },
   "jest": {
