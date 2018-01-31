@@ -198,10 +198,21 @@ $(function(){
 		if($this.is('#boundingBox')){
 			resembleControl.outputSettings({
 				boundingBox: {
-					left: $("#x1").val(),
-					top: $("#y1").val(),
-					right: $("#x2").val(),
-					bottom: $("#y2").val()
+					left: $("#bounding-box-x1").val(),
+					top: $("#bounding-box-y1").val(),
+					right: $("#bounding-box-x2").val(),
+					bottom: $("#bounding-box-y2").val()
+				}
+			}).repaint();
+			$this.removeClass('active');
+		}
+		if($this.is('#ignoredBox')){
+			resembleControl.outputSettings({
+				ignoredBox: {
+					left: $("#ignored-box-x1").val(),
+					top: $("#ignored-box-y1").val(),
+					right: $("#ignored-box-x2").val(),
+					bottom: $("#ignored-box-y2").val()
 				}
 			}).repaint();
 			$this.removeClass('active');
