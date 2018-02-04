@@ -142,6 +142,7 @@ compare(image1, image2, options, function (err, data) {
 
 	}
 });
+}
 ```
 
 ### Node.js
@@ -191,7 +192,7 @@ const options = {
 const data = await compareImages(
 	await fs.readFile('./demoassets/People.jpg'),
 	await fs.readFile('./demoassets/People2.jpg'),
-	options,
+	options
 );
 
 await fs.writeFile('./output.png', data.getBuffer());
