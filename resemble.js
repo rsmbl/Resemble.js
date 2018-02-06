@@ -808,12 +808,24 @@ URL: https://github.com/Huddle/Resemble.js
 
 	function applyIgnore(api, ignore) {
 		switch (ignore) {
-			case 'nothing': api.ignoreNothing();
-			case 'less': api.ignoreLess();
-			case 'antialiasing': api.ignoreAntialiasing();
-			case 'colors': api.ignoreColors();
-			case 'alpha': api.ignoreAlpha();
-			default: throw new Error('Invalid ignore: ' + ignore);
+			case 'nothing':
+				api.ignoreNothing();
+				break;
+			case 'less':
+				api.ignoreLess();
+				break;
+			case 'antialiasing':
+				api.ignoreAntialiasing();
+				break;
+			case 'colors':
+				api.ignoreColors();
+				break;
+			case 'alpha':
+				api.ignoreAlpha();
+				break;
+			default:
+				throw new Error('Invalid ignore: ' + ignore);
+				break;
 		}
 	}
 
