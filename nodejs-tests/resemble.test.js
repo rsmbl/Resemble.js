@@ -112,5 +112,28 @@ describe('resemble', () => {
     });
 
 
+    test('test partial diff with bounding box', () => {
+        const people = fs.readFileSync('./demoassets/ghost1.png');
+        const people2 = fs.readFileSync('./demoassets/ghost2.png');
+
+        return new Promise(function(resolve, reject) {
+
+            resemble.outputSettings({
+                boundingBox: {
+                    left: 80,
+                    top: 80,
+                    right: 130,
+                    bottom: 130
+                }
+            });
+
+            resemble(people).compareTo(people2).onComplete(function(data) {
+                expect(data.misMatchPercentage).toEqual('0.04');
+                resolve();
+            });
+        });
+    });
+
+
 
 });

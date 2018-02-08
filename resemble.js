@@ -633,7 +633,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function compare(one, two){
 			if (globalOutputSettings !== oldGlobalSettings) {
-				outputSettings(options);
+				outputSettings(globalOutputSettings);
 			}
 
 			function onceWeHaveBoth(){
