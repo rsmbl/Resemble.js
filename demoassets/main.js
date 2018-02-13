@@ -72,6 +72,10 @@ $(function(){
 			var img = w.document.createElement("img");
 			img.src = diffImage.src;
 			img.alt = "image diff";
+			img.style.maxWidth = "100%";
+			img.addEventListener("click", function() {
+				this.style.maxWidth = this.style.maxWidth === "100%" ? "" : "100%";
+			});
 			body.appendChild(img);
 		});
 
