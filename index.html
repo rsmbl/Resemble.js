@@ -142,19 +142,19 @@
 									<div class="row">
 										<div class="span1">
 											<label>Left</label>
-											<input type="number" class="input-mini" id="x1" value="100" />
+											<input type="number" class="input-mini" id="bounding-box-x1" value="100" />
 										</div>
 										<div class="span1">
 											<label>Top</label>
-											<input type="number" class="input-mini" id="y1" value="100" />
+											<input type="number" class="input-mini" id="bounding-box-y1" value="100" />
 										</div>
 										<div class="span1">
 											<label>Right</label>
-											<input type="number" class="input-mini" id="x2" value="400" />
+											<input type="number" class="input-mini" id="bounding-box-x2" value="400" />
 										</div>
 										<div class="span1">
 											<label>Bottom</label>
-											<input type="number" class="input-mini" id="y2" value="300" />
+											<input type="number" class="input-mini" id="bounding-box-y2" value="300" />
 										</div>
 										<div class="span2">
 											<label>&nbsp;</label>
@@ -162,6 +162,35 @@
 										</div>
 									</div>
 								</div>
+
+								<br/>
+								<br/>
+
+								<div class="btn-group buttons" style="display:none">
+									<div class="row">
+										<div class="span1">
+											<label>Left</label>
+											<input type="number" class="input-mini" id="ignored-box-x1" value="120" />
+										</div>
+										<div class="span1">
+											<label>Top</label>
+											<input type="number" class="input-mini" id="ignored-box-y1" value="200" />
+										</div>
+										<div class="span1">
+											<label>Right</label>
+											<input type="number" class="input-mini" id="ignored-box-x2" value="400" />
+										</div>
+										<div class="span1">
+											<label>Bottom</label>
+											<input type="number" class="input-mini" id="ignored-box-y2" value="250" />
+										</div>
+										<div class="span2">
+											<label>&nbsp;</label>
+											<button class="btn" id="ignoredBox">Set ignored box</button>
+										</div>
+									</div>
+								</div>
+
 								<br/>
 								<br/>
 								<div id="diff-results" style="display:none;">

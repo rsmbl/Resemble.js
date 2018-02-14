@@ -93,6 +93,20 @@ resemble.outputSettings({
 // .repaint();
 ```
 
+You can also exclude part of the image from comparison, by specifying the excluded area in pixels from the top left:
+
+```javascript
+resemble.outputSettings({
+  ignoredBox: {
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
+  }
+})
+// .repaint();
+```
+
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
 
 You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.

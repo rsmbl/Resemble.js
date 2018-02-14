@@ -50,15 +50,25 @@ URL: https://github.com/Huddle/Resemble.js
 			return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b))/3;
 		}
 
-		function withinBoundingBox(x, y, width, height) {
-			if (!boundingBox) {
-				return true;
-			}
+		function withinBoundingBox(x, y, width, height, box) {
+		  return x > (box.left || 0) &&
+			 x < (box.right || width) &&
+			 y > (box.top || 0) &&
+			 y < (box.bottom || height);
+		}
 
-					return x > (boundingBox.left || 0) &&
-							x < (boundingBox.right || width) &&
-							y > (boundingBox.top || 0) &&
-							y < (boundingBox.bottom || height);
+		function withinComparedArea(x, y, width, height) {
+		  var isIncluded = true;
+
+		  if (boundingBox !== undefined && !withinBoundingBox(x, y, width, height, boundingBox)) {
+		    isIncluded = false;
+		  }
+
+		  if (ignoredBox !== undefined && withinBoundingBox(x, y, width, height, ignoredBox)) {
+		    isIncluded = false;
+		  }
+
+		  return isIncluded;
 		}
 
 		var errorPixelTransform = {
@@ -99,6 +109,7 @@ URL: https://github.com/Huddle/Resemble.js
 		var errorPixel = errorPixelTransform.flat;
 		var errorType;
 		var boundingBox;
+		var ignoredBox;
 		var largeImageThreshold = 1200;
 		var useCrossOrigin = true;
 		var data = {};
@@ -474,7 +485,7 @@ URL: https://github.com/Huddle/Resemble.js
 				}
 
 				var offset = (verticalPos*width + horizontalPos) * 4;
-				var isWithinBoundingBox = withinBoundingBox(horizontalPos, verticalPos, width, height);
+				var isWithinComparedArea = withinComparedArea(horizontalPos, verticalPos, width, height);
 
 				if (!getPixelInfo(pixel1, data1, offset, 1) || !getPixelInfo(pixel2, data2, offset, 2)) {
 					return;
@@ -485,7 +496,7 @@ URL: https://github.com/Huddle/Resemble.js
 					addBrightnessInfo(pixel1);
 					addBrightnessInfo(pixel2);
 
-					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinBoundingBox ){
+					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinComparedArea ){
 						copyGrayScalePixel(targetPix, offset, pixel2);
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
@@ -495,7 +506,7 @@ URL: https://github.com/Huddle/Resemble.js
 					return;
 				}
 
-				if( isRGBSimilar(pixel1, pixel2)  || !isWithinBoundingBox ){
+				if( isRGBSimilar(pixel1, pixel2)  || !isWithinComparedArea ){
 					copyPixel(targetPix, offset, pixel1);
 
 				} else if( ignoreAntialiasing && (
@@ -505,7 +516,7 @@ URL: https://github.com/Huddle/Resemble.js
 						isAntialiased(pixel2, data2, 2, verticalPos, horizontalPos, width)
 					)){
 
-					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinBoundingBox ){
+					if( isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinComparedArea ){
 						copyGrayScalePixel(targetPix, offset, pixel2);
 					} else {
 						errorPixel(targetPix, offset, pixel1, pixel2);
@@ -627,6 +638,10 @@ URL: https://github.com/Huddle/Resemble.js
 
 			if (options.boundingBox !== undefined) {
 				boundingBox = options.boundingBox;
+			}
+
+			if (options.ignoredBox !== undefined) {
+				ignoredBox = options.ignoredBox;
 			}
 
 		}
