@@ -1,5 +1,4 @@
-Resemble.js
-==========
+<img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/>
 
 Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddleeng.github.io/Resemble.js/). Compatible with Node.js.
 
