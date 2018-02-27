@@ -120,59 +120,28 @@ The resemble.compare API provides a convenience function that is used as follows
 const compare = require('resemblejs').compare;
 
 function getDiff(){
-
-const options = {
-  output: {
-    errorColor: {
-      red: 255,
-      green: 0,
-      blue: 255
-    },
-    errorType: 'movement',
-    transparency: 0.3,
-    largeImageThreshold: 1200,
-    useCrossOrigin: false,
-    outputDiff: true
-  },
-  scaleToSameSize: true,
-  ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
-};
-// The parameters can be Node Buffers
-// data is the same as usual with an additional getBuffer() function
-compare(image1, image2, options, function (err, data) {
-	if (err) {
-		console.log('An error!')
-	} else {
-		console.log(data);
-		/*
-		{
-		  misMatchPercentage : 100, // %
-		  isSameDimensions: true, // or false
-		  dimensionDifference: { width: 0, height: -1 }, // defined if dimensions are not the same
-		  getImageDataUrl: function(){}
-		}
-		*/
-
-	}
-});
+    const options = {};
+    // The parameters can be Node Buffers
+    // data is the same as usual with an additional getBuffer() function
+    compare(image1, image2, options, function (err, data) {
+        if (err) {
+            console.log('An error!')
+        } else {
+            console.log(data);
+            /*
+            {
+            misMatchPercentage : 100, // %
+            isSameDimensions: true, // or false
+            dimensionDifference: { width: 0, height: -1 }, // defined if dimensions are not the same
+            getImageDataUrl: function(){}
+            }
+            */
+        }
+    });
 }
 ```
 
 ### Node.js
-
-#### Installation
-
-On Node, Resemble uses the `canvas` package instead of the native canvas support in the browser. To prevent browser users from being forced into installing Canvas, it's included as a peer dependency which means you have to install it alongside Resemble.
-
-Canvas relies on some native image manipulation libraries to be install on the system. Please read the [Canvas installation instructions](https://www.npmjs.com/package/canvas) for OSX/Windows/Linux.
-
-*Example commands for installation on OSX*
-
-``` bash
-npm install resemblejs
-brew install pkg-config cairo libpng jpeg giflib
-npm install canvas
-```
 
 #### Usage
 
@@ -183,37 +152,35 @@ const compareImages = require('resemblejs/compareImages');
 const fs = require("mz/fs");
 
 async function getDiff(){
+    const options = {
+        output: {
+            errorColor: {
+                red: 255,
+                green: 0,
+                blue: 255
+            },
+            errorType: 'movement',
+            transparency: 0.3,
+            largeImageThreshold: 1200,
+            useCrossOrigin: false,
+            outputDiff: true
+        },
+        scaleToSameSize: true,
+        ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
+    };
 
-const options = {
-  output: {
-    errorColor: {
-      red: 255,
-      green: 0,
-      blue: 255
-    },
-    errorType: 'movement',
-    transparency: 0.3,
-    largeImageThreshold: 1200,
-    useCrossOrigin: false,
-    outputDiff: true
-  },
-  scaleToSameSize: true,
-  ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
-};
-// The parameters can be Node Buffers
-// data is the same as usual with an additional getBuffer() function
-const data = await compareImages(
-	await fs.readFile('./demoassets/People.jpg'),
-	await fs.readFile('./demoassets/People2.jpg'),
-	options
-);
+    // The parameters can be Node Buffers
+    // data is the same as usual with an additional getBuffer() function
+    const data = await compareImages(
+        await fs.readFile('./demoassets/People.jpg'),
+        await fs.readFile('./demoassets/People2.jpg'),
+        options
+    );
 
-await fs.writeFile('./output.png', data.getBuffer());
-
+    await fs.writeFile('./output.png', data.getBuffer());
 }
 
 getDiff();
-
 ```
 
 #### Tests
