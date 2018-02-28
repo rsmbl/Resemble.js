@@ -9,3 +9,4 @@ nodejs-tests
 .dockerignore
 dockerfile
 .travis.yml
+memory-leak-test.js

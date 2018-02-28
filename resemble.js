@@ -15,10 +15,19 @@ URL: https://github.com/Huddle/Resemble.js
 }(this, function () {
 	'use strict';
 
-	var document = typeof window != "undefined" ? window.document : {
+	var Img;
+	var Canvas;
+
+    if (typeof Image !== 'undefined') {
+        Img = Image;
+    } else {
+        Canvas = require('canvas-prebuilt');
+        Img = Canvas.Image;
+    }
+
+	var document = typeof window !== "undefined" ? window.document : {
 		createElement: function() {
 			// This will work as long as only createElement is used on window.document
-			var Canvas = require('canvas-prebuilt');
 			return new Canvas();
 		}
 	};
@@ -198,12 +207,9 @@ URL: https://github.com/Huddle/Resemble.js
 
 		function loadImageData( fileData, callback ){
 			var fileReader;
-			var hiddenImage;
-			if (typeof Image !== 'undefined') {
-				hiddenImage = new Image();
-			} else {
-				var CanvasImage = require('canvas-prebuilt').Image;
-				hiddenImage = new CanvasImage();
+			var hiddenImage = new Img();
+
+			if (!hiddenImage.setAttribute) {
 				hiddenImage.setAttribute = function setAttribute() { };
 			}
 
@@ -212,13 +218,15 @@ URL: https://github.com/Huddle/Resemble.js
 			}
 
 			hiddenImage.onerror = function (err) {
+                hiddenImage.onload = null;
 				hiddenImage.onerror = null; //fixes pollution between calls
 				images.push({ error : err ? err + "" : "Image load error." });
 				callback();
 			};
 
 			hiddenImage.onload = function() {
-				hiddenImage.onload = null; //fixes pollution between calls
+                hiddenImage.onload = null; //fixes pollution between calls
+                hiddenImage.onerror = null;
 
 				var hiddenCanvas =  document.createElement('canvas');
 				var imageData;
