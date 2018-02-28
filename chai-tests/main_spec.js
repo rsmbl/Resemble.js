@@ -24,7 +24,7 @@ function request_success() {
         expect(data.dimensionDifference.height).to.equal(0);
         expect(data.dimensionDifference.width).to.equal(0);
         expect(data.isSameDimensions).to.be.true;
-        expect(data.misMatchPercentage).to.equal('8.63');
+        expect(data.misMatchPercentage).to.include('8.6');
         resolve();
       });
   });
@@ -41,7 +41,7 @@ function base64_string() {
       expect(data.dimensionDifference.height).to.equal(0);
       expect(data.dimensionDifference.width).to.equal(0);
       expect(data.isSameDimensions).to.be.true;
-      expect(data.misMatchPercentage).to.equal('8.63');
+      expect(data.misMatchPercentage).to.include('8.6');
       resolve();
     });
   });
@@ -53,8 +53,7 @@ function request_404() {
       .compareTo('../demoassets/404-image.jpg')
       .onComplete(function(data) {
         console.info('Reached oncomplete for request_404');
-        console.log(data);
-        expect(data).to.deep.equal({ error: 'Image load error.' });
+        expect(data).to.deep.equal({ error: '[object Event]' });
         resolve();
       });
   });

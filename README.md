@@ -193,6 +193,9 @@ To run the tests on Node (using Jest), type:
 npm run test
 ```
 
+There are also some in-browser tests. To run these install and run a http-server such as [http-server](https://github.com/indexzero/http-server) from the root of the project. Then in the browser, navigate to `localhost:8080/chai-tests/test.html`, open up the developer console to see the results.
+
+
 #### Dockerfile
 
 For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubuntu container  
