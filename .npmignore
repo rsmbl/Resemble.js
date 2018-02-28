@@ -8,3 +8,4 @@ chai-tests
 nodejs-tests
 .dockerignore
 dockerfile
+.travis.yml
