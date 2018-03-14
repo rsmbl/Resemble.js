@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3)](https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master)](https://travis-ci.org/HuddleEng/Resemble.js)
 
 <img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/>
