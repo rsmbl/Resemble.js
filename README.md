@@ -1,9 +1,17 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3)](https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger)
-[![Build Status](https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master)](https://travis-ci.org/HuddleEng/Resemble.js)
+<h1 align="center"><img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/></h1>
 
-<img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/>
+<p align="center">
+    [![Build Status](https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master)](https://travis-ci.org/HuddleEng/Resemble.js)
+    [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3)](https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger)
+    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+    [![NPM downloads](https://img.shields.io/npm/dm/resemblejs.svg)
+</p>
 
-Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddleeng.github.io/Resemble.js/). Compatible with Node.js.
+<p align="center">
+  Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddleeng.github.io/Resemble.js/). Compatible with Node.js.
+</p>
+
+<hr />
 
 ![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
