@@ -8,12 +8,10 @@
 </p>
 
 <p align="center">
-  Analyse and compare images with Javascript and HTML5. [More info & Resemble.js Demo](http://huddleeng.github.io/Resemble.js/). Compatible with Node.js.
+  Analyse and compare images with Javascript and HTML5. <a href="http://huddleeng.github.io/Resemble.js/">More info & Resemble.js Demo</a>. Compatible with Node.js.
 </p>
 
 <hr />
-
-![Two image diff examples side-by-side, one pink, one yellow.](https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/readmeimage.jpg "Visual image comparison")
 
 ### Get it
 
