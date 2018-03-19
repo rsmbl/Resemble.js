@@ -1,10 +1,10 @@
 <h1 align="center"><img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/></h1>
 
 <p align="center">
-    [![Build Status](https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master)](https://travis-ci.org/HuddleEng/Resemble.js)
-    [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3)](https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger)
-    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-    [![NPM downloads](https://img.shields.io/npm/dm/resemblejs.svg)
+    <a href="https://travis-ci.org/HuddleEng/Resemble.js"><img alt="Build Status" src="https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master" /></a>
+    <a href="https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger"><img alt="Code Health" src="https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3" /></a>
+    <a href="https://opensource.org/licenses/MIT"><img alt="Build Status" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+    <a href="https://www.npmjs.com/package/resemblejs"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/resemblejs.svg" /></a>
 </p>
 
 <p align="center">
