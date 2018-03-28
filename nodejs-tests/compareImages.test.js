@@ -1,39 +1,43 @@
-const compareImages = require('../compareImages');
-const fs = require('fs');
+/* eslint-env jest*/
 
-describe('compareImages', () => {
-  test('works with buffers', async () => {
-    const data = await compareImages(
-      fs.readFileSync('./demoassets/People.jpg'),
-      fs.readFileSync('./demoassets/People2.jpg')
-    );
+const compareImages = require("../compareImages");
+const fs = require("fs");
 
-    expect(data.isSameDimensions).toBe(true);
-    expect(data.misMatchPercentage).toEqual('8.66');
+describe("compareImages", () => {
+    test("works with buffers", async () => {
+        const data = await compareImages(
+            fs.readFileSync("./demoassets/People.jpg"),
+            fs.readFileSync("./demoassets/People2.jpg")
+        );
 
-    const buffer = data.getBuffer();
+        expect(data.isSameDimensions).toBe(true);
+        expect(data.misMatchPercentage).toEqual("8.66");
 
-    expect(buffer).toBeInstanceOf(Buffer);
-    expect(buffer.length).toBe(91876);
+        const buffer = data.getBuffer();
 
-    const comparison = fs.readFileSync(
-      './nodejs-tests/PeopleComparedToPeople2.png'
-    );
+        expect(buffer).toBeInstanceOf(Buffer);
+        expect(buffer.length).toBe(91876);
 
-    expect(buffer.equals(comparison)).toBe(true);
+        const comparison = fs.readFileSync(
+            "./nodejs-tests/PeopleComparedToPeople2.png"
+        );
 
-    const buffer2 = data.getBuffer(true);
-    const comparison2 = fs.readFileSync(
-      './nodejs-tests/PeopleComparedToPeople2WithOriginal.png'
-    );
-    expect(buffer2.equals(comparison2)).toBe(true);
-  });
+        expect(buffer.equals(comparison)).toBe(true);
 
-  test('throws when failed', async () => {
-    const promise = compareImages(
-      fs.readFileSync('./demoassets/People.jpg'),
-      'bogus data'
-    );
-    await expect(promise).rejects.toMatch('Error: error while reading from input stream');
-  });
+        const buffer2 = data.getBuffer(true);
+        const comparison2 = fs.readFileSync(
+            "./nodejs-tests/PeopleComparedToPeople2WithOriginal.png"
+        );
+        expect(buffer2.equals(comparison2)).toBe(true);
+    });
+
+    test("throws when failed", async () => {
+        const promise = compareImages(
+            fs.readFileSync("./demoassets/People.jpg"),
+            "bogus data"
+        );
+        await expect(promise).rejects.toMatch(
+            "Error: error while reading from input stream"
+        );
+    });
 });

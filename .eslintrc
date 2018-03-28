@@ -1,0 +1,27 @@
+{
+    "extends": [
+        "eslint-config-es5",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "tabWidth": "4"
+            }
+        ],
+        "no-console": "off",
+        "no-use-before-define": ["warn", { "functions": false, "classes": false, "variables": true }],
+        "func-names": ["warn", "as-needed"]
+
+    },
+    "env": {
+        "amd": true,
+        "es6": true
+    }
+}
