@@ -1,40 +1,46 @@
 {
-  "name": "resemblejs",
-  "version": "2.10.0",
-  "description": "Image analysis and comparison with HTML5",
-  "main": "resemble.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Huddle/Resemble.js.git"
-  },
-  "keywords": [
-    "comparison",
-    "visual",
-    "image",
-    "diff",
-    "compare",
-    "html5"
-  ],
-  "author": "James Cryer",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Huddle/Resemble.js/issues"
-  },
-  "homepage": "https://github.com/Huddle/Resemble.js",
-  "scripts": {
-    "test": "jest nodejs-tests",
-    "test-watch": "jest --watch nodejs-tests"
-  },
-  "dependencies": {
-    "canvas-prebuilt": "^1.6.5-prerelease.1"
-  },
-  "devDependencies": {
-    "chai": "^3.4.1",
-    "jest": "^20.0.4",
-    "jest-cli": "^20.0.4",
-    "color-convert": "^1.9.0"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  }
+    "name": "resemblejs",
+    "version": "2.10.0",
+    "description": "Image analysis and comparison with HTML5",
+    "main": "resemble.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Huddle/Resemble.js.git"
+    },
+    "keywords": ["comparison", "visual", "image", "diff", "compare", "html5"],
+    "author": "James Cryer",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Huddle/Resemble.js/issues"
+    },
+    "homepage": "https://github.com/Huddle/Resemble.js",
+    "scripts": {
+        "test": "jest nodejs-tests",
+        "test-watch": "jest --watch nodejs-tests",
+        "precommit": "lint-staged",
+        "lint": "eslint **/*.js --fix"
+    },
+    "lint-staged": {
+        "*.{js,json,css,md}": ["prettier --write", "git add"]
+    },
+    "dependencies": {
+        "canvas-prebuilt": "^1.6.5-prerelease.1"
+    },
+    "devDependencies": {
+        "chai": "^3.4.1",
+        "color-convert": "^1.9.0",
+        "eslint": "^4.19.1",
+        "eslint-config-es5": "^0.5.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-import": "^2.9.0",
+        "eslint-plugin-prettier": "^2.6.0",
+        "husky": "^0.14.3",
+        "jest": "^20.0.4",
+        "jest-cli": "^20.0.4",
+        "lint-staged": "^7.0.0",
+        "prettier": "^1.11.1"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    }
 }
