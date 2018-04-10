@@ -10,3 +10,4 @@ nodejs-tests
 dockerfile
 .travis.yml
 memory-leak-test.js
+coverage

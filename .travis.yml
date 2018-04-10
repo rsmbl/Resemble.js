@@ -1,3 +1,5 @@
+before_script: npm install codacy-coverage --save
+script: npm run test-codacy-coverage
 sudo: required
 language: node_js
 node_js:
