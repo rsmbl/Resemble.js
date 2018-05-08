@@ -718,7 +718,7 @@ URL: https://github.com/Huddle/Resemble.js
 
             if (options.errorColor) {
                 for (key in options.errorColor) {
-                    if (options.hasOwnProperty(key)) {
+                    if (options.errorColor.hasOwnProperty(key)) {
                         errorPixelColor[key] =
                             options.errorColor[key] === void 0
                                 ? errorPixelColor[key]

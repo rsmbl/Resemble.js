@@ -121,7 +121,7 @@ describe("resemble", () => {
         });
     });
 
-    test("test partial diff with bounding box", () => {
+    test("partial diff with bounding box", () => {
         const people = fs.readFileSync("./demoassets/ghost1.png");
         const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
@@ -139,6 +139,37 @@ describe("resemble", () => {
                 .compareTo(people2)
                 .onComplete(data => {
                     expect(data.misMatchPercentage).toEqual("0.04");
+                    resolve();
+                });
+        });
+    });
+
+    test("error pixel color", () => {
+        const people = fs.readFileSync("./demoassets/ghost1.png");
+        const people2 = fs.readFileSync("./demoassets/ghost2.png");
+
+        return new Promise(resolve => {
+            resemble.outputSettings({
+                errorColor: {
+                    red: 0,
+                    green: 255,
+                    blue: 0
+                }
+            });
+
+            resemble(people)
+                .compareTo(people2)
+                .onComplete(data => {
+                    const buffer = data.getBuffer();
+
+                    expect(buffer).toBeInstanceOf(Buffer);
+                    expect(buffer.length).toBe(9429);
+
+                    const comparison = fs.readFileSync(
+                        "./nodejs-tests/pixelErrorColorTest.png"
+                    );
+
+                    expect(buffer.equals(comparison)).toBe(true);
                     resolve();
                 });
         });
