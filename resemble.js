@@ -986,8 +986,8 @@ URL: https://github.com/Huddle/Resemble.js
     }
 
     resemble.compare = function(image1, image2, options, cb) {
-        let callback;
-        let opt;
+        var callback;
+        var opt;
 
         if (typeof options === "function") {
             callback = options;
