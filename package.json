@@ -7,7 +7,14 @@
         "type": "git",
         "url": "https://github.com/Huddle/Resemble.js.git"
     },
-    "keywords": ["comparison", "visual", "image", "diff", "compare", "html5"],
+    "keywords": [
+        "comparison",
+        "visual",
+        "image",
+        "diff",
+        "compare",
+        "html5"
+    ],
     "author": "James Cryer",
     "license": "MIT",
     "bugs": {
@@ -16,31 +23,33 @@
     "homepage": "https://github.com/Huddle/Resemble.js",
     "scripts": {
         "test": "jest nodejs-tests",
-        "test-codacy-coverage":
-            "jest nodejs-tests --coverage && cat ./coverage/lcov.info | codacy-coverage",
+        "test-codacy-coverage": "jest nodejs-tests --coverage && cat ./coverage/lcov.info | codacy-coverage",
         "test-watch": "jest --watch nodejs-tests",
         "precommit": "lint-staged",
         "lint": "eslint **/*.js --fix"
     },
     "lint-staged": {
-        "*.{js,json,css,md}": ["prettier --write", "git add"]
+        "*.{js,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
     },
     "dependencies": {
         "canvas-prebuilt": "^1.6.5-prerelease.1"
     },
     "devDependencies": {
         "chai": "^3.4.1",
-        "color-convert": "^1.9.0",
+        "color-convert": "^1.9.2",
         "eslint": "^4.19.1",
         "eslint-config-es5": "^0.5.0",
         "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-import": "^2.11.0",
+        "eslint-plugin-import": "^2.12.0",
         "eslint-plugin-prettier": "^2.6.0",
         "husky": "^0.14.3",
         "jest": "^20.0.4",
         "jest-cli": "^20.0.4",
-        "lint-staged": "^7.1.0",
-        "prettier": "^1.12.1"
+        "lint-staged": "^7.2.0",
+        "prettier": "^1.13.5"
     },
     "jest": {
         "testEnvironment": "node"
