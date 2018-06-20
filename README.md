@@ -122,6 +122,15 @@ By default, the comparison algorithm skips pixels when the image width or height
 
 You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
 
+Resemble.js also supports Data URIs as strings
+
+```javascript
+resemble.outputSettings({ useCrossOrigin: false });
+var diff = resemble("data:image/jpeg;base64,/9j/4AAQSkZJRgAB...").compareTo(
+    "data:image/jpeg;base64,/9j/,/9j/4AAQSkZJRg..."
+);
+```
+
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
 ### Single callback api
@@ -213,6 +222,10 @@ For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubu
 docker build -t huddle/resemble .
 docker run huddle/resemble
 ```
+
+#### Reference to academic papers
+
+As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithim was developed at Huddle over several days of trial-and-error using various false-positive results from PhantomCSS tests.
 
 ---
 
