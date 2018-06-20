@@ -24,9 +24,9 @@
 Retrieve basic analysis on an image:
 
 ```javascript
-var api = resemble(fileData).onComplete(function(data){
-	console.log(data);
-	/*
+var api = resemble(fileData).onComplete(function(data) {
+    console.log(data);
+    /*
 	{
 	  red: 255,
 	  green: 255,
@@ -40,9 +40,12 @@ var api = resemble(fileData).onComplete(function(data){
 Use resemble to compare two images:
 
 ```javascript
-var diff = resemble(file).compareTo(file2).ignoreColors().onComplete(function(data){
-	console.log(data);
-	/*
+var diff = resemble(file)
+    .compareTo(file2)
+    .ignoreColors()
+    .onComplete(function(data) {
+        console.log(data);
+        /*
 	{
 	  misMatchPercentage : 100, // %
 	  isSameDimensions: true, // or false
@@ -50,10 +53,11 @@ var diff = resemble(file).compareTo(file2).ignoreColors().onComplete(function(da
 	  getImageDataUrl: function(){}
 	}
 	*/
-});
+    });
 ```
 
 Scale second image to dimensions of the first one:
+
 ```javascript
 //diff.useOriginalSize();
 diff.scaleToSameSize();
@@ -68,22 +72,21 @@ You can also change the comparison method after the first analysis:
 diff.ignoreAntialiasing();
 ```
 
-
 And change the output display style:
 
 ```javascript
 resemble.outputSettings({
-  errorColor: {
-    red: 255,
-    green: 0,
-    blue: 255
-  },
-  errorType: 'movement',
-  transparency: 0.3,
-  largeImageThreshold: 1200,
-  useCrossOrigin: false,
-  outputDiff: true
-})
+    errorColor: {
+        red: 255,
+        green: 0,
+        blue: 255
+    },
+    errorType: "movement",
+    transparency: 0.3,
+    largeImageThreshold: 1200,
+    useCrossOrigin: false,
+    outputDiff: true
+});
 // .repaint();
 ```
 
@@ -91,13 +94,13 @@ It is possible to narrow down the area of comparison, by specifying a bounding b
 
 ```javascript
 resemble.outputSettings({
-  boundingBox: {
-    left: 100,
-    top: 200,
-    right: 200,
-    bottom: 600
-  }
-})
+    boundingBox: {
+        left: 100,
+        top: 200,
+        right: 200,
+        bottom: 600
+    }
+});
 // .repaint();
 ```
 
@@ -105,13 +108,13 @@ You can also exclude part of the image from comparison, by specifying the exclud
 
 ```javascript
 resemble.outputSettings({
-  ignoredBox: {
-    left: 100,
-    top: 200,
-    right: 200,
-    bottom: 600
-  }
-})
+    ignoredBox: {
+        left: 100,
+        top: 200,
+        right: 200,
+        bottom: 600
+    }
+});
 // .repaint();
 ```
 
@@ -125,16 +128,16 @@ You can modify this behaviour by setting the `largeImageThreshold` option to a d
 
 The resemble.compare API provides a convenience function that is used as follows:
 
-``` js
-const compare = require('resemblejs').compare;
+```js
+const compare = require("resemblejs").compare;
 
-function getDiff(){
+function getDiff() {
     const options = {};
     // The parameters can be Node Buffers
     // data is the same as usual with an additional getBuffer() function
-    compare(image1, image2, options, function (err, data) {
+    compare(image1, image2, options, function(err, data) {
         if (err) {
-            console.log('An error!')
+            console.log("An error!");
         } else {
             console.log(data);
             /*
@@ -156,11 +159,11 @@ function getDiff(){
 
 The API under Node is the same as on the `resemble.compare` but promise based:
 
-``` js
-const compareImages = require('resemblejs/compareImages');
+```js
+const compareImages = require("resemblejs/compareImages");
 const fs = require("mz/fs");
 
-async function getDiff(){
+async function getDiff() {
     const options = {
         output: {
             errorColor: {
@@ -168,25 +171,25 @@ async function getDiff(){
                 green: 0,
                 blue: 255
             },
-            errorType: 'movement',
+            errorType: "movement",
             transparency: 0.3,
             largeImageThreshold: 1200,
             useCrossOrigin: false,
             outputDiff: true
         },
         scaleToSameSize: true,
-        ignore: ['nothing', 'less', 'antialiasing', 'colors', 'alpha'],
+        ignore: "antialiasing"
     };
 
     // The parameters can be Node Buffers
     // data is the same as usual with an additional getBuffer() function
     const data = await compareImages(
-        await fs.readFile('./demoassets/People.jpg'),
-        await fs.readFile('./demoassets/People2.jpg'),
+        await fs.readFile("./demoassets/People.jpg"),
+        await fs.readFile("./demoassets/People2.jpg"),
         options
     );
 
-    await fs.writeFile('./output.png', data.getBuffer());
+    await fs.writeFile("./output.png", data.getBuffer());
 }
 
 getDiff();
@@ -196,24 +199,21 @@ getDiff();
 
 To run the tests on Node (using Jest), type:
 
-``` bash
+```bash
 npm run test
 ```
 
 There are also some in-browser tests. To run these install and run a http-server such as [http-server](https://github.com/indexzero/http-server) from the root of the project. Then in the browser, navigate to `localhost:8080/chai-tests/test.html`, open up the developer console to see the results.
 
-
 #### Dockerfile
 
-For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubuntu container  
+For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubuntu container
 
-``` bash
+```bash
 docker build -t huddle/resemble .
 docker run huddle/resemble
 ```
 
-
-
---------------------------------------
+---
 
 Created by [James Cryer](http://github.com/jamescryer) and the Huddle development team.
