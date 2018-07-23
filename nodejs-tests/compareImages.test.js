@@ -19,14 +19,14 @@ describe("compareImages", () => {
         expect(buffer.length).toBe(91876);
 
         const comparison = fs.readFileSync(
-            "./nodejs-tests/PeopleComparedToPeople2.png"
+            "./nodejs-tests/assets/PeopleComparedToPeople2.png"
         );
 
         expect(buffer.equals(comparison)).toBe(true);
 
         const buffer2 = data.getBuffer(true);
         const comparison2 = fs.readFileSync(
-            "./nodejs-tests/PeopleComparedToPeople2WithOriginal.png"
+            "./nodejs-tests/assets/PeopleComparedToPeople2WithOriginal.png"
         );
         expect(buffer2.equals(comparison2)).toBe(true);
     });

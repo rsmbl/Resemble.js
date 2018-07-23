@@ -166,7 +166,7 @@ describe("resemble", () => {
                     expect(buffer.length).toBe(9429);
 
                     const comparison = fs.readFileSync(
-                        "./nodejs-tests/pixelErrorColorTest.png"
+                        "./nodejs-tests/assets/pixelErrorColorTest.png"
                     );
 
                     expect(buffer.equals(comparison)).toBe(true);
