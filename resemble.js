@@ -170,6 +170,8 @@ URL: https://github.com/Huddle/Resemble.js
         var ignoreAntialiasing = false;
         var ignoreColors = false;
         var scaleToSameSize = false;
+        var compareOnly = false;
+        var misMatchThreshold = null;
 
         function triggerDataUpdate() {
             var len = updateCallbackArray.length;
@@ -513,17 +515,19 @@ URL: https://github.com/Huddle/Resemble.js
         }
 
         function analyseImages(img1, img2, width, height) {
-            var hiddenCanvas = document.createElement("canvas");
+            var hiddenCanvas = !compareOnly ? document.createElement("canvas") : null;
+
+            if (!compareOnly) {
+                hiddenCanvas.width = width;
+                hiddenCanvas.height = height;
+            }
 
             var data1 = img1.data;
             var data2 = img2.data;
 
-            hiddenCanvas.width = width;
-            hiddenCanvas.height = height;
-
-            var context = hiddenCanvas.getContext("2d");
-            var imgd = context.createImageData(width, height);
-            var pix = imgd.data;
+            var context = !compareOnly ? hiddenCanvas.getContext("2d") : null;
+            var imgd = !compareOnly ? context.createImageData(width, height) : null;
+            var pix = !compareOnly ? imgd.data : null;
 
             var mismatchCount = 0;
             var diffBounds = {
@@ -554,7 +558,13 @@ URL: https://github.com/Huddle/Resemble.js
             var pixel1 = { r: 0, g: 0, b: 0, a: 0 };
             var pixel2 = { r: 0, g: 0, b: 0, a: 0 };
 
+            var skipTheRest = false;
+
             loop(width, height, function(horizontalPos, verticalPos) {
+                if (skipTheRest) {
+                  return
+                }
+
                 if (skip) {
                     // only skip if the image isn't small
                     if (
@@ -588,9 +598,14 @@ URL: https://github.com/Huddle/Resemble.js
                         isPixelBrightnessSimilar(pixel1, pixel2) ||
                         !isWithinComparedArea
                     ) {
-                        copyGrayScalePixel(pix, offset, pixel2);
+                        if (!compareOnly) {
+                            copyGrayScalePixel(pix, offset, pixel2);
+                        }
                     } else {
-                        errorPixel(pix, offset, pixel1, pixel2);
+                        if (!compareOnly) {
+                            errorPixel(pix, offset, pixel1, pixel2);
+                        }
+
                         mismatchCount++;
                         updateBounds(horizontalPos, verticalPos);
                     }
@@ -598,7 +613,9 @@ URL: https://github.com/Huddle/Resemble.js
                 }
 
                 if (isRGBSimilar(pixel1, pixel2) || !isWithinComparedArea) {
-                    copyPixel(pix, offset, pixel1);
+                    if (!compareOnly) {
+                        copyPixel(pix, offset, pixel1);
+                    }
                 } else if (
                     ignoreAntialiasing &&
                     (addBrightnessInfo(pixel1), // jit pixel info augmentation looks a little weird, sorry.
@@ -624,16 +641,32 @@ URL: https://github.com/Huddle/Resemble.js
                         isPixelBrightnessSimilar(pixel1, pixel2) ||
                         !isWithinComparedArea
                     ) {
-                        copyGrayScalePixel(pix, offset, pixel2);
+                        if (!compareOnly) {
+                            copyGrayScalePixel(pix, offset, pixel2);
+                        }
                     } else {
-                        errorPixel(pix, offset, pixel1, pixel2);
+                        if (!compareOnly) {
+                            errorPixel(pix, offset, pixel1, pixel2);
+                        }
+
                         mismatchCount++;
                         updateBounds(horizontalPos, verticalPos);
                     }
                 } else {
-                    errorPixel(pix, offset, pixel1, pixel2);
+                    if (!compareOnly) {
+                        errorPixel(pix, offset, pixel1, pixel2);
+                    }
+
                     mismatchCount++;
                     updateBounds(horizontalPos, verticalPos);
+                }
+
+                if (compareOnly) {
+                    var currentMisMatchPercent = mismatchCount / (height * width) * 100;
+
+                    if (currentMisMatchPercent > misMatchThreshold) {
+                        skipTheRest = true;
+                    }
                 }
             });
 
@@ -643,6 +676,10 @@ URL: https://github.com/Huddle/Resemble.js
             data.analysisTime = Date.now() - time;
 
             data.getImageDataUrl = function(text) {
+                if (compareOnly) {
+                  throw Error('No diff image available - ran in compareOnly mode')
+                }
+
                 var barHeight = 0;
 
                 if (text) {
@@ -654,7 +691,7 @@ URL: https://github.com/Huddle/Resemble.js
                 return hiddenCanvas.toDataURL("image/png");
             };
 
-            if (hiddenCanvas.toBuffer) {
+            if (!compareOnly && hiddenCanvas.toBuffer) {
                 data.getBuffer = function(includeOriginal) {
                     if (includeOriginal) {
                         var imageWidth = hiddenCanvas.width + 2;
@@ -826,6 +863,10 @@ URL: https://github.com/Huddle/Resemble.js
             }
 
             var self = {
+                comparisonLimit: function(percent) {
+                  compareOnly = true;
+                  misMatchThreshold = percent;
+                },
                 scaleToSameSize: function() {
                     scaleToSameSize = true;
 
@@ -1005,6 +1046,10 @@ URL: https://github.com/Huddle/Resemble.js
         }
 
         compare = res.compareTo(image2);
+
+        if (opt.misMatchThreshold) {
+            compare.comparisonLimit(opt.misMatchThreshold);
+        }
 
         if (opt.scaleToSameSize) {
             compare.scaleToSameSize();
