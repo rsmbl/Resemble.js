@@ -289,7 +289,11 @@ URL: https://github.com/Huddle/Resemble.js
 
             if (typeof fileDataForImage === "string") {
                 hiddenImage.src = fileDataForImage;
-                if (hiddenImage.complete && hiddenImage.naturalWidth > 0) {
+                if (
+                    hiddenImage.complete &&
+                    hiddenImage.naturalWidth > 0 &&
+                    hiddenImage.onload
+                ) {
                     hiddenImage.onload();
                 }
             } else if (
