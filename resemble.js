@@ -16,12 +16,14 @@ URL: https://github.com/Huddle/Resemble.js
     "use strict";
 
     var Img;
-    var { Canvas, Image: CanvasImage } = require("canvas-prebuilt");
+    var Canvas;
 
     if (typeof Image !== "undefined") {
         Img = Image;
     } else {
-        Img = CanvasImage;
+        var canvasPrebuilt = require("canvas-prebuilt");
+        Canvas = canvasPrebuilt.Canvas;
+        Img = canvasPrebuilt.Image;
     }
 
     var document =

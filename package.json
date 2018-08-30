@@ -46,8 +46,8 @@
         "eslint-plugin-import": "^2.12.0",
         "eslint-plugin-prettier": "^2.6.0",
         "husky": "^0.14.3",
-        "jest": "^20.0.4",
-        "jest-cli": "^23.5.0",
+        "jest": "~23.0.1",
+        "jest-cli": "~23.0.1",
         "lint-staged": "^7.2.0",
         "prettier": "^1.13.5"
     },
