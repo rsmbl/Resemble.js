@@ -135,7 +135,7 @@ $(function() {
         }
         if ($this.is("#colors")) {
             resembleControl.ignoreColors();
-        } else if ($this.is("#antialising")) {
+        } else if ($this.is("#antialiasing")) {
             resembleControl.ignoreAntialiasing();
         } else if ($this.is("#alpha")) {
             resembleControl.ignoreAlpha();
