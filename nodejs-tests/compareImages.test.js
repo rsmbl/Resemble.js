@@ -37,7 +37,7 @@ describe("compareImages", () => {
             "bogus data"
         );
         await expect(promise).rejects.toMatch(
-            "Error: error while reading from input stream"
+            "Error: ENOENT, No such file or directory 'bogus data'"
         );
     });
 });
