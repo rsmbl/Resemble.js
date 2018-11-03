@@ -21,8 +21,9 @@ URL: https://github.com/Huddle/Resemble.js
     if (typeof Image !== "undefined") {
         Img = Image;
     } else {
-        Canvas = require("canvas-prebuilt"); // eslint-disable-line global-require
-        Img = Canvas.Image;
+        var nodeCanvas = require("canvas");
+        Canvas = nodeCanvas.Canvas; // eslint-disable-line global-require
+        Img = nodeCanvas.Image;
     }
 
     var document =
@@ -31,7 +32,7 @@ URL: https://github.com/Huddle/Resemble.js
             : {
                   createElement: function() {
                       // This will work as long as only createElement is used on window.document
-                      return new Canvas();
+                      return nodeCanvas.createCanvas();
                   }
               };
 
@@ -126,7 +127,7 @@ URL: https://github.com/Huddle/Resemble.js
                 px[offset + 3] = colorsDistance(d1, d2);
             },
             movementDifferenceIntensity: function(px, offset, d1, d2) {
-                var ratio = colorsDistance(d1, d2) / 255 * 0.8;
+                var ratio = (colorsDistance(d1, d2) / 255) * 0.8;
 
                 px[offset] =
                     (1 - ratio) * (d2.r * (errorPixelColor.red / 255)) +
@@ -220,11 +221,11 @@ URL: https://github.com/Huddle/Resemble.js
 
                 pixelCount++;
 
-                redTotal += red / 255 * 100;
-                greenTotal += green / 255 * 100;
-                blueTotal += blue / 255 * 100;
-                alphaTotal += (255 - alpha) / 255 * 100;
-                brightnessTotal += brightness / 255 * 100;
+                redTotal += (red / 255) * 100;
+                greenTotal += (green / 255) * 100;
+                blueTotal += (blue / 255) * 100;
+                alphaTotal += ((255 - alpha) / 255) * 100;
+                brightnessTotal += (brightness / 255) * 100;
             });
 
             data.red = Math.floor(redTotal / pixelCount);
@@ -232,8 +233,8 @@ URL: https://github.com/Huddle/Resemble.js
             data.blue = Math.floor(blueTotal / pixelCount);
             data.alpha = Math.floor(alphaTotal / pixelCount);
             data.brightness = Math.floor(brightnessTotal / pixelCount);
-            data.white = Math.floor(whiteTotal / pixelCount * 100);
-            data.black = Math.floor(blackTotal / pixelCount * 100);
+            data.white = Math.floor((whiteTotal / pixelCount) * 100);
+            data.black = Math.floor((blackTotal / pixelCount) * 100);
 
             triggerDataUpdate();
         }
@@ -637,7 +638,8 @@ URL: https://github.com/Huddle/Resemble.js
                 }
             });
 
-            data.rawMisMatchPercentage = mismatchCount / (height * width) * 100;
+            data.rawMisMatchPercentage =
+                (mismatchCount / (height * width)) * 100;
             data.misMatchPercentage = data.rawMisMatchPercentage.toFixed(2);
             data.diffBounds = diffBounds;
             data.analysisTime = Date.now() - time;
