@@ -3,4 +3,8 @@ script: npm run test
 sudo: required
 language: node_js
 node_js:
-  - "lts/*"
+  - "node"
+  - "10"
+  - "8"
+  - "6"
+install: npm install
