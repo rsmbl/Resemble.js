@@ -71,7 +71,7 @@ describe("resemble", () => {
                     // console.info('Reached oncomplete for request404');
                     // console.log(data);
                     expect(data.error).toEqual(
-                        "Error: error while reading from input stream"
+                        "Error: ENOENT, No such file or directory '../demoassets/People.jpg'"
                     );
                     resolve();
                 });
@@ -163,12 +163,11 @@ describe("resemble", () => {
                     const buffer = data.getBuffer();
 
                     expect(buffer).toBeInstanceOf(Buffer);
-                    expect(buffer.length).toBe(9429);
+                    expect(buffer.length).toBe(9391);
 
                     const comparison = fs.readFileSync(
                         "./nodejs-tests/assets/pixelErrorColorTest.png"
                     );
-
                     expect(buffer.equals(comparison)).toBe(true);
                     resolve();
                 });
