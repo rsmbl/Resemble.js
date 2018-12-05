@@ -1,4 +1,4 @@
-FROM node:11
+FROM node:10
 
 RUN apt-get update \
     && apt-get install -qq libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev librsvg2-dev build-essential g++

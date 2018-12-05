@@ -35,7 +35,7 @@
         ]
     },
     "dependencies": {
-        "canvas": "2.1.0"
+        "canvas": "2.2.0"
     },
     "devDependencies": {
         "chai": "^3.4.1",
