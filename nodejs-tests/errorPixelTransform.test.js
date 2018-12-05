@@ -1,11 +1,11 @@
 /* eslint-env jest*/
 
-const resemble = require('../resemble');
-const fs = require('fs');
+const resemble = require("../resemble");
+const fs = require("fs");
 
 const testErrorPixelTransform = transform => {
-    const people = fs.readFileSync('./demoassets/ghost1.png');
-    const people2 = fs.readFileSync('./demoassets/ghost2.png');
+    const people = fs.readFileSync("./demoassets/ghost1.png");
+    const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
     return new Promise(resolve => {
         resemble.outputSettings({
@@ -24,6 +24,8 @@ const testErrorPixelTransform = transform => {
 
                 expect(buffer).toBeInstanceOf(Buffer);
 
+                //fs.writeFileSync(`./nodejs-tests/assets/pixelErrorTransform/${transform}.new.png`, buffer);
+
                 const comparison = fs.readFileSync(
                     `./nodejs-tests/assets/pixelErrorTransform/${transform}.png`
                 );
@@ -34,16 +36,16 @@ const testErrorPixelTransform = transform => {
     });
 };
 
-describe('errorPixelTransform', () => {
-    test('flat', async () => testErrorPixelTransform('flat'));
+describe("errorPixelTransform", () => {
+    test("flat", async () => testErrorPixelTransform("flat"));
 
-    test('movement', async () => testErrorPixelTransform('movement'));
+    test("movement", async () => testErrorPixelTransform("movement"));
 
-    test('flatDifferenceIntensity', async () =>
-        testErrorPixelTransform('flatDifferenceIntensity'));
+    test("flatDifferenceIntensity", async () =>
+        testErrorPixelTransform("flatDifferenceIntensity"));
 
-    test('movementDifferenceIntensity', async () =>
-        testErrorPixelTransform('movementDifferenceIntensity'));
+    test("movementDifferenceIntensity", async () =>
+        testErrorPixelTransform("movementDifferenceIntensity"));
 
-    test('diffOnly', async () => testErrorPixelTransform('diffOnly'));
+    test("diffOnly", async () => testErrorPixelTransform("diffOnly"));
 });

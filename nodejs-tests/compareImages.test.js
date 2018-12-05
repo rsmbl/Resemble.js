@@ -2,33 +2,38 @@
 
 const compareImages = require("../compareImages");
 const fs = require("fs");
+const util = require("util");
+const readFile = util.promisify(fs.readFile);
 
 describe("compareImages", () => {
-    test("works with buffers", async () => {
-        const data = await compareImages(
-            fs.readFileSync("./demoassets/People.jpg"),
-            fs.readFileSync("./demoassets/People2.jpg")
-        );
-
-        expect(data.isSameDimensions).toBe(true);
-        expect(data.misMatchPercentage).toEqual("8.66");
-
-        const buffer = data.getBuffer();
-
-        expect(buffer).toBeInstanceOf(Buffer);
-        expect(buffer.length).toBe(91876);
-
-        const comparison = fs.readFileSync(
+    test("Buffers data", async () => {
+        const readImg1 = readFile("./demoassets/People.jpg");
+        const readImg2 = readFile("./demoassets/People2.jpg");
+        const readComparison = readFile(
             "./nodejs-tests/assets/PeopleComparedToPeople2.png"
         );
 
-        expect(buffer.equals(comparison)).toBe(true);
+        const data = await compareImages(await readImg1, await readImg2);
+        const buffer = data.getBuffer();
+        const comparison = await readComparison;
 
-        const buffer2 = data.getBuffer(true);
-        const comparison2 = fs.readFileSync(
+        expect(data.isSameDimensions).toBe(true);
+        expect(data.misMatchPercentage).toEqual("8.66");
+        expect(buffer).toBeInstanceOf(Buffer);
+        expect(buffer.length).toBe(91876);
+        expect(buffer.equals(comparison)).toBe(true);
+    });
+
+    test("Buffer data includeOriginal", async () => {
+        const readImg1 = readFile("./demoassets/People.jpg");
+        const readImg2 = readFile("./demoassets/People2.jpg");
+        const readComparison = readFile(
             "./nodejs-tests/assets/PeopleComparedToPeople2WithOriginal.png"
         );
-        expect(buffer2.equals(comparison2)).toBe(true);
+        const data = await compareImages(await readImg1, await readImg2);
+        const buffer = data.getBuffer(true);
+        const comparison = await readComparison;
+        expect(buffer.equals(comparison)).toBe(true);
     });
 
     test("throws when failed", async () => {
@@ -37,7 +42,7 @@ describe("compareImages", () => {
             "bogus data"
         );
         await expect(promise).rejects.toMatch(
-            "Error: error while reading from input stream"
+            "Error: ENOENT, No such file or directory 'bogus data'"
         );
     });
 });

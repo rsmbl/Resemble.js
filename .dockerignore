@@ -1,7 +1,7 @@
 .idea
-**/node_modules
+/node_modules
 npm-debug.log
-**/libs
+/libs
 index.html
 bower.json
 README.md

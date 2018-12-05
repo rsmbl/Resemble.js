@@ -1,11 +1,10 @@
-FROM node:8
+FROM node:10
 
 RUN apt-get update \
-    && apt-get install -qq libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+    && apt-get install -qq libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev librsvg2-dev build-essential g++
 
 RUN mkdir -p /opt/node/js \
-    && cd /opt/node \
-    && npm install canvas color-convert
+    && cd /opt/node
 
 WORKDIR /opt/node/js
 COPY . /opt/node/js

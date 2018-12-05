@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  Analyse and compare images with Javascript and HTML5. <a href="http://huddleeng.github.io/Resemble.js/">More info & Resemble.js Demo</a>. Compatible with Node.js.
+  Analyse and compare images with Javascript and HTML5. <a href="http://huddleeng.github.io/Resemble.js/">More info & Resemble.js Demo</a>. Compatible with Node.js >8.
 </p>
 
 <hr />
