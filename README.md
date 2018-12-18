@@ -1,14 +1,14 @@
-<h1 align="center"><img src="https://raw.github.com/HuddleEng/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/></h1>
+<h1 align="center"><img src="https://raw.github.com/rsmbl/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/></h1>
 
 <p align="center">
-    <a href="https://travis-ci.org/HuddleEng/Resemble.js"><img alt="Build Status" src="https://travis-ci.org/HuddleEng/Resemble.js.svg?branch=master" /></a>
-    <a href="https://app.codacy.com/app/Huddleoss/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=HuddleEng/Resemble.js&utm_campaign=badger"><img alt="Code Health" src="https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3" /></a>
+    <a href="https://travis-ci.org/rsmbl/Resemble.js"><img alt="Build Status" src="https://travis-ci.org/rsmbl/Resemble.js.svg?branch=master" /></a>
+    <a href="https://www.codacy.com/app/jamescryer/Resemble.js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsmbl/Resemble.js&amp;utm_campaign=Badge_Grade"><img alt="Code Health" src="https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3" /></a>
     <a href="https://opensource.org/licenses/MIT"><img alt="Build Status" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
     <a href="https://www.npmjs.com/package/resemblejs"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/resemblejs.svg" /></a>
 </p>
 
 <p align="center">
-  Analyse and compare images with Javascript and HTML5. <a href="http://huddleeng.github.io/Resemble.js/">More info & Resemble.js Demo</a>. Compatible with Node.js >8.
+  Analyse and compare images with Javascript and HTML5. <a href="http://rsmbl.github.io/Resemble.js/">More info & Resemble.js Demo</a>. Compatible with Node.js >8.
 </p>
 
 <hr />
@@ -219,14 +219,14 @@ There are also some in-browser tests. To run these install and run a http-server
 For convenience I've added a simple Dockerfile to run the NodeJS tests in an Ubuntu container
 
 ```bash
-docker build -t huddle/resemble .
-docker run huddle/resemble
+docker build -t rsmbl/resemble .
+docker run rsmbl/resemble
 ```
 
 #### Reference to academic papers
 
-As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithim was developed at Huddle over several days of trial-and-error using various false-positive results from PhantomCSS tests.
+As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithim was developed at [Huddle](https://github.com/HuddleEng) over several days of trial-and-error using various false-positive results from PhantomCSS tests.
 
 ---
 
-Created by [James Cryer](http://github.com/jamescryer) and the Huddle development team.
+Created by [James Cryer](http://github.com/jamescryer) and the [Huddle development team](https://github.com/HuddleEng).
