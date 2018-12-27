@@ -107,8 +107,8 @@ var isNode = new Function("try {return this===global;}catch(e){return false;}");
 
         var errorPixel = errorPixelTransform.flat;
         var errorType;
-        var boundingBox;
-        var ignoredBox;
+        var boundingBoxs;
+        var ignoredBoxs;
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
@@ -148,22 +148,40 @@ var isNode = new Function("try {return this===global;}catch(e){return false;}");
         }
 
         function withinComparedArea(x, y, width, height) {
-            var isIncluded = true;
-
-            if (
-                boundingBox !== undefined &&
-                !withinBoundingBox(x, y, width, height, boundingBox)
-            ) {
-                isIncluded = false;
+            var isIncluded = true, i, boundingBox, ignoredBox, selected, ignored;
+            if(boundingBoxs instanceof Array) {
+            	selected = false;
+            	for (i = 0; i < boundingBoxs.length; i++) {
+            		boundingBox = boundingBoxs[i];
+            		if (withinBoundingBox(x, y, width, height, boundingBox)) {
+            			selected = true;
+            			break;
+            		}
+            	}
             }
-
-            if (
-                ignoredBox !== undefined &&
-                withinBoundingBox(x, y, width, height, ignoredBox)
-            ) {
-                isIncluded = false;
+            if(ignoredBoxs instanceof Array) {
+            	ignored = true;
+            	for (i = 0; i < ignoredBoxs.length; i++) {
+            		ignoredBox = ignoredBoxs[i];
+            		if (withinBoundingBox(x, y, width, height, ignoredBox)) {
+            			ignored = false;
+            			break;
+            		}
+            	}
             }
-
+            
+            if(selected === undefined && ignored === undefined) {
+            	return true;
+            }
+            if(selected === false && ignored === true) {
+            	return false;
+            }
+            if (selected === true || ignored === true) {
+            	isIncluded = true;
+            }
+            if (selected === false || ignored === false) {
+            	isIncluded = false;
+            } 
             return isIncluded;
         }
 
@@ -754,11 +772,19 @@ var isNode = new Function("try {return this===global;}catch(e){return false;}");
             }
 
             if (options.boundingBox !== undefined) {
-                boundingBox = options.boundingBox;
+                boundingBoxs = [options.boundingBox];
             }
 
             if (options.ignoredBox !== undefined) {
-                ignoredBox = options.ignoredBox;
+                ignoredBoxs = [options.ignoredBox];
+            }
+            
+            if (options.boundingBoxs !== undefined) {
+                boundingBoxs = options.boundingBoxs;
+            }
+
+            if (options.ignoredBoxs !== undefined) {
+                ignoredBoxs = options.ignoredBoxs;
             }
         }
 
