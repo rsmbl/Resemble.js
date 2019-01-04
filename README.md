@@ -225,7 +225,7 @@ docker run rsmbl/resemble
 
 #### Reference to academic papers
 
-As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithim was developed at [Huddle](https://github.com/HuddleEng) over several days of trial-and-error using various false-positive results from PhantomCSS tests.
+As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithm was developed at [Huddle](https://github.com/HuddleEng) over several days of trial-and-error using various false-positive results from PhantomCSS tests.
 
 ---
 
