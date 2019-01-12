@@ -316,6 +316,10 @@ var isNode = new Function("try {return this===global;}catch(e){return false;}");
                     hiddenImage.onload = null; // fixes pollution between calls
                     hiddenImage.onerror = null;
                     onLoadImage(image, callback);
+                })
+                .catch(function(err) {
+                    images.push({ error: err ? err + "" : "Image load error." });
+                    callback();
                 });
             } else {
                 fileReader = new FileReader();
