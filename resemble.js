@@ -3,7 +3,9 @@ James Cryer / Huddle
 URL: https://github.com/Huddle/Resemble.js
 */
 
-var isNode = new Function("try {return this===global;}catch(e){return false;}");
+var isNode = new Function(
+    "return (typeof process !== 'undefined') && (process.release.name === 'node')"
+);
 
 (function(root, factory) {
     "use strict";
@@ -312,15 +314,18 @@ var isNode = new Function("try {return this===global;}catch(e){return false;}");
                 // If we have Buffer, assume we're on Node+Canvas and its supported
                 //hiddenImage.src = fileDataForImage;
 
-                loadNodeCanvasImage(fileDataForImage).then(function(image) {
-                    hiddenImage.onload = null; // fixes pollution between calls
-                    hiddenImage.onerror = null;
-                    onLoadImage(image, callback);
-                })
-                .catch(function(err) {
-                    images.push({ error: err ? err + "" : "Image load error." });
-                    callback();
-                });
+                loadNodeCanvasImage(fileDataForImage)
+                    .then(function(image) {
+                        hiddenImage.onload = null; // fixes pollution between calls
+                        hiddenImage.onerror = null;
+                        onLoadImage(image, callback);
+                    })
+                    .catch(function(err) {
+                        images.push({
+                            error: err ? err + "" : "Image load error."
+                        });
+                        callback();
+                    });
             } else {
                 fileReader = new FileReader();
                 fileReader.onload = function(event) {
