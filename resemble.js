@@ -109,8 +109,8 @@ var isNode = new Function(
 
         var errorPixel = errorPixelTransform.flat;
         var errorType;
-        var boundingBox;
-        var ignoredBox;
+        var boundingBoxes;
+        var ignoredBoxes;
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
@@ -150,22 +150,46 @@ var isNode = new Function(
         }
 
         function withinComparedArea(x, y, width, height) {
-            var isIncluded = true;
+            var isIncluded = true,
+                i,
+                boundingBox,
+                ignoredBox,
+                selected,
+                ignored;
 
-            if (
-                boundingBox !== undefined &&
-                !withinBoundingBox(x, y, width, height, boundingBox)
-            ) {
-                isIncluded = false;
+            if (boundingBoxes instanceof Array) {
+                selected = false;
+                for (i = 0; i < boundingBoxes.length; i++) {
+                    boundingBox = boundingBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, boundingBox)) {
+                        selected = true;
+                        break;
+                    }
+                }
+            }
+            if (ignoredBoxes instanceof Array) {
+                ignored = true;
+                for (i = 0; i < ignoredBoxes.length; i++) {
+                    ignoredBox = ignoredBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, ignoredBox)) {
+                        ignored = false;
+                        break;
+                    }
+                }
             }
 
-            if (
-                ignoredBox !== undefined &&
-                withinBoundingBox(x, y, width, height, ignoredBox)
-            ) {
+            if (selected === undefined && ignored === undefined) {
+                return true;
+            }
+            if (selected === false && ignored === true) {
+                return false;
+            }
+            if (selected === true || ignored === true) {
+                isIncluded = true;
+            }
+            if (selected === false || ignored === false) {
                 isIncluded = false;
             }
-
             return isIncluded;
         }
 
@@ -763,11 +787,19 @@ var isNode = new Function(
             }
 
             if (options.boundingBox !== undefined) {
-                boundingBox = options.boundingBox;
+                boundingBoxes = [options.boundingBox];
             }
 
             if (options.ignoredBox !== undefined) {
-                ignoredBox = options.ignoredBox;
+                ignoredBoxes = [options.ignoredBox];
+            }
+
+            if (options.boundingBoxes !== undefined) {
+                boundingBoxes = options.boundingBoxes;
+            }
+
+            if (options.ignoredBoxes !== undefined) {
+                ignoredBoxes = options.ignoredBoxes;
             }
         }
 
@@ -971,6 +1003,7 @@ var isNode = new Function(
                 return rootSelf;
             }
         };
+
         return rootSelf;
     };
 

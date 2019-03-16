@@ -93,29 +93,33 @@ resemble.outputSettings({
 It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
-resemble.outputSettings({
-    boundingBox: {
-        left: 100,
-        top: 200,
-        right: 200,
-        bottom: 600
-    }
-});
-// .repaint();
+const box = {
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
+};
+resemble.outputSettings({ boundingBox: box });
+```
+
+```javascript
+resemble.outputSettings({ boundingBoxes: [box1, box2] });
 ```
 
 You can also exclude part of the image from comparison, by specifying the excluded area in pixels from the top left:
 
 ```javascript
-resemble.outputSettings({
-    ignoredBox: {
-        left: 100,
-        top: 200,
-        right: 200,
-        bottom: 600
-    }
-});
-// .repaint();
+const box = {
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
+};
+resemble.outputSettings({ ignoredBox: box });
+```
+
+```javascript
+resemble.outputSettings({ ignoredBoxes: [box1, box2] });
 ```
 
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.

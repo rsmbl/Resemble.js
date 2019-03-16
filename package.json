@@ -46,13 +46,13 @@
         "eslint": "^4.19.1",
         "eslint-config-es5": "^0.5.0",
         "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-import": "^2.12.0",
+        "eslint-plugin-import": "^2.16.0",
         "eslint-plugin-prettier": "^2.6.0",
-        "husky": "^1.2.0",
-        "jest": "^23.6.0",
-        "jest-cli": "^23.6.0",
-        "lint-staged": "^8.1.0",
-        "prettier": "^1.13.5"
+        "husky": "^1.3.1",
+        "jest": "^24.5.0",
+        "jest-cli": "^24.5.0",
+        "lint-staged": "^8.1.5",
+        "prettier": "^1.16.4"
     },
     "jest": {
         "testEnvironment": "node"
