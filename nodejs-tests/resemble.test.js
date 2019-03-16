@@ -18,7 +18,6 @@ describe("resemble", () => {
             resemble(peopleSrc)
                 .compareTo(people2Src)
                 .onComplete(data => {
-                    // console.info('Reached oncomplete for base64String');
                     expect(data.diffBounds.bottom).toEqual(431);
                     expect(data.diffBounds.left).toEqual(22);
                     expect(data.diffBounds.right).toEqual(450);
@@ -32,44 +31,38 @@ describe("resemble", () => {
         });
     });
 
-    // this doesn't work on windows
+    test("files", () => {
+        return new Promise(resolve => {
+            resemble("demoassets/People.jpg")
+                .compareTo("demoassets/People2.jpg")
+                .onComplete(data => {
+                    expect(data.diffBounds).toEqual(
+                        expect.objectContaining({
+                            bottom: expect.any(Number),
+                            left: expect.any(Number),
+                            top: expect.any(Number),
+                            right: expect.any(Number)
+                        })
+                    );
 
-    // test('files', () => {
-    //   return new Promise(function(resolve) {
-    //       console.log('hello there how are you');
-    //     resemble('demoassets/People.jpg')
-    //       .compareTo('demoassets/People2.jpg')
-    //       .onComplete(function(data) {
-    //         // console.info('Reached oncomplete for request_success');
-    //         expect(data.diffBounds).toEqual(
-    //           expect.objectContaining({
-    //             bottom: expect.any(Number),
-    //             left: expect.any(Number),
-    //             top: expect.any(Number),
-    //             right: expect.any(Number)
-    //           })
-    //         );
-    //
-    //         expect(data.diffBounds.bottom).toEqual(431);
-    //         expect(data.diffBounds.left).toEqual(22);
-    //         expect(data.diffBounds.right).toEqual(450);
-    //         expect(data.diffBounds.top).toEqual(58);
-    //         expect(data.dimensionDifference.height).toEqual(0);
-    //         expect(data.dimensionDifference.width).toEqual(0);
-    //         expect(data.isSameDimensions).toBe(true);
-    //         expect(data.misMatchPercentage).toEqual('8.66');
-    //         resolve();
-    //       });
-    //   });
-    // });
+                    expect(data.diffBounds.bottom).toEqual(431);
+                    expect(data.diffBounds.left).toEqual(22);
+                    expect(data.diffBounds.right).toEqual(450);
+                    expect(data.diffBounds.top).toEqual(58);
+                    expect(data.dimensionDifference.height).toEqual(0);
+                    expect(data.dimensionDifference.width).toEqual(0);
+                    expect(data.isSameDimensions).toBe(true);
+                    expect(data.misMatchPercentage).toEqual("8.66");
+                    resolve();
+                });
+        });
+    });
 
     test("file not found", () =>
         new Promise(resolve => {
             resemble("../demoassets/People.jpg")
                 .compareTo("../demoassets/404-image.jpg")
                 .onComplete(data => {
-                    // console.info('Reached oncomplete for request404');
-                    // console.log(data);
                     expect(data.error).toEqual(
                         "Error: ENOENT, No such file or directory '../demoassets/People.jpg'"
                     );
@@ -85,7 +78,6 @@ describe("resemble", () => {
             resemble(people)
                 .compareTo(people2)
                 .onComplete(data => {
-                    // console.info('Reached oncomplete for base64String');
                     expect(data.diffBounds.bottom).toEqual(431);
                     expect(data.diffBounds.left).toEqual(22);
                     expect(data.diffBounds.right).toEqual(450);
@@ -107,7 +99,6 @@ describe("resemble", () => {
             resemble(people)
                 .compareTo(people2)
                 .onComplete(data => {
-                    // console.info('Reached oncomplete for base64String');
                     expect(data.diffBounds.bottom).toEqual(138);
                     expect(data.diffBounds.left).toEqual(90);
                     expect(data.diffBounds.right).toEqual(157);
@@ -121,7 +112,7 @@ describe("resemble", () => {
         });
     });
 
-    test("partial diff with bounding box", () => {
+    test("partial diff with single bounding box", () => {
         const people = fs.readFileSync("./demoassets/ghost1.png");
         const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
@@ -169,6 +160,91 @@ describe("resemble", () => {
                         "./nodejs-tests/assets/pixelErrorColorTest.png"
                     );
                     expect(buffer.equals(comparison)).toBe(true);
+                    resolve();
+                });
+        });
+    });
+
+    test("partial diff with bounding boxes", () => {
+        const people = fs.readFileSync("./nodejs-tests/assets/text.png");
+        const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
+
+        return new Promise(resolve => {
+            resemble.outputSettings({
+                boundingBoxes: [
+                    {
+                        left: 20,
+                        top: 20,
+                        right: 350,
+                        bottom: 80
+                    },
+                    {
+                        left: 20,
+                        top: 200,
+                        right: 350,
+                        bottom: 250
+                    }
+                ]
+            });
+
+            resemble(people)
+                .compareTo(people2)
+                .onComplete(data => {
+                    expect(data.misMatchPercentage).toEqual("3.39");
+                    resolve();
+                });
+        });
+    });
+
+    test("partial diff with ignored boxes", () => {
+        const people = fs.readFileSync("./nodejs-tests/assets/text.png");
+        const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
+
+        return new Promise(resolve => {
+            resemble.outputSettings({
+                ignoredBoxes: [
+                    {
+                        left: 20,
+                        top: 20,
+                        right: 350,
+                        bottom: 80
+                    },
+                    {
+                        left: 20,
+                        top: 200,
+                        right: 350,
+                        bottom: 250
+                    }
+                ]
+            });
+
+            resemble(people)
+                .compareTo(people2)
+                .onComplete(data => {
+                    expect(data.misMatchPercentage).toEqual("1.80");
+                    resolve();
+                });
+        });
+    });
+
+    test("partial diff with single ignored box", () => {
+        const people = fs.readFileSync("./nodejs-tests/assets/text.png");
+        const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
+
+        return new Promise(resolve => {
+            resemble.outputSettings({
+                ignoredBox: {
+                    left: 20,
+                    top: 20,
+                    right: 350,
+                    bottom: 80
+                }
+            });
+
+            resemble(people)
+                .compareTo(people2)
+                .onComplete(data => {
+                    expect(data.misMatchPercentage).toEqual("3.52");
                     resolve();
                 });
         });

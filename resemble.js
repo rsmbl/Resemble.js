@@ -109,8 +109,8 @@ var isNode = new Function(
 
         var errorPixel = errorPixelTransform.flat;
         var errorType;
-        var boundingBoxs;
-        var ignoredBoxs;
+        var boundingBoxes;
+        var ignoredBoxes;
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
@@ -150,40 +150,46 @@ var isNode = new Function(
         }
 
         function withinComparedArea(x, y, width, height) {
-            var isIncluded = true, i, boundingBox, ignoredBox, selected, ignored;
-            if(boundingBoxs instanceof Array) {
-            	selected = false;
-            	for (i = 0; i < boundingBoxs.length; i++) {
-            		boundingBox = boundingBoxs[i];
-            		if (withinBoundingBox(x, y, width, height, boundingBox)) {
-            			selected = true;
-            			break;
-            		}
-            	}
+            var isIncluded = true,
+                i,
+                boundingBox,
+                ignoredBox,
+                selected,
+                ignored;
+
+            if (boundingBoxes instanceof Array) {
+                selected = false;
+                for (i = 0; i < boundingBoxes.length; i++) {
+                    boundingBox = boundingBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, boundingBox)) {
+                        selected = true;
+                        break;
+                    }
+                }
             }
-            if(ignoredBoxs instanceof Array) {
-            	ignored = true;
-            	for (i = 0; i < ignoredBoxs.length; i++) {
-            		ignoredBox = ignoredBoxs[i];
-            		if (withinBoundingBox(x, y, width, height, ignoredBox)) {
-            			ignored = false;
-            			break;
-            		}
-            	}
+            if (ignoredBoxes instanceof Array) {
+                ignored = true;
+                for (i = 0; i < ignoredBoxes.length; i++) {
+                    ignoredBox = ignoredBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, ignoredBox)) {
+                        ignored = false;
+                        break;
+                    }
+                }
             }
-            
-            if(selected === undefined && ignored === undefined) {
-            	return true;
+
+            if (selected === undefined && ignored === undefined) {
+                return true;
             }
-            if(selected === false && ignored === true) {
-            	return false;
+            if (selected === false && ignored === true) {
+                return false;
             }
             if (selected === true || ignored === true) {
-            	isIncluded = true;
+                isIncluded = true;
             }
             if (selected === false || ignored === false) {
-            	isIncluded = false;
-            } 
+                isIncluded = false;
+            }
             return isIncluded;
         }
 
@@ -781,19 +787,19 @@ var isNode = new Function(
             }
 
             if (options.boundingBox !== undefined) {
-                boundingBoxs = [options.boundingBox];
+                boundingBoxes = [options.boundingBox];
             }
 
             if (options.ignoredBox !== undefined) {
-                ignoredBoxs = [options.ignoredBox];
-            }
-            
-            if (options.boundingBoxs !== undefined) {
-                boundingBoxs = options.boundingBoxs;
+                ignoredBoxes = [options.ignoredBox];
             }
 
-            if (options.ignoredBoxs !== undefined) {
-                ignoredBoxs = options.ignoredBoxs;
+            if (options.boundingBoxes !== undefined) {
+                boundingBoxes = options.boundingBoxes;
+            }
+
+            if (options.ignoredBoxes !== undefined) {
+                ignoredBoxes = options.ignoredBoxes;
             }
         }
 
@@ -997,6 +1003,7 @@ var isNode = new Function(
                 return rootSelf;
             }
         };
+
         return rootSelf;
     };
 
