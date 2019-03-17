@@ -131,7 +131,7 @@ var isNode = new Function(
         var ignoreColors = false;
         var scaleToSameSize = false;
         var compareOnly = false;
-        var misMatchThreshold;
+        var returnEarlyThreshold;
 
         function colorsDistance(c1, c2) {
             return (
@@ -705,7 +705,7 @@ var isNode = new Function(
                     var currentMisMatchPercent =
                         (mismatchCount / (height * width)) * 100;
 
-                    if (currentMisMatchPercent > misMatchThreshold) {
+                    if (currentMisMatchPercent > returnEarlyThreshold) {
                         skipTheRest = true;
                     }
                 }
@@ -913,9 +913,12 @@ var isNode = new Function(
             }
 
             var self = {
-                comparisonLimit: function(percent) {
-                    compareOnly = true;
-                    misMatchThreshold = percent;
+                setReturnEarlyThreshold: function(threshold) {
+                    if (threshold) {
+                        compareOnly = true;
+                        returnEarlyThreshold = threshold;
+                    }
+                    return self;
                 },
                 scaleToSameSize: function() {
                     scaleToSameSize = true;
@@ -1106,8 +1109,8 @@ var isNode = new Function(
 
         compare = res.compareTo(image2);
 
-        if (opt.misMatchThreshold) {
-            compare.comparisonLimit(opt.misMatchThreshold);
+        if (opt.returnEarlyThreshold) {
+            compare.setReturnEarlyThreshold(opt.returnEarlyThreshold);
         }
 
         if (opt.scaleToSameSize) {

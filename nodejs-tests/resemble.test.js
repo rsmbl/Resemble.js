@@ -249,4 +249,19 @@ describe("resemble", () => {
                 });
         });
     });
+
+    test("returns early", () => {
+        const people = fs.readFileSync("./nodejs-tests/assets/text.png");
+        const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
+
+        return new Promise(resolve => {
+            resemble(people)
+                .compareTo(people2)
+                .setReturnEarlyThreshold(2)
+                .onComplete(data => {
+                    expect(data.misMatchPercentage).toEqual("2.00");
+                    resolve();
+                });
+        });
+    });
 });
