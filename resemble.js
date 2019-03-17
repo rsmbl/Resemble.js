@@ -131,7 +131,7 @@ var isNode = new Function(
         var ignoreColors = false;
         var scaleToSameSize = false;
         var compareOnly = false;
-        var misMatchThreshold = null;
+        var misMatchThreshold;
 
         function colorsDistance(c1, c2) {
             return (
@@ -554,23 +554,22 @@ var isNode = new Function(
         }
 
         function analyseImages(img1, img2, width, height) {
-            var hiddenCanvas = !compareOnly
-                ? document.createElement("canvas")
-                : null;
-
-            if (!compareOnly) {
-                hiddenCanvas.width = width;
-                hiddenCanvas.height = height;
-            }
-
             var data1 = img1.data;
             var data2 = img2.data;
+            var hiddenCanvas;
+            var context;
+            var imgd;
+            var pix;
 
-            var context = !compareOnly ? hiddenCanvas.getContext("2d") : null;
-            var imgd = !compareOnly
-                ? context.createImageData(width, height)
-                : null;
-            var pix = !compareOnly ? imgd.data : null;
+            if (!compareOnly) {
+                hiddenCanvas = document.createElement("canvas");
+                hiddenCanvas.width = width;
+                hiddenCanvas.height = height;
+
+                context = hiddenCanvas.getContext("2d");
+                imgd = context.createImageData(width, height);
+                pix = imgd.data;
+            }
 
             var mismatchCount = 0;
             var diffBounds = {
