@@ -145,7 +145,13 @@ The resemble.compare API provides a convenience function that is used as follows
 const compare = require("resemblejs").compare;
 
 function getDiff() {
-    const options = {};
+    const options = {
+        // stop comparing once determined to be > 5% non-matching; this will
+        // also enable compare-only mode and no output image will be rendered;
+        // the combination of these results in a significant speed-up in batch processing
+        misMatchThreshold: 5
+    };
+
     // The parameters can be Node Buffers
     // data is the same as usual with an additional getBuffer() function
     compare(image1, image2, options, function(err, data) {
