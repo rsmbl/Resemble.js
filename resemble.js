@@ -562,9 +562,7 @@ var isNode = new Function(
             var pix;
 
             if (!compareOnly) {
-                hiddenCanvas = document.createElement("canvas");
-                hiddenCanvas.width = width;
-                hiddenCanvas.height = height;
+                hiddenCanvas = createCanvas(width, height);
 
                 context = hiddenCanvas.getContext("2d");
                 imgd = context.createImageData(width, height);

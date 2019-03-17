@@ -23,8 +23,9 @@
     "homepage": "https://github.com/Huddle/Resemble.js",
     "scripts": {
         "test": "jest nodejs-tests",
-        "test-codacy-coverage": "jest nodejs-tests --coverage && cat ./coverage/lcov.info | codacy-coverage",
-        "test-watch": "jest --watch nodejs-tests",
+        "test:codacy-coverage": "jest nodejs-tests --coverage && cat ./coverage/lcov.info | codacy-coverage",
+        "test:watch": "jest --watch nodejs-tests",
+        "test:debug": "node --inspect node_modules/jest/bin/jest --watch --runInBand nodejs-tests",
         "lint": "eslint **/*.js --fix"
     },
     "husky": {
