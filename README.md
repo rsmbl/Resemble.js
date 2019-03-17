@@ -3,6 +3,7 @@
 <p align="center">
     <a href="https://travis-ci.org/rsmbl/Resemble.js"><img alt="Build Status" src="https://travis-ci.org/rsmbl/Resemble.js.svg?branch=master" /></a>
     <a href="https://www.codacy.com/app/jamescryer/Resemble.js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsmbl/Resemble.js&amp;utm_campaign=Badge_Grade"><img alt="Code Health" src="https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3" /></a>
+    <a href="https://www.codacy.com/app/jamescryer/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=rsmbl/Resemble.js&utm_campaign=Badge_Coverage"><img alt="Coverage" src="https://api.codacy.com/project/badge/Coverage/9223d8d37c99428c8c06b889470327a5" /></a>
     <a href="https://opensource.org/licenses/MIT"><img alt="Build Status" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
     <a href="https://www.npmjs.com/package/resemblejs"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/resemblejs.svg" /></a>
 </p>
@@ -93,29 +94,33 @@ resemble.outputSettings({
 It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
-resemble.outputSettings({
-    boundingBox: {
-        left: 100,
-        top: 200,
-        right: 200,
-        bottom: 600
-    }
-});
-// .repaint();
+const box = {
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
+};
+resemble.outputSettings({ boundingBox: box });
+```
+
+```javascript
+resemble.outputSettings({ boundingBoxes: [box1, box2] });
 ```
 
 You can also exclude part of the image from comparison, by specifying the excluded area in pixels from the top left:
 
 ```javascript
-resemble.outputSettings({
-    ignoredBox: {
-        left: 100,
-        top: 200,
-        right: 200,
-        bottom: 600
-    }
-});
-// .repaint();
+const box = {
+    left: 100,
+    top: 200,
+    right: 200,
+    bottom: 600
+};
+resemble.outputSettings({ ignoredBox: box });
+```
+
+```javascript
+resemble.outputSettings({ ignoredBoxes: [box1, box2] });
 ```
 
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
@@ -141,7 +146,13 @@ The resemble.compare API provides a convenience function that is used as follows
 const compare = require("resemblejs").compare;
 
 function getDiff() {
-    const options = {};
+    const options = {
+        // stop comparing once determined to be > 5% non-matching; this will
+        // also enable compare-only mode and no output image will be rendered;
+        // the combination of these results in a significant speed-up in batch processing
+        misMatchThreshold: 5
+    };
+
     // The parameters can be Node Buffers
     // data is the same as usual with an additional getBuffer() function
     compare(image1, image2, options, function(err, data) {

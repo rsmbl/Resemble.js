@@ -109,8 +109,8 @@ var isNode = new Function(
 
         var errorPixel = errorPixelTransform.flat;
         var errorType;
-        var boundingBox;
-        var ignoredBox;
+        var boundingBoxes;
+        var ignoredBoxes;
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
@@ -130,6 +130,8 @@ var isNode = new Function(
         var ignoreAntialiasing = false;
         var ignoreColors = false;
         var scaleToSameSize = false;
+        var compareOnly = false;
+        var returnEarlyThreshold;
 
         function colorsDistance(c1, c2) {
             return (
@@ -150,22 +152,46 @@ var isNode = new Function(
         }
 
         function withinComparedArea(x, y, width, height) {
-            var isIncluded = true;
+            var isIncluded = true,
+                i,
+                boundingBox,
+                ignoredBox,
+                selected,
+                ignored;
 
-            if (
-                boundingBox !== undefined &&
-                !withinBoundingBox(x, y, width, height, boundingBox)
-            ) {
-                isIncluded = false;
+            if (boundingBoxes instanceof Array) {
+                selected = false;
+                for (i = 0; i < boundingBoxes.length; i++) {
+                    boundingBox = boundingBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, boundingBox)) {
+                        selected = true;
+                        break;
+                    }
+                }
+            }
+            if (ignoredBoxes instanceof Array) {
+                ignored = true;
+                for (i = 0; i < ignoredBoxes.length; i++) {
+                    ignoredBox = ignoredBoxes[i];
+                    if (withinBoundingBox(x, y, width, height, ignoredBox)) {
+                        ignored = false;
+                        break;
+                    }
+                }
             }
 
-            if (
-                ignoredBox !== undefined &&
-                withinBoundingBox(x, y, width, height, ignoredBox)
-            ) {
+            if (selected === undefined && ignored === undefined) {
+                return true;
+            }
+            if (selected === false && ignored === true) {
+                return false;
+            }
+            if (selected === true || ignored === true) {
+                isIncluded = true;
+            }
+            if (selected === false || ignored === false) {
                 isIncluded = false;
             }
-
             return isIncluded;
         }
 
@@ -528,14 +554,20 @@ var isNode = new Function(
         }
 
         function analyseImages(img1, img2, width, height) {
-            var hiddenCanvas = createCanvas(width, height);
-
             var data1 = img1.data;
             var data2 = img2.data;
+            var hiddenCanvas;
+            var context;
+            var imgd;
+            var pix;
 
-            var context = hiddenCanvas.getContext("2d");
-            var imgd = context.createImageData(width, height);
-            var pix = imgd.data;
+            if (!compareOnly) {
+                hiddenCanvas = createCanvas(width, height);
+
+                context = hiddenCanvas.getContext("2d");
+                imgd = context.createImageData(width, height);
+                pix = imgd.data;
+            }
 
             var mismatchCount = 0;
             var diffBounds = {
@@ -566,7 +598,13 @@ var isNode = new Function(
             var pixel1 = { r: 0, g: 0, b: 0, a: 0 };
             var pixel2 = { r: 0, g: 0, b: 0, a: 0 };
 
+            var skipTheRest = false;
+
             loop(width, height, function(horizontalPos, verticalPos) {
+                if (skipTheRest) {
+                    return;
+                }
+
                 if (skip) {
                     // only skip if the image isn't small
                     if (
@@ -600,9 +638,14 @@ var isNode = new Function(
                         isPixelBrightnessSimilar(pixel1, pixel2) ||
                         !isWithinComparedArea
                     ) {
-                        copyGrayScalePixel(pix, offset, pixel2);
+                        if (!compareOnly) {
+                            copyGrayScalePixel(pix, offset, pixel2);
+                        }
                     } else {
-                        errorPixel(pix, offset, pixel1, pixel2);
+                        if (!compareOnly) {
+                            errorPixel(pix, offset, pixel1, pixel2);
+                        }
+
                         mismatchCount++;
                         updateBounds(horizontalPos, verticalPos);
                     }
@@ -610,7 +653,9 @@ var isNode = new Function(
                 }
 
                 if (isRGBSimilar(pixel1, pixel2) || !isWithinComparedArea) {
-                    copyPixel(pix, offset, pixel1);
+                    if (!compareOnly) {
+                        copyPixel(pix, offset, pixel1);
+                    }
                 } else if (
                     ignoreAntialiasing &&
                     (addBrightnessInfo(pixel1), // jit pixel info augmentation looks a little weird, sorry.
@@ -636,16 +681,33 @@ var isNode = new Function(
                         isPixelBrightnessSimilar(pixel1, pixel2) ||
                         !isWithinComparedArea
                     ) {
-                        copyGrayScalePixel(pix, offset, pixel2);
+                        if (!compareOnly) {
+                            copyGrayScalePixel(pix, offset, pixel2);
+                        }
                     } else {
-                        errorPixel(pix, offset, pixel1, pixel2);
+                        if (!compareOnly) {
+                            errorPixel(pix, offset, pixel1, pixel2);
+                        }
+
                         mismatchCount++;
                         updateBounds(horizontalPos, verticalPos);
                     }
                 } else {
-                    errorPixel(pix, offset, pixel1, pixel2);
+                    if (!compareOnly) {
+                        errorPixel(pix, offset, pixel1, pixel2);
+                    }
+
                     mismatchCount++;
                     updateBounds(horizontalPos, verticalPos);
+                }
+
+                if (compareOnly) {
+                    var currentMisMatchPercent =
+                        (mismatchCount / (height * width)) * 100;
+
+                    if (currentMisMatchPercent > returnEarlyThreshold) {
+                        skipTheRest = true;
+                    }
                 }
             });
 
@@ -656,6 +718,12 @@ var isNode = new Function(
             data.analysisTime = Date.now() - time;
 
             data.getImageDataUrl = function(text) {
+                if (compareOnly) {
+                    throw Error(
+                        "No diff image available - ran in compareOnly mode"
+                    );
+                }
+
                 var barHeight = 0;
 
                 if (text) {
@@ -667,7 +735,7 @@ var isNode = new Function(
                 return hiddenCanvas.toDataURL("image/png");
             };
 
-            if (hiddenCanvas.toBuffer) {
+            if (!compareOnly && hiddenCanvas.toBuffer) {
                 data.getBuffer = function(includeOriginal) {
                     if (includeOriginal) {
                         var imageWidth = hiddenCanvas.width + 2;
@@ -763,11 +831,19 @@ var isNode = new Function(
             }
 
             if (options.boundingBox !== undefined) {
-                boundingBox = options.boundingBox;
+                boundingBoxes = [options.boundingBox];
             }
 
             if (options.ignoredBox !== undefined) {
-                ignoredBox = options.ignoredBox;
+                ignoredBoxes = [options.ignoredBox];
+            }
+
+            if (options.boundingBoxes !== undefined) {
+                boundingBoxes = options.boundingBoxes;
+            }
+
+            if (options.ignoredBoxes !== undefined) {
+                ignoredBoxes = options.ignoredBoxes;
             }
         }
 
@@ -837,6 +913,13 @@ var isNode = new Function(
             }
 
             var self = {
+                setReturnEarlyThreshold: function(threshold) {
+                    if (threshold) {
+                        compareOnly = true;
+                        returnEarlyThreshold = threshold;
+                    }
+                    return self;
+                },
                 scaleToSameSize: function() {
                     scaleToSameSize = true;
 
@@ -971,6 +1054,7 @@ var isNode = new Function(
                 return rootSelf;
             }
         };
+
         return rootSelf;
     };
 
@@ -1024,6 +1108,10 @@ var isNode = new Function(
         }
 
         compare = res.compareTo(image2);
+
+        if (opt.returnEarlyThreshold) {
+            compare.setReturnEarlyThreshold(opt.returnEarlyThreshold);
+        }
 
         if (opt.scaleToSameSize) {
             compare.scaleToSameSize();

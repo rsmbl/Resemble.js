@@ -45,4 +45,19 @@ describe("compareImages", () => {
             "Error: ENOENT, No such file or directory 'bogus data'"
         );
     });
+
+    test("returns early", async () => {
+        const readImg1 = readFile("./demoassets/People.jpg");
+        const readImg2 = readFile("./demoassets/People2.jpg");
+        const options = {
+            returnEarlyThreshold: 5
+        };
+        const data = await compareImages(
+            await readImg1,
+            await readImg2,
+            options
+        );
+
+        expect(data.misMatchPercentage).toEqual("5.00");
+    });
 });
