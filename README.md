@@ -127,7 +127,7 @@ By default, the comparison algorithm skips pixels when the image width or height
 
 You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
 
-Resemble.js also supports Data URIs as strings
+Resemble.js also supports Data URIs as strings:
 
 ```javascript
 resemble.outputSettings({ useCrossOrigin: false });
@@ -137,6 +137,17 @@ var diff = resemble("data:image/jpeg;base64,/9j/4AAQSkZJRgAB...").compareTo(
 ```
 
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+
+If you'd like resemble to return early:
+
+```javascript
+resemble(img1)
+    .compareTo(img2)
+    .setReturnEarlyThreshold(8) // %
+    .onComplete(data => {
+        /* do something */
+    });
+```
 
 ### Single callback api
 
@@ -150,7 +161,7 @@ function getDiff() {
         // stop comparing once determined to be > 5% non-matching; this will
         // also enable compare-only mode and no output image will be rendered;
         // the combination of these results in a significant speed-up in batch processing
-        misMatchThreshold: 5
+        returnEarlyThreshold: 5
     };
 
     // The parameters can be Node Buffers
@@ -204,8 +215,8 @@ async function getDiff() {
     // The parameters can be Node Buffers
     // data is the same as usual with an additional getBuffer() function
     const data = await compareImages(
-        await fs.readFile("./demoassets/People.jpg"),
-        await fs.readFile("./demoassets/People2.jpg"),
+        await fs.readFile("./your-image-path/People.jpg"),
+        await fs.readFile("./your-image-path/People2.jpg"),
         options
     );
 
