@@ -1,6 +1,6 @@
 {
     "name": "resemblejs",
-    "version": "3.0.2",
+    "version": "3.1.0",
     "description": "Image analysis and comparison with HTML5",
     "main": "resemble.js",
     "repository": {
