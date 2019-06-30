@@ -111,6 +111,7 @@ var isNode = new Function(
         var errorType;
         var boundingBoxes;
         var ignoredBoxes;
+	var ignoreAreasColoredWith;
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
@@ -151,7 +152,7 @@ var isNode = new Function(
             );
         }
 
-        function withinComparedArea(x, y, width, height) {
+        function withinComparedArea(x, y, width, height, pixel2) {
             var isIncluded = true,
                 i,
                 boundingBox,
@@ -179,6 +180,10 @@ var isNode = new Function(
                     }
                 }
             }
+
+	    if (ignoreAreasColoredWith) {
+		return colorsDistance(pixel2, ignoreAreasColoredWith) !== 0;
+	    }
 
             if (selected === undefined && ignored === undefined) {
                 return true;
@@ -616,19 +621,20 @@ var isNode = new Function(
                 }
 
                 var offset = (verticalPos * width + horizontalPos) * 4;
-                var isWithinComparedArea = withinComparedArea(
-                    horizontalPos,
-                    verticalPos,
-                    width,
-                    height
-                );
-
                 if (
                     !getPixelInfo(pixel1, data1, offset, 1) ||
                     !getPixelInfo(pixel2, data2, offset, 2)
                 ) {
                     return;
                 }
+
+                var isWithinComparedArea = withinComparedArea(
+                    horizontalPos,
+                    verticalPos,
+                    width,
+                    height,
+		    pixel2
+                );
 
                 if (ignoreColors) {
                     addBrightnessInfo(pixel1);
@@ -845,6 +851,10 @@ var isNode = new Function(
             if (options.ignoredBoxes !== undefined) {
                 ignoredBoxes = options.ignoredBoxes;
             }
+
+	    if (options.ignoreAreasColoredWith !== undefined) {
+	        ignoreAreasColoredWith = options.ignoreAreasColoredWith;
+	    }
         }
 
         function compare(one, two) {
