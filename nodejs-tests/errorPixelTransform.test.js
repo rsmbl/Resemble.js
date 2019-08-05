@@ -24,7 +24,7 @@ const testErrorPixelTransform = transform => {
 
                 expect(buffer).toBeInstanceOf(Buffer);
 
-                //fs.writeFileSync(`./nodejs-tests/assets/pixelErrorTransform/${transform}.new.png`, buffer);
+                // fs.writeFileSync(`./nodejs-tests/assets/pixelErrorTransform/${transform}.new.png`, buffer);
 
                 const comparison = fs.readFileSync(
                     `./nodejs-tests/assets/pixelErrorTransform/${transform}.png`

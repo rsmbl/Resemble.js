@@ -5,7 +5,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 var isNode = new Function(
     "return (typeof process !== 'undefined') && (process.release.name === 'node')"
-);
+); //eslint-disable-line
 
 (function(root, factory) {
     "use strict";
@@ -16,7 +16,7 @@ var isNode = new Function(
     } else {
         root.resemble = factory();
     }
-})(this /*eslint-disable-line no-invalid-this*/, function() {
+})(this /* eslint-disable-line no-invalid-this*/, function() {
     "use strict";
 
     var Img;
@@ -152,12 +152,12 @@ var isNode = new Function(
         }
 
         function withinComparedArea(x, y, width, height) {
-            var isIncluded = true,
-                i,
-                boundingBox,
-                ignoredBox,
-                selected,
-                ignored;
+            var isIncluded = true;
+            var i;
+            var boundingBox;
+            var ignoredBox;
+            var selected;
+            var ignored;
 
             if (boundingBoxes instanceof Array) {
                 selected = false;
@@ -338,7 +338,7 @@ var isNode = new Function(
                 fileDataForImage instanceof Buffer
             ) {
                 // If we have Buffer, assume we're on Node+Canvas and its supported
-                //hiddenImage.src = fileDataForImage;
+                // hiddenImage.src = fileDataForImage;
 
                 loadNodeCanvasImage(fileDataForImage)
                     .then(function(image) {

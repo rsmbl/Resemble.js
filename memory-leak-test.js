@@ -1,5 +1,3 @@
-/* eslint no-process-exit: "warn"*/
-
 // node --expose-gc memory-leak-test.js
 
 const fs = require("fs");
@@ -33,5 +31,5 @@ function compare() {
 
 function log() {
     console.timeEnd(timerLabel);
-    process.exit(0);
+    process.exit(0); //eslint-disable-line
 }
