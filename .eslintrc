@@ -37,7 +37,8 @@
         "no-shadow": "error",
         "global-require": "error",
         "comma-dangle": ["error", "never"],
-        "camelcase": ["error",{"properties": "always"}]
+        "camelcase": ["error",{"properties": "always"}],
+        "no-prototype-builtins": "off"
     },
     "env": {
         "amd": true,

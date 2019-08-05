@@ -26,7 +26,7 @@ function requestSuccess() {
                 expect(data.diffBounds.top).to.equal(58);
                 expect(data.dimensionDifference.height).to.equal(0);
                 expect(data.dimensionDifference.width).to.equal(0);
-                expect(data.isSameDimensions).to.be["true"];
+                expect(data.isSameDimensions).to.be.true;
                 expect(data.misMatchPercentage).to.include("8.6");
                 resolve();
             });
@@ -45,7 +45,7 @@ function base64String() {
                 expect(data.diffBounds.top).to.equal(58);
                 expect(data.dimensionDifference.height).to.equal(0);
                 expect(data.dimensionDifference.width).to.equal(0);
-                expect(data.isSameDimensions).to.be["true"];
+                expect(data.isSameDimensions).to.be.true;
                 expect(data.misMatchPercentage).to.include("8.6");
                 resolve();
             });
