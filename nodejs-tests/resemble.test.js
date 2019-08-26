@@ -264,4 +264,37 @@ describe("resemble", () => {
                 });
         });
     });
+
+    test("partial diff with ignored color", () => {
+        const peopleSrc = `data:image/jpeg;base64,${fs.readFileSync(
+            "./nodejs-tests/assets/PeopleWithIgnoreMask.png",
+            "base64"
+        )}`;
+        const people2Src = `data:image/jpeg;base64,${fs.readFileSync(
+            "./demoassets/People2.jpg",
+            "base64"
+        )}`;
+
+        return new Promise(resolve => {
+            resemble.outputSettings({
+                ignoreAreasColoredWith: {
+                    r: 255,
+                    g: 0,
+                    b: 0,
+                    a: 255
+                }
+            });
+
+            resemble(people2Src)
+                .compareTo(peopleSrc)
+                .onComplete(data => {
+                    const buffer = data.getBuffer();
+                    const comparison = fs.readFileSync(
+                        "./nodejs-tests/assets/ignoredColorTestResult.png"
+                    );
+                    expect(buffer.equals(comparison)).toBe(true);
+                    resolve();
+                });
+        });
+    });
 });

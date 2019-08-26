@@ -217,8 +217,7 @@ $(function() {
                 })
                 .repaint();
             $this.removeClass("active");
-        }
-        if ($this.is("#ignoredBox")) {
+        } else if ($this.is("#ignoredBox")) {
             resembleControl
                 .outputSettings({
                     ignoredBox: {
@@ -226,6 +225,18 @@ $(function() {
                         top: $("#ignored-box-y1").val(),
                         right: $("#ignored-box-x2").val(),
                         bottom: $("#ignored-box-y2").val()
+                    }
+                })
+                .repaint();
+            $this.removeClass("active");
+        } else if ($this.is("#ignoredColor")) {
+            resembleControl
+                .outputSettings({
+                    ignoreAreasColoredWith: {
+                        r: parseInt($("#ignored-color-r").val()),
+                        g: parseInt($("#ignored-color-g").val()),
+                        b: parseInt($("#ignored-color-b").val()),
+                        a: parseInt($("#ignored-color-a").val())
                     }
                 })
                 .repaint();

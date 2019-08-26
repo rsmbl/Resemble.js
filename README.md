@@ -123,6 +123,19 @@ resemble.outputSettings({ ignoredBox: box });
 resemble.outputSettings({ ignoredBoxes: [box1, box2] });
 ```
 
+Another way to exclude parts of the image from comparison, is using the `ignoreAreasColoredWith` option.
+Any pixels that match the specified color on a reference image will be excluded from comparison:
+
+```javascript
+const color = {
+    r: 255,
+    g: 0,
+    b: 0,
+    a: 255
+};
+resemble.outputSettings({ ignoreAreasColoredWith: color });
+```
+
 By default, the comparison algorithm skips pixels when the image width or height is larger than 1200 pixels. This is there to mitigate performance issues.
 
 You can modify this behaviour by setting the `largeImageThreshold` option to a different value. Set it to **0** to switch it off completely.
