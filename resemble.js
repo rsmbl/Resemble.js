@@ -153,12 +153,12 @@ var isNode = new Function(
         }
 
         function withinComparedArea(x, y, width, height, pixel2) {
-            var isIncluded = true,
-                i,
-                boundingBox,
-                ignoredBox,
-                selected,
-                ignored;
+            var isIncluded = true;
+            var i;
+            var boundingBox;
+            var ignoredBox;
+            var selected;
+            var ignored;
 
             if (boundingBoxes instanceof Array) {
                 selected = false;
