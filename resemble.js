@@ -1069,9 +1069,6 @@ var isNode = new Function(
     };
 
     function setGlobalOutputSettings(settings) {
-        var msg =
-            "resemble.outputSettings mutates global state, and will be removed in a later major version";
-        console.warn(msg);
         globalOutputSettings = settings;
         return resemble;
     }
