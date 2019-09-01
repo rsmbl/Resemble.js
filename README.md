@@ -91,6 +91,8 @@ resemble.outputSettings({
 // .repaint();
 ```
 
+> Note: `resemble.outputSettings` mutates global state, effecting all subsequent call to Resemble.
+
 It is possible to narrow down the area of comparison, by specifying a bounding box measured in pixels from the top left:
 
 ```javascript
@@ -263,7 +265,5 @@ docker run rsmbl/resemble
 As people have asked in the past, Resemble.js hasn't knowingly implemented any published ideas. RGBA colour comparison is simple and straightforward when working with the Canvas API. The antialiasing algorithm was developed at [Huddle](https://github.com/HuddleEng) over several days of trial-and-error using various false-positive results from PhantomCSS tests.
 
 ---
-
->Note: `resemble.outputSettings` mutates global state, and will be removed in a later major version
 
 Created by [James Cryer](http://github.com/jamescryer) and the [Huddle development team](https://github.com/HuddleEng).
