@@ -264,4 +264,6 @@ As people have asked in the past, Resemble.js hasn't knowingly implemented any p
 
 ---
 
+>Note: `resemble.outputSettings` mutates global state, and will be removed in a later major version
+
 Created by [James Cryer](http://github.com/jamescryer) and the [Huddle development team](https://github.com/HuddleEng).
