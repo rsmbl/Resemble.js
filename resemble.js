@@ -4,7 +4,7 @@ URL: https://github.com/Huddle/Resemble.js
 */
 
 var isNode = new Function(
-    "return (typeof process !== 'undefined') && (process.release.name === 'node')"
+    "return (typeof process !== 'undefined') && process.versions && process.versions.node"
 ); //eslint-disable-line
 
 (function(root, factory) {
