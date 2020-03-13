@@ -783,7 +783,7 @@ URL: https://github.com/Huddle/Resemble.js
 			},
 			compareTo: function(secondFileData){
 				return getCompareApi(secondFileData);
-			}
+			},
 			outputSettings: function(options) {
 				outputSettings(options);
 				return rootSelf;
