@@ -1,28 +1,16 @@
 {
-    "extends": [
-        "eslint-config-es5",
-        "eslint:recommended",
-        "plugin:prettier/recommended"
-    ],
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
     "parserOptions": {
         "ecmaVersion": 2017,
         "sourceType": "module"
     },
     "rules": {
-        "prettier/prettier": [
-            "error",
-            {
-                "singleQuote": true,
-                "tabWidth": 4,
-                "printWidth": 160
-            }
-        ],
         "no-console": "off",
         "no-use-before-define": ["error", { "functions": false }],
         "func-names": ["off"],
         "complexity": ["error", 26],
         "curly": ["error", "all"],
-        "dot-location":  ["error", "property"],
+        "dot-location": ["error", "property"],
         "dot-notation": ["error"],
         "eqeqeq": ["error", "always"],
         "guard-for-in": "error",
@@ -37,11 +25,16 @@
         "no-shadow": "error",
         "global-require": "error",
         "comma-dangle": ["error", "never"],
-        "camelcase": ["error",{"properties": "always"}],
+        "camelcase": ["error", { "properties": "always" }],
         "no-prototype-builtins": "off"
     },
     "env": {
         "amd": true,
-        "es6": true
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+        "globalThis": false
     }
 }

@@ -9,9 +9,7 @@ describe("compareImages", () => {
     test("Buffers data", async () => {
         const readImg1 = readFile("./demoassets/People.jpg");
         const readImg2 = readFile("./demoassets/People2.jpg");
-        const readComparison = readFile(
-            "./nodejs-tests/assets/PeopleComparedToPeople2.png"
-        );
+        const readComparison = readFile("./nodejs-tests/assets/PeopleComparedToPeople2.png");
 
         const data = await compareImages(await readImg1, await readImg2);
         const buffer = data.getBuffer();
@@ -27,9 +25,7 @@ describe("compareImages", () => {
     test("Buffer data includeOriginal", async () => {
         const readImg1 = readFile("./demoassets/People.jpg");
         const readImg2 = readFile("./demoassets/People2.jpg");
-        const readComparison = readFile(
-            "./nodejs-tests/assets/PeopleComparedToPeople2WithOriginal.png"
-        );
+        const readComparison = readFile("./nodejs-tests/assets/PeopleComparedToPeople2WithOriginal.png");
         const data = await compareImages(await readImg1, await readImg2);
         const buffer = data.getBuffer(true);
         const comparison = await readComparison;
@@ -37,13 +33,8 @@ describe("compareImages", () => {
     });
 
     test("throws when failed", async () => {
-        const promise = compareImages(
-            fs.readFileSync("./demoassets/People.jpg"),
-            "bogus data"
-        );
-        await expect(promise).rejects.toMatch(
-            "Error: ENOENT, No such file or directory 'bogus data'"
-        );
+        const promise = compareImages(fs.readFileSync("./demoassets/People.jpg"), "bogus data");
+        await expect(promise).rejects.toMatch("Error: ENOENT, No such file or directory 'bogus data'");
     });
 
     test("returns early", async () => {
@@ -52,11 +43,7 @@ describe("compareImages", () => {
         const options = {
             returnEarlyThreshold: 5
         };
-        const data = await compareImages(
-            await readImg1,
-            await readImg2,
-            options
-        );
+        const data = await compareImages(await readImg1, await readImg2, options);
 
         expect(data.misMatchPercentage).toEqual("5.00");
     });

@@ -3,51 +3,51 @@ James Cryer / Huddle
 URL: https://github.com/Huddle/Resemble.js
 */
 
-var naiveFallback = function() {
-    if (typeof self === "object" && self) return self;
-    if (typeof window === "object" && window) return window;
+var naiveFallback = function () {
+    // ISC (c) 2011-2019 https://github.com/medikoo/es5-ext/blob/master/global.js
+    if (typeof self === "object" && self) {
+        return self;
+    }
+    if (typeof window === "object" && window) {
+        return window;
+    }
     throw new Error("Unable to resolve global `this`");
 };
 
-// https://github.com/medikoo/es5-ext/blob/master/global.js
-var getGlobalThis = function() {
+var getGlobalThis = function () {
+    // ISC (c) 2011-2019 https://github.com/medikoo/es5-ext/blob/master/global.js
     // Fallback to standard globalThis if available
-    if (typeof globalThis === "object" && globalThis) return globalThis;
+    if (typeof globalThis === "object" && globalThis) {
+        return globalThis;
+    }
 
-    // Thanks @mathiasbynens -> https://mathiasbynens.be/notes/globalthis
-    // In all ES5+ engines global object inherits from Object.prototype
-    // (if you approached one that doesn't please report)
     try {
         Object.defineProperty(Object.prototype, "__global__", {
-            get: function() {
+            get: function () {
                 return this;
             },
             configurable: true
         });
     } catch (error) {
-        // Unfortunate case of updates to Object.prototype being restricted
-        // via preventExtensions, seal or freeze
         return naiveFallback();
     }
     try {
-        // Safari case (window.__global__ works, but __global__ does not)
-        if (!__global__) return naiveFallback();
-        return __global__;
+        // eslint-disable-next-line no-undef
+        if (!__global__) {
+            return naiveFallback();
+        }
+        return __global__; // eslint-disable-line no-undef
     } finally {
         delete Object.prototype.__global__;
     }
 };
 
-var isNode = function() {
+var isNode = function () {
     const globalPolyfill = getGlobalThis();
-    return (
-        typeof globalPolyfill.process !== "undefined" &&
-        globalPolyfill.process.versions &&
-        globalPolyfill.process.versions.node
-    );
+    return typeof globalPolyfill.process !== "undefined" && globalPolyfill.process.versions && globalPolyfill.process.versions.node;
 };
 
-(function(root, factory) {
+(function (root, factory) {
     "use strict";
     if (typeof define === "function" && define.amd) {
         define([], factory);
@@ -56,7 +56,7 @@ var isNode = function() {
     } else {
         root.resemble = factory();
     }
-})(this /* eslint-disable-line no-invalid-this*/, function() {
+})(this /* eslint-disable-line no-invalid-this*/, function () {
     "use strict";
 
     var Img;
@@ -85,7 +85,7 @@ var isNode = function() {
     var oldGlobalSettings = {};
     var globalOutputSettings = oldGlobalSettings;
 
-    var resemble = function(fileData) {
+    var resemble = function (fileData) {
         var pixelTransparency = 1;
 
         var errorPixelColor = {
@@ -99,47 +99,33 @@ var isNode = function() {
         var targetPix = { r: 0, g: 0, b: 0, a: 0 }; // isAntialiased
 
         var errorPixelTransform = {
-            flat: function(px, offset) {
+            flat: function (px, offset) {
                 px[offset] = errorPixelColor.red;
                 px[offset + 1] = errorPixelColor.green;
                 px[offset + 2] = errorPixelColor.blue;
                 px[offset + 3] = errorPixelColor.alpha;
             },
-            movement: function(px, offset, d1, d2) {
-                px[offset] =
-                    (d2.r * (errorPixelColor.red / 255) + errorPixelColor.red) /
-                    2;
-                px[offset + 1] =
-                    (d2.g * (errorPixelColor.green / 255) +
-                        errorPixelColor.green) /
-                    2;
-                px[offset + 2] =
-                    (d2.b * (errorPixelColor.blue / 255) +
-                        errorPixelColor.blue) /
-                    2;
+            movement: function (px, offset, d1, d2) {
+                px[offset] = (d2.r * (errorPixelColor.red / 255) + errorPixelColor.red) / 2;
+                px[offset + 1] = (d2.g * (errorPixelColor.green / 255) + errorPixelColor.green) / 2;
+                px[offset + 2] = (d2.b * (errorPixelColor.blue / 255) + errorPixelColor.blue) / 2;
                 px[offset + 3] = d2.a;
             },
-            flatDifferenceIntensity: function(px, offset, d1, d2) {
+            flatDifferenceIntensity: function (px, offset, d1, d2) {
                 px[offset] = errorPixelColor.red;
                 px[offset + 1] = errorPixelColor.green;
                 px[offset + 2] = errorPixelColor.blue;
                 px[offset + 3] = colorsDistance(d1, d2);
             },
-            movementDifferenceIntensity: function(px, offset, d1, d2) {
+            movementDifferenceIntensity: function (px, offset, d1, d2) {
                 var ratio = (colorsDistance(d1, d2) / 255) * 0.8;
 
-                px[offset] =
-                    (1 - ratio) * (d2.r * (errorPixelColor.red / 255)) +
-                    ratio * errorPixelColor.red;
-                px[offset + 1] =
-                    (1 - ratio) * (d2.g * (errorPixelColor.green / 255)) +
-                    ratio * errorPixelColor.green;
-                px[offset + 2] =
-                    (1 - ratio) * (d2.b * (errorPixelColor.blue / 255)) +
-                    ratio * errorPixelColor.blue;
+                px[offset] = (1 - ratio) * (d2.r * (errorPixelColor.red / 255)) + ratio * errorPixelColor.red;
+                px[offset + 1] = (1 - ratio) * (d2.g * (errorPixelColor.green / 255)) + ratio * errorPixelColor.green;
+                px[offset + 2] = (1 - ratio) * (d2.b * (errorPixelColor.blue / 255)) + ratio * errorPixelColor.blue;
                 px[offset + 3] = d2.a;
             },
-            diffOnly: function(px, offset, d1, d2) {
+            diffOnly: function (px, offset, d1, d2) {
                 px[offset] = d2.r;
                 px[offset + 1] = d2.g;
                 px[offset + 2] = d2.b;
@@ -175,21 +161,11 @@ var isNode = function() {
         var returnEarlyThreshold;
 
         function colorsDistance(c1, c2) {
-            return (
-                (Math.abs(c1.r - c2.r) +
-                    Math.abs(c1.g - c2.g) +
-                    Math.abs(c1.b - c2.b)) /
-                3
-            );
+            return (Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b)) / 3;
         }
 
         function withinBoundingBox(x, y, width, height, box) {
-            return (
-                x > (box.left || 0) &&
-                x < (box.right || width) &&
-                y > (box.top || 0) &&
-                y < (box.bottom || height)
-            );
+            return x > (box.left || 0) && x < (box.right || width) && y > (box.top || 0) && y < (box.bottom || height);
         }
 
         function withinComparedArea(x, y, width, height, pixel2) {
@@ -271,7 +247,7 @@ var isNode = function() {
             var whiteTotal = 0;
             var blackTotal = 0;
 
-            loop(width, height, function(horizontalPos, verticalPos) {
+            loop(width, height, function (horizontalPos, verticalPos) {
                 var offset = (verticalPos * width + horizontalPos) * 4;
                 var red = sourceImageData[offset];
                 var green = sourceImageData[offset + 1];
@@ -320,12 +296,8 @@ var isNode = function() {
             var hiddenCanvas = createCanvas(width, height);
             var imageData;
 
-            hiddenCanvas
-                .getContext("2d")
-                .drawImage(hiddenImage, 0, 0, width, height);
-            imageData = hiddenCanvas
-                .getContext("2d")
-                .getImageData(0, 0, width, height);
+            hiddenCanvas.getContext("2d").drawImage(hiddenImage, 0, 0, width, height);
+            imageData = hiddenCanvas.getContext("2d").getImageData(0, 0, width, height);
 
             images.push(imageData);
 
@@ -344,14 +316,14 @@ var isNode = function() {
                 hiddenImage.setAttribute("crossorigin", "anonymous");
             }
 
-            hiddenImage.onerror = function(err) {
+            hiddenImage.onerror = function (err) {
                 hiddenImage.onload = null;
                 hiddenImage.onerror = null; // fixes pollution between calls
                 images.push({ error: err ? err + "" : "Image load error." });
                 callback();
             };
 
-            hiddenImage.onload = function() {
+            hiddenImage.onload = function () {
                 hiddenImage.onload = null; // fixes pollution between calls
                 hiddenImage.onerror = null;
                 onLoadImage(hiddenImage, callback);
@@ -359,11 +331,7 @@ var isNode = function() {
 
             if (typeof fileDataForImage === "string") {
                 hiddenImage.src = fileDataForImage;
-                if (
-                    !isNode() &&
-                    hiddenImage.complete &&
-                    hiddenImage.naturalWidth > 0
-                ) {
+                if (!isNode() && hiddenImage.complete && hiddenImage.naturalWidth > 0) {
                     hiddenImage.onload();
                 }
             } else if (
@@ -373,25 +341,18 @@ var isNode = function() {
             ) {
                 images.push(fileDataForImage);
 
-                callback(
-                    fileDataForImage,
-                    fileDataForImage.width,
-                    fileDataForImage.height
-                );
-            } else if (
-                typeof Buffer !== "undefined" &&
-                fileDataForImage instanceof Buffer
-            ) {
+                callback(fileDataForImage, fileDataForImage.width, fileDataForImage.height);
+            } else if (typeof Buffer !== "undefined" && fileDataForImage instanceof Buffer) {
                 // If we have Buffer, assume we're on Node+Canvas and its supported
                 // hiddenImage.src = fileDataForImage;
 
                 loadNodeCanvasImage(fileDataForImage)
-                    .then(function(image) {
+                    .then(function (image) {
                         hiddenImage.onload = null; // fixes pollution between calls
                         hiddenImage.onerror = null;
                         onLoadImage(image, callback);
                     })
-                    .catch(function(err) {
+                    .catch(function (err) {
                         images.push({
                             error: err ? err + "" : "Image load error."
                         });
@@ -399,7 +360,7 @@ var isNode = function() {
                     });
             } else {
                 fileReader = new FileReader();
-                fileReader.onload = function(event) {
+                fileReader.onload = function (event) {
                     hiddenImage.src = event.target.result;
                 };
                 fileReader.readAsDataURL(fileDataForImage);
@@ -426,11 +387,7 @@ var isNode = function() {
 
         function isPixelBrightnessSimilar(d1, d2) {
             var alpha = isColorSimilar(d1.a, d2.a, "alpha");
-            var brightness = isColorSimilar(
-                d1.brightness,
-                d2.brightness,
-                "minBrightness"
-            );
+            var brightness = isColorSimilar(d1.brightness, d2.brightness, "minBrightness");
             return brightness && alpha;
         }
 
@@ -455,10 +412,7 @@ var isNode = function() {
         }
 
         function isContrasting(d1, d2) {
-            return (
-                Math.abs(d1.brightness - d2.brightness) >
-                tolerance.maxBrightness
-            );
+            return Math.abs(d1.brightness - d2.brightness) > tolerance.maxBrightness;
         }
 
         function getHue(red, green, blue) {
@@ -492,14 +446,7 @@ var isNode = function() {
             return h;
         }
 
-        function isAntialiased(
-            sourcePix,
-            pix,
-            cacheSet,
-            verticalPos,
-            horizontalPos,
-            width
-        ) {
+        function isAntialiased(sourcePix, pix, cacheSet, verticalPos, horizontalPos, width) {
             var offset;
             var distance = 1;
             var i;
@@ -515,9 +462,7 @@ var isNode = function() {
                     if (i === 0 && j === 0) {
                         // ignore source pixel
                     } else {
-                        offset =
-                            ((verticalPos + j) * width + (horizontalPos + i)) *
-                            4;
+                        offset = ((verticalPos + j) * width + (horizontalPos + i)) * 4;
 
                         if (!getPixelInfo(targetPix, pix, offset, cacheSet)) {
                             continue;
@@ -538,10 +483,7 @@ var isNode = function() {
                             hasSiblingWithDifferentHue++;
                         }
 
-                        if (
-                            hasSiblingWithDifferentHue > 1 ||
-                            hasHighContrastSibling > 1
-                        ) {
+                        if (hasSiblingWithDifferentHue > 1 || hasHighContrastSibling > 1) {
                             return true;
                         }
                     }
@@ -621,7 +563,7 @@ var isNode = function() {
                 bottom: 0,
                 right: 0
             };
-            var updateBounds = function(x, y) {
+            var updateBounds = function (x, y) {
                 diffBounds.left = Math.min(x, diffBounds.left);
                 diffBounds.right = Math.max(x, diffBounds.right);
                 diffBounds.top = Math.min(y, diffBounds.top);
@@ -632,11 +574,7 @@ var isNode = function() {
 
             var skip;
 
-            if (
-                !!largeImageThreshold &&
-                ignoreAntialiasing &&
-                (width > largeImageThreshold || height > largeImageThreshold)
-            ) {
+            if (!!largeImageThreshold && ignoreAntialiasing && (width > largeImageThreshold || height > largeImageThreshold)) {
                 skip = 6;
             }
 
@@ -645,45 +583,30 @@ var isNode = function() {
 
             var skipTheRest = false;
 
-            loop(width, height, function(horizontalPos, verticalPos) {
+            loop(width, height, function (horizontalPos, verticalPos) {
                 if (skipTheRest) {
                     return;
                 }
 
                 if (skip) {
                     // only skip if the image isn't small
-                    if (
-                        verticalPos % skip === 0 ||
-                        horizontalPos % skip === 0
-                    ) {
+                    if (verticalPos % skip === 0 || horizontalPos % skip === 0) {
                         return;
                     }
                 }
 
                 var offset = (verticalPos * width + horizontalPos) * 4;
-                if (
-                    !getPixelInfo(pixel1, data1, offset, 1) ||
-                    !getPixelInfo(pixel2, data2, offset, 2)
-                ) {
+                if (!getPixelInfo(pixel1, data1, offset, 1) || !getPixelInfo(pixel2, data2, offset, 2)) {
                     return;
                 }
 
-                var isWithinComparedArea = withinComparedArea(
-                    horizontalPos,
-                    verticalPos,
-                    width,
-                    height,
-                    pixel2
-                );
+                var isWithinComparedArea = withinComparedArea(horizontalPos, verticalPos, width, height, pixel2);
 
                 if (ignoreColors) {
                     addBrightnessInfo(pixel1);
                     addBrightnessInfo(pixel2);
 
-                    if (
-                        isPixelBrightnessSimilar(pixel1, pixel2) ||
-                        !isWithinComparedArea
-                    ) {
+                    if (isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinComparedArea) {
                         if (!compareOnly) {
                             copyGrayScalePixel(pix, offset, pixel2);
                         }
@@ -706,27 +629,9 @@ var isNode = function() {
                     ignoreAntialiasing &&
                     (addBrightnessInfo(pixel1), // jit pixel info augmentation looks a little weird, sorry.
                     addBrightnessInfo(pixel2),
-                    isAntialiased(
-                        pixel1,
-                        data1,
-                        1,
-                        verticalPos,
-                        horizontalPos,
-                        width
-                    ) ||
-                        isAntialiased(
-                            pixel2,
-                            data2,
-                            2,
-                            verticalPos,
-                            horizontalPos,
-                            width
-                        ))
+                    isAntialiased(pixel1, data1, 1, verticalPos, horizontalPos, width) || isAntialiased(pixel2, data2, 2, verticalPos, horizontalPos, width))
                 ) {
-                    if (
-                        isPixelBrightnessSimilar(pixel1, pixel2) ||
-                        !isWithinComparedArea
-                    ) {
+                    if (isPixelBrightnessSimilar(pixel1, pixel2) || !isWithinComparedArea) {
                         if (!compareOnly) {
                             copyGrayScalePixel(pix, offset, pixel2);
                         }
@@ -748,8 +653,7 @@ var isNode = function() {
                 }
 
                 if (compareOnly) {
-                    var currentMisMatchPercent =
-                        (mismatchCount / (height * width)) * 100;
+                    var currentMisMatchPercent = (mismatchCount / (height * width)) * 100;
 
                     if (currentMisMatchPercent > returnEarlyThreshold) {
                         skipTheRest = true;
@@ -757,17 +661,14 @@ var isNode = function() {
                 }
             });
 
-            data.rawMisMatchPercentage =
-                (mismatchCount / (height * width)) * 100;
+            data.rawMisMatchPercentage = (mismatchCount / (height * width)) * 100;
             data.misMatchPercentage = data.rawMisMatchPercentage.toFixed(2);
             data.diffBounds = diffBounds;
             data.analysisTime = Date.now() - time;
 
-            data.getImageDataUrl = function(text) {
+            data.getImageDataUrl = function (text) {
                 if (compareOnly) {
-                    throw Error(
-                        "No diff image available - ran in compareOnly mode"
-                    );
+                    throw Error("No diff image available - ran in compareOnly mode");
                 }
 
                 var barHeight = 0;
@@ -782,7 +683,7 @@ var isNode = function() {
             };
 
             if (!compareOnly && hiddenCanvas.toBuffer) {
-                data.getBuffer = function(includeOriginal) {
+                data.getBuffer = function (includeOriginal) {
                     if (includeOriginal) {
                         var imageWidth = hiddenCanvas.width + 2;
                         hiddenCanvas.width = imageWidth * 3;
@@ -844,10 +745,7 @@ var isNode = function() {
             if (options.errorColor) {
                 for (key in options.errorColor) {
                     if (options.errorColor.hasOwnProperty(key)) {
-                        errorPixelColor[key] =
-                            options.errorColor[key] === void 0
-                                ? errorPixelColor[key]
-                                : options.errorColor[key];
+                        errorPixelColor[key] = options.errorColor[key] === void 0 ? errorPixelColor[key] : options.errorColor[key];
                     }
                 }
             }
@@ -857,16 +755,11 @@ var isNode = function() {
                 errorType = options.errorType;
             }
 
-            if (
-                options.errorPixel &&
-                typeof options.errorPixel === "function"
-            ) {
+            if (options.errorPixel && typeof options.errorPixel === "function") {
                 errorPixel = options.errorPixel;
             }
 
-            pixelTransparency = isNaN(Number(options.transparency))
-                ? pixelTransparency
-                : options.transparency;
+            pixelTransparency = isNaN(Number(options.transparency)) ? pixelTransparency : options.transparency;
 
             if (options.largeImageThreshold !== undefined) {
                 largeImageThreshold = options.largeImageThreshold;
@@ -908,25 +801,14 @@ var isNode = function() {
                 if (images.length === 2) {
                     if (images[0].error || images[1].error) {
                         data = {};
-                        data.error = images[0].error
-                            ? images[0].error
-                            : images[1].error;
+                        data.error = images[0].error ? images[0].error : images[1].error;
                         triggerDataUpdate();
                         return;
                     }
-                    width =
-                        images[0].width > images[1].width
-                            ? images[0].width
-                            : images[1].width;
-                    height =
-                        images[0].height > images[1].height
-                            ? images[0].height
-                            : images[1].height;
+                    width = images[0].width > images[1].width ? images[0].width : images[1].width;
+                    height = images[0].height > images[1].height ? images[0].height : images[1].height;
 
-                    if (
-                        images[0].width === images[1].width &&
-                        images[0].height === images[1].height
-                    ) {
+                    if (images[0].width === images[1].width && images[0].height === images[1].height) {
                         data.isSameDimensions = true;
                     } else {
                         data.isSameDimensions = false;
@@ -937,12 +819,7 @@ var isNode = function() {
                         height: images[0].height - images[1].height
                     };
 
-                    analyseImages(
-                        normalise(images[0], width, height),
-                        normalise(images[1], width, height),
-                        width,
-                        height
-                    );
+                    analyseImages(normalise(images[0], width, height), normalise(images[1], width, height), width, height);
 
                     triggerDataUpdate();
                 }
@@ -963,14 +840,14 @@ var isNode = function() {
             }
 
             var self = {
-                setReturnEarlyThreshold: function(threshold) {
+                setReturnEarlyThreshold: function (threshold) {
                     if (threshold) {
                         compareOnly = true;
                         returnEarlyThreshold = threshold;
                     }
                     return self;
                 },
-                scaleToSameSize: function() {
+                scaleToSameSize: function () {
                     scaleToSameSize = true;
 
                     if (hasMethod) {
@@ -978,7 +855,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                useOriginalSize: function() {
+                useOriginalSize: function () {
                     scaleToSameSize = false;
 
                     if (hasMethod) {
@@ -986,7 +863,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                ignoreNothing: function() {
+                ignoreNothing: function () {
                     tolerance.red = 0;
                     tolerance.green = 0;
                     tolerance.blue = 0;
@@ -1002,7 +879,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                ignoreLess: function() {
+                ignoreLess: function () {
                     tolerance.red = 16;
                     tolerance.green = 16;
                     tolerance.blue = 16;
@@ -1018,7 +895,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                ignoreAntialiasing: function() {
+                ignoreAntialiasing: function () {
                     tolerance.red = 32;
                     tolerance.green = 32;
                     tolerance.blue = 32;
@@ -1034,7 +911,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                ignoreColors: function() {
+                ignoreColors: function () {
                     tolerance.alpha = 16;
                     tolerance.minBrightness = 16;
                     tolerance.maxBrightness = 240;
@@ -1047,7 +924,7 @@ var isNode = function() {
                     }
                     return self;
                 },
-                ignoreAlpha: function() {
+                ignoreAlpha: function () {
                     tolerance.red = 16;
                     tolerance.green = 16;
                     tolerance.blue = 16;
@@ -1063,20 +940,20 @@ var isNode = function() {
                     }
                     return self;
                 },
-                repaint: function() {
+                repaint: function () {
                     if (hasMethod) {
                         param();
                     }
                     return self;
                 },
-                outputSettings: function(options) {
+                outputSettings: function (options) {
                     outputSettings(options);
                     return self;
                 },
-                onComplete: function(callback) {
+                onComplete: function (callback) {
                     updateCallbackArray.push(callback);
 
-                    var wrapper = function() {
+                    var wrapper = function () {
                         compare(fileData, secondFileData);
                     };
 
@@ -1090,16 +967,16 @@ var isNode = function() {
         }
 
         var rootSelf = {
-            onComplete: function(callback) {
+            onComplete: function (callback) {
                 updateCallbackArray.push(callback);
-                loadImageData(fileData, function(imageData, width, height) {
+                loadImageData(fileData, function (imageData, width, height) {
                     parseImage(imageData.data, width, height);
                 });
             },
-            compareTo: function(secondFileData) {
+            compareTo: function (secondFileData) {
                 return getCompareApi(secondFileData);
             },
-            outputSettings: function(options) {
+            outputSettings: function (options) {
                 outputSettings(options);
                 return rootSelf;
             }
@@ -1135,7 +1012,7 @@ var isNode = function() {
         }
     }
 
-    resemble.compare = function(image1, image2, options, cb) {
+    resemble.compare = function (image1, image2, options, cb) {
         var callback;
         var opt;
 
@@ -1167,12 +1044,12 @@ var isNode = function() {
         if (typeof opt.ignore === "string") {
             applyIgnore(compare, opt.ignore);
         } else if (opt.ignore && opt.ignore.forEach) {
-            opt.ignore.forEach(function(v) {
+            opt.ignore.forEach(function (v) {
                 applyIgnore(compare, v);
             });
         }
 
-        compare.onComplete(function(data) {
+        compare.onComplete(function (data) {
             if (data.error) {
                 callback(data.error);
             } else {

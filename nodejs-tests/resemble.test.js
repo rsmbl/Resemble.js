@@ -5,19 +5,13 @@ const fs = require("fs");
 
 describe("resemble", () => {
     test("base64", () => {
-        const peopleSrc = `data:image/jpeg;base64,${fs.readFileSync(
-            "./demoassets/People.jpg",
-            "base64"
-        )}`;
-        const people2Src = `data:image/jpeg;base64,${fs.readFileSync(
-            "./demoassets/People2.jpg",
-            "base64"
-        )}`;
+        const peopleSrc = `data:image/jpeg;base64,${fs.readFileSync("./demoassets/People.jpg", "base64")}`;
+        const people2Src = `data:image/jpeg;base64,${fs.readFileSync("./demoassets/People2.jpg", "base64")}`;
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble(peopleSrc)
                 .compareTo(people2Src)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.diffBounds.bottom).toEqual(431);
                     expect(data.diffBounds.left).toEqual(22);
                     expect(data.diffBounds.right).toEqual(450);
@@ -32,10 +26,10 @@ describe("resemble", () => {
     });
 
     test("files", () => {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble("demoassets/People.jpg")
                 .compareTo("demoassets/People2.jpg")
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.diffBounds).toEqual(
                         expect.objectContaining({
                             bottom: expect.any(Number),
@@ -59,13 +53,11 @@ describe("resemble", () => {
     });
 
     test("file not found", () =>
-        new Promise(resolve => {
+        new Promise((resolve) => {
             resemble("../demoassets/People.jpg")
                 .compareTo("../demoassets/404-image.jpg")
-                .onComplete(data => {
-                    expect(data.error).toEqual(
-                        "Error: ENOENT, No such file or directory '../demoassets/People.jpg'"
-                    );
+                .onComplete((data) => {
+                    expect(data.error).toEqual("Error: ENOENT, No such file or directory '../demoassets/People.jpg'");
                     resolve();
                 });
         }));
@@ -74,10 +66,10 @@ describe("resemble", () => {
         const people = fs.readFileSync("./demoassets/People.jpg");
         const people2 = fs.readFileSync("./demoassets/People2.jpg");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.diffBounds.bottom).toEqual(431);
                     expect(data.diffBounds.left).toEqual(22);
                     expect(data.diffBounds.right).toEqual(450);
@@ -95,10 +87,10 @@ describe("resemble", () => {
         const people = fs.readFileSync("./demoassets/ghost1.png");
         const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.diffBounds.bottom).toEqual(138);
                     expect(data.diffBounds.left).toEqual(90);
                     expect(data.diffBounds.right).toEqual(157);
@@ -116,7 +108,7 @@ describe("resemble", () => {
         const people = fs.readFileSync("./demoassets/ghost1.png");
         const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 boundingBox: {
                     left: 80,
@@ -128,7 +120,7 @@ describe("resemble", () => {
 
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.misMatchPercentage).toEqual("0.04");
                     resolve();
                 });
@@ -139,7 +131,7 @@ describe("resemble", () => {
         const people = fs.readFileSync("./demoassets/ghost1.png");
         const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 errorColor: {
                     red: 0,
@@ -150,15 +142,13 @@ describe("resemble", () => {
 
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     const buffer = data.getBuffer();
 
                     expect(buffer).toBeInstanceOf(Buffer);
                     expect(buffer.length).toBe(9391);
 
-                    const comparison = fs.readFileSync(
-                        "./nodejs-tests/assets/pixelErrorColorTest.png"
-                    );
+                    const comparison = fs.readFileSync("./nodejs-tests/assets/pixelErrorColorTest.png");
                     expect(buffer.equals(comparison)).toBe(true);
                     resolve();
                 });
@@ -169,7 +159,7 @@ describe("resemble", () => {
         const people = fs.readFileSync("./nodejs-tests/assets/text.png");
         const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 boundingBoxes: [
                     {
@@ -189,7 +179,7 @@ describe("resemble", () => {
 
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.misMatchPercentage).toEqual("3.39");
                     resolve();
                 });
@@ -200,7 +190,7 @@ describe("resemble", () => {
         const people = fs.readFileSync("./nodejs-tests/assets/text.png");
         const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 ignoredBoxes: [
                     {
@@ -220,7 +210,7 @@ describe("resemble", () => {
 
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.misMatchPercentage).toEqual("1.80");
                     resolve();
                 });
@@ -231,7 +221,7 @@ describe("resemble", () => {
         const people = fs.readFileSync("./nodejs-tests/assets/text.png");
         const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 ignoredBox: {
                     left: 20,
@@ -243,7 +233,7 @@ describe("resemble", () => {
 
             resemble(people)
                 .compareTo(people2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.misMatchPercentage).toEqual("3.52");
                     resolve();
                 });
@@ -254,11 +244,11 @@ describe("resemble", () => {
         const people = fs.readFileSync("./nodejs-tests/assets/text.png");
         const people2 = fs.readFileSync("./nodejs-tests/assets/textAa.png");
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble(people)
                 .compareTo(people2)
                 .setReturnEarlyThreshold(2)
-                .onComplete(data => {
+                .onComplete((data) => {
                     expect(data.misMatchPercentage).toEqual("2.00");
                     resolve();
                 });
@@ -266,16 +256,10 @@ describe("resemble", () => {
     });
 
     test("partial diff with ignored color", () => {
-        const peopleSrc = `data:image/jpeg;base64,${fs.readFileSync(
-            "./nodejs-tests/assets/PeopleWithIgnoreMask.png",
-            "base64"
-        )}`;
-        const people2Src = `data:image/jpeg;base64,${fs.readFileSync(
-            "./demoassets/People2.jpg",
-            "base64"
-        )}`;
+        const peopleSrc = `data:image/jpeg;base64,${fs.readFileSync("./nodejs-tests/assets/PeopleWithIgnoreMask.png", "base64")}`;
+        const people2Src = `data:image/jpeg;base64,${fs.readFileSync("./demoassets/People2.jpg", "base64")}`;
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             resemble.outputSettings({
                 ignoreAreasColoredWith: {
                     r: 255,
@@ -287,11 +271,9 @@ describe("resemble", () => {
 
             resemble(people2Src)
                 .compareTo(peopleSrc)
-                .onComplete(data => {
+                .onComplete((data) => {
                     const buffer = data.getBuffer();
-                    const comparison = fs.readFileSync(
-                        "./nodejs-tests/assets/ignoredColorTestResult.png"
-                    );
+                    const comparison = fs.readFileSync("./nodejs-tests/assets/ignoredColorTestResult.png");
                     expect(buffer.equals(comparison)).toBe(true);
                     resolve();
                 });

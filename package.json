@@ -5,7 +5,7 @@
     "main": "resemble.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Huddle/Resemble.js.git"
+        "url": "https://github.com/rsmbl/Resemble.js.git"
     },
     "keywords": [
         "comparison",
@@ -18,9 +18,9 @@
     "author": "James Cryer",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Huddle/Resemble.js/issues"
+        "url": "https://github.com/rsmbl/Resemble.js/issues"
     },
-    "homepage": "https://github.com/Huddle/Resemble.js",
+    "homepage": "https://github.com/rsmbl/Resemble.js",
     "scripts": {
         "test": "jest nodejs-tests",
         "test:codacy-coverage": "jest nodejs-tests --coverage && cat ./coverage/lcov.info | codacy-coverage",
@@ -44,16 +44,14 @@
     },
     "devDependencies": {
         "chai": "^4.2.0",
-        "eslint": "^6.8.0",
-        "eslint-config-es5": "^0.5.0",
-        "eslint-config-prettier": "^2.9.0",
-        "eslint-plugin-import": "^2.20.1",
-        "eslint-plugin-prettier": "^2.6.0",
+        "eslint": "^7.6.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-prettier": "^3.1.0",
         "husky": "^3.1.0",
         "jest": "^25.1.0",
         "jest-cli": "^25.1.0",
         "lint-staged": "^9.5.0",
-        "prettier": "^1.19.1"
+        "prettier": "^2.0.0"
     },
     "jest": {
         "testEnvironment": "node"

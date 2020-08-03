@@ -3,11 +3,11 @@
 const resemble = require("../resemble");
 const fs = require("fs");
 
-const testErrorPixelTransform = transform => {
+const testErrorPixelTransform = (transform) => {
     const people = fs.readFileSync("./demoassets/ghost1.png");
     const people2 = fs.readFileSync("./demoassets/ghost2.png");
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         resemble.outputSettings({
             errorType: transform,
             errorColor: {
@@ -19,16 +19,14 @@ const testErrorPixelTransform = transform => {
 
         resemble(people)
             .compareTo(people2)
-            .onComplete(data => {
+            .onComplete((data) => {
                 const buffer = data.getBuffer();
 
                 expect(buffer).toBeInstanceOf(Buffer);
 
                 // fs.writeFileSync(`./nodejs-tests/assets/pixelErrorTransform/${transform}.new.png`, buffer);
 
-                const comparison = fs.readFileSync(
-                    `./nodejs-tests/assets/pixelErrorTransform/${transform}.png`
-                );
+                const comparison = fs.readFileSync(`./nodejs-tests/assets/pixelErrorTransform/${transform}.png`);
 
                 expect(buffer.equals(comparison)).toBe(true);
                 resolve();
@@ -41,11 +39,9 @@ describe("errorPixelTransform", () => {
 
     test("movement", async () => testErrorPixelTransform("movement"));
 
-    test("flatDifferenceIntensity", async () =>
-        testErrorPixelTransform("flatDifferenceIntensity"));
+    test("flatDifferenceIntensity", async () => testErrorPixelTransform("flatDifferenceIntensity"));
 
-    test("movementDifferenceIntensity", async () =>
-        testErrorPixelTransform("movementDifferenceIntensity"));
+    test("movementDifferenceIntensity", async () => testErrorPixelTransform("movementDifferenceIntensity"));
 
     test("diffOnly", async () => testErrorPixelTransform("diffOnly"));
 });
