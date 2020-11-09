@@ -39,7 +39,7 @@
             "git add"
         ]
     },
-    "dependencies": {
+    "optionalDependencies": {
         "canvas": "2.6.1"
     },
     "devDependencies": {
