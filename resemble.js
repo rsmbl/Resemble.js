@@ -960,6 +960,15 @@ var isNode = function () {
                     wrapper();
 
                     return getCompareApi(wrapper);
+                },
+                setupCustomTolerance: function (customSettings) {
+                    for (var property in tolerance) {
+                        if (!customSettings.hasOwnProperty(property)) {
+                            continue;
+                        }
+
+                        tolerance[property] = customSettings[property];
+                    }
                 }
             };
 
@@ -990,7 +999,7 @@ var isNode = function () {
         return resemble;
     }
 
-    function applyIgnore(api, ignore) {
+    function applyIgnore(api, ignore, customTolerance) {
         switch (ignore) {
             case "nothing":
                 api.ignoreNothing();
@@ -1010,6 +1019,8 @@ var isNode = function () {
             default:
                 throw new Error("Invalid ignore: " + ignore);
         }
+
+        api.setupCustomTolerance(customTolerance);
     }
 
     resemble.compare = function (image1, image2, options, cb) {
@@ -1041,11 +1052,12 @@ var isNode = function () {
             compare.scaleToSameSize();
         }
 
+        var toleranceSettings = opt.tolerance || {};
         if (typeof opt.ignore === "string") {
-            applyIgnore(compare, opt.ignore);
+            applyIgnore(compare, opt.ignore, toleranceSettings);
         } else if (opt.ignore && opt.ignore.forEach) {
             opt.ignore.forEach(function (v) {
-                applyIgnore(compare, v);
+                applyIgnore(compare, v, toleranceSettings);
             });
         }
 
