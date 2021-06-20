@@ -25,6 +25,34 @@ describe("ignore", () => {
         });
     });
 
+    test("ignore antialiasing on with custom tolerance", async () => {
+        const text = fs.readFileSync("./nodejs-tests/assets/square1.png");
+        const textAa = fs.readFileSync("./nodejs-tests/assets/square2.png");
+
+        return new Promise((resolve) => {
+            const opts = {
+                ignore: "antialiasing",
+                tolerance: {
+                    red: 16,
+                    green: 16,
+                    blue: 16
+                }
+            };
+
+            resemble.compare(text, textAa, opts, async (_x, data) => {
+                expect(data.misMatchPercentage).toBe("100.00");
+                const buffer = data.getBuffer();
+
+                expect(buffer).toBeInstanceOf(Buffer);
+
+                const comparison = fs.readFileSync("./nodejs-tests/assets/isAntialiased/diffWithCustomTolerance.png");
+
+                expect(buffer.equals(comparison)).toBe(true);
+                resolve();
+            });
+        });
+    });
+
     test("ignore antialiasing off", async () => {
         const text = fs.readFileSync("./nodejs-tests/assets/text.png");
         const textAa = fs.readFileSync("./nodejs-tests/assets/textAa.png");
