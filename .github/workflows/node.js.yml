@@ -85,15 +85,8 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Install Dependencies
-              run: |
-                  Invoke-WebRequest "https://ftp-osl.osuosl.org/pub/gnome/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip" -OutFile "gtk.zip"
-                  Expand-Archive gtk.zip -DestinationPath "C:\GTK"
-                  Invoke-WebRequest "https://downloads.sourceforge.net/project/libjpeg-turbo/2.0.4/libjpeg-turbo-2.0.4-vc64.exe" -OutFile "libjpeg.exe" -UserAgent NativeHost
-                  .\libjpeg.exe /S
-
             - name: Install
-              run: npm i --build-from-source
+              run: npm ci
 
             - name: Test
               run: npm test
