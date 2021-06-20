@@ -1,4 +1,4 @@
-**Low-maintainance mode**: Two to four times a year the library author will spend some time to keep the library useful. Feel free to raise issues and contribute improvements, but please be aware that it may be sometime before a response is given.
+**Low-maintenance mode**: Two to four times a year the library author will spend some time to keep the library useful. Feel free to raise issues and contribute improvements, but please be aware that it may be sometime before a response is given.
 
 ---
 
