@@ -18,14 +18,16 @@
 
 `npm install resemblejs`
 
-`bower install resemblejs`
+### Node.js
+
+Resemble.js uses [node-canvas](https://www.npmjs.com/package/canvas) for Node.js support. This is a pre-built dependency that may fail in certain environments. If you are using Resemble.js for in-browser analysis only, you can skip the node-canvas dependency with `npm install --no-optional`. If you need Node.js support and the Canvas dependency fails, try using a previous version of Resemble.js, or `npm install --build-from-source`.
 
 ### Example
 
 Retrieve basic analysis on an image:
 
 ```javascript
-var api = resemble(fileData).onComplete(function(data) {
+var api = resemble(fileData).onComplete(function (data) {
     console.log(data);
     /*
 	{
@@ -44,32 +46,20 @@ Use resemble to compare two images:
 var diff = resemble(file)
     .compareTo(file2)
     .ignoreColors()
-    .onComplete(function(data) {
+    .onComplete(function (data) {
         console.log(data);
-        /*
-	{
-	  misMatchPercentage : 100, // %
-	  isSameDimensions: true, // or false
-	  dimensionDifference: { width: 0, height: -1 }, // defined if dimensions are not the same
-	  getImageDataUrl: function(){}
-	}
-	*/
     });
 ```
 
 Scale second image to dimensions of the first one:
 
 ```javascript
-//diff.useOriginalSize();
 diff.scaleToSameSize();
 ```
 
 You can also change the comparison method after the first analysis:
 
 ```javascript
-// diff.ignoreNothing();
-// diff.ignoreColors();
-// diff.ignoreAlpha();
 diff.ignoreAntialiasing();
 ```
 
@@ -146,9 +136,7 @@ Resemble.js also supports Data URIs as strings:
 
 ```javascript
 resemble.outputSettings({ useCrossOrigin: false });
-var diff = resemble("data:image/jpeg;base64,/9j/4AAQSkZJRgAB...").compareTo(
-    "data:image/jpeg;base64,/9j/,/9j/4AAQSkZJRg..."
-);
+var diff = resemble("data:image/jpeg;base64,/9j/4AAQSkZJRgAB...").compareTo("data:image/jpeg;base64,/9j/,/9j/4AAQSkZJRg...");
 ```
 
 `useCrossOrigin` is true by default, you might need to set it to false if you're using [Data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
@@ -158,8 +146,8 @@ If you'd like resemble to return early:
 ```javascript
 resemble(img1)
     .compareTo(img2)
-    .setReturnEarlyThreshold(8) // %
-    .onComplete(data => {
+    .setReturnEarlyThreshold(8)
+    .onComplete((data) => {
         /* do something */
     });
 ```
@@ -173,27 +161,14 @@ const compare = require("resemblejs").compare;
 
 function getDiff() {
     const options = {
-        // stop comparing once determined to be > 5% non-matching; this will
-        // also enable compare-only mode and no output image will be rendered;
-        // the combination of these results in a significant speed-up in batch processing
         returnEarlyThreshold: 5
     };
 
-    // The parameters can be Node Buffers
-    // data is the same as usual with an additional getBuffer() function
-    compare(image1, image2, options, function(err, data) {
+    compare(image1, image2, options, function (err, data) {
         if (err) {
             console.log("An error!");
         } else {
             console.log(data);
-            /*
-            {
-            misMatchPercentage : 100, // %
-            isSameDimensions: true, // or false
-            dimensionDifference: { width: 0, height: -1 }, // defined if dimensions are not the same
-            getImageDataUrl: function(){}
-            }
-            */
         }
     });
 }
@@ -227,13 +202,7 @@ async function getDiff() {
         ignore: "antialiasing"
     };
 
-    // The parameters can be Node Buffers
-    // data is the same as usual with an additional getBuffer() function
-    const data = await compareImages(
-        await fs.readFile("./your-image-path/People.jpg"),
-        await fs.readFile("./your-image-path/People2.jpg"),
-        options
-    );
+    const data = await compareImages(await fs.readFile("./your-image-path/People.jpg"), await fs.readFile("./your-image-path/People2.jpg"), options);
 
     await fs.writeFile("./output.png", data.getBuffer());
 }

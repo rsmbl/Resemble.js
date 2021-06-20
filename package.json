@@ -40,18 +40,18 @@
         ]
     },
     "optionalDependencies": {
-        "canvas": "2.6.1"
+        "canvas": "2.8.0"
     },
     "devDependencies": {
-        "chai": "^4.2.0",
-        "eslint": "^7.6.0",
-        "eslint-config-prettier": "^6.11.0",
-        "eslint-plugin-prettier": "^3.1.0",
-        "husky": "^3.1.0",
-        "jest": "^25.1.0",
-        "jest-cli": "^25.1.0",
-        "lint-staged": "^9.5.0",
-        "prettier": "^2.0.0"
+        "chai": "^4.3.4",
+        "eslint": "^7.29.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "husky": "^6.0.0",
+        "jest": "^27.0.4",
+        "jest-cli": "^27.0.4",
+        "lint-staged": "^11.0.0",
+        "prettier": "^2.3.1"
     },
     "jest": {
         "testEnvironment": "node"
