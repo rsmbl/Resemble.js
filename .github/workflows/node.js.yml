@@ -28,15 +28,8 @@ jobs:
               with:
                   node-version: 16
 
-            - name: Install Dependencies
-              run: |
-                  Invoke-WebRequest "https://ftp-osl.osuosl.org/pub/gnome/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip" -OutFile "gtk.zip"
-                  Expand-Archive gtk.zip -DestinationPath "C:\GTK"
-                  Invoke-WebRequest "https://downloads.sourceforge.net/project/libjpeg-turbo/2.0.4/libjpeg-turbo-2.0.4-vc64.exe" -OutFile "libjpeg.exe" -UserAgent NativeHost
-                  .\libjpeg.exe /S
-
             - name: Install Node.js dependencies
-              run: npm i --build-from-source
+              run: npm ci
 
             - name: Test
               run: npm run test:coverage
@@ -45,7 +38,7 @@ jobs:
               uses: codacy/codacy-coverage-reporter-action@v1
               with:
                   project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-                  coverage-reports: ./coverage/lcov.info
+                  coverage-reports: coverage/lcov.info
 
     lint:
         name: Run linters
