@@ -21,8 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         name: codacy-coverage-reporter
         steps:
-            - name: Check out Git repository
-              uses: actions/checkout@v2
+            - uses: actions/checkout@v2
 
             - name: Set up Node.js
               uses: actions/setup-node@v1
@@ -46,8 +45,7 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Check out Git repository
-              uses: actions/checkout@v2
+            - uses: actions/checkout@v2
 
             - name: Set up Node.js
               uses: actions/setup-node@v1
@@ -78,6 +76,8 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
+
+            - name: Install
               run: npm ci
 
             - name: Test
