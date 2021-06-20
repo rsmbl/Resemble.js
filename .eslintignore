@@ -1,6 +1,6 @@
 ./node_modules/**
 **/node_modules/**
-./libs
-./demoassets
-./coverage
-.github
+libs/**
+demoassets/**
+coverage/**
+.github/**

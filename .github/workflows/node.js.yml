@@ -28,11 +28,16 @@ jobs:
               with:
                   node-version: 16
 
+            - name: Install Dependencies
+              run: |
+                  sudo apt update
+                  sudo apt install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev librsvg2-dev
+
             - name: Install Node.js dependencies
               run: npm ci
 
             - name: Test
-              run: npm test:coverage
+              run: npm run test:coverage
 
             - name: Run codacy-coverage-reporter
               uses: codacy/codacy-coverage-reporter-action@v1
@@ -50,7 +55,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: 14
+                  node-version: 16
 
             - name: Install Node.js dependencies
               run: npm ci
@@ -58,6 +63,7 @@ jobs:
             - name: Run linters
               uses: wearerequired/lint-action@v1
               with:
+                  auto_fix: false
                   eslint: true
                   prettier: true
 
@@ -76,6 +82,11 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
+
+            - name: Install Dependencies
+              run: |
+                  sudo apt update
+                  sudo apt install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev librsvg2-dev
 
             - name: Install
               run: npm ci
