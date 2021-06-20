@@ -5,7 +5,8 @@
 <h1 align="center"><img src="https://raw.github.com/rsmbl/Resemble.js/master/demoassets/resemble.png" alt="Resemble.js" width="256"/></h1>
 
 <p align="center">
-    <a href="https://github.com/rsmbl/Resemble.js/actions"><img alt="Build Status" src="(https://github.com/rsmbl/Resemble.js/actions/workflows/node.js.yml/badge.svg" /></a>
+    <a href="https://github.com/rsmbl/Resemble.js/actions"><img alt="Build Status" src="https://github.com/rsmbl/Resemble.js/actions/workflows/CI.yml/badge.svg" /></a>
+    <a href="https://www.codacy.com/gh/rsmbl/Resemble.js/dashboard?utm_source=github.com&utm_medium=referral&utm_content=rsmbl/Resemble.js&utm_campaign=Badge_Coverages"><img alt="Coverage" src="https://app.codacy.com/project/badge/Coverage/97c5e9c42bcf4b4bbc2271882f18c502" /></a>
     <a href="https://www.codacy.com/gh/rsmbl/Resemble.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsmbl/Resemble.js&amp;utm_campaign=Badge_Grade"><img alt="Code Health" src="https://app.codacy.com/project/badge/Grade/97c5e9c42bcf4b4bbc2271882f18c502" /></a>
     <a href="https://opensource.org/licenses/MIT"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
     <a href="https://www.npmjs.com/package/resemblejs"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/resemblejs.svg" /></a>
