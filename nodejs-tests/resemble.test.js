@@ -172,6 +172,7 @@ describe("resemble", () => {
                         left: 20,
                         top: 200,
                         right: 350,
+
                         bottom: 250
                     }
                 ]

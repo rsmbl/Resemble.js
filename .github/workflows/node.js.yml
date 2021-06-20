@@ -1,0 +1,85 @@
+name: Node.js CI
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
+
+jobs:
+    codacy-analysis-cli:
+        name: Codacy Analysis CLI
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@main
+
+            - name: Run Codacy Analysis CLI
+              uses: codacy/codacy-analysis-cli-action@master
+
+    coverage:
+        runs-on: windows-latest
+        name: codacy-coverage-reporter
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16
+
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            - name: Test
+              run: npm run test:coverage
+
+            - name: Run codacy-coverage-reporter
+              uses: codacy/codacy-coverage-reporter-action@v1
+              with:
+                  project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+                  coverage-reports: coverage/lcov.info
+
+    lint:
+        name: Run linters
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16
+
+            - name: Install Node.js dependencies
+              run: npm ci --ignore-scripts
+
+            - name: Run linters
+              uses: wearerequired/lint-action@v1
+              with:
+                  auto_fix: false
+                  eslint: true
+                  prettier: false
+
+    build:
+        runs-on: windows-latest
+
+        strategy:
+            matrix:
+                node-version: [12.x, 14.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install
+              run: npm ci
+
+            - name: Test
+              run: npm test

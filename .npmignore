@@ -11,3 +11,4 @@ dockerfile
 .travis.yml
 memory-leak-test.js
 coverage
+.github
