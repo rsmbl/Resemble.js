@@ -2,7 +2,7 @@
 
 <p align="center">
     <a href="https://travis-ci.org/rsmbl/Resemble.js"><img alt="Build Status" src="https://travis-ci.org/rsmbl/Resemble.js.svg?branch=master" /></a>
-    <a href="https://www.codacy.com/app/jamescryer/Resemble.js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsmbl/Resemble.js&amp;utm_campaign=Badge_Grade"><img alt="Code Health" src="https://api.codacy.com/project/badge/Grade/1e0972581406417e9914bc58f57704b3" /></a>
+    <a href="https://www.codacy.com/gh/rsmbl/Resemble.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsmbl/Resemble.js&amp;utm_campaign=Badge_Grade"><img alt="Code Health" src="https://app.codacy.com/project/badge/Grade/97c5e9c42bcf4b4bbc2271882f18c502" /></a>
     <a href="https://www.codacy.com/app/jamescryer/Resemble.js?utm_source=github.com&utm_medium=referral&utm_content=rsmbl/Resemble.js&utm_campaign=Badge_Coverage"><img alt="Coverage" src="https://api.codacy.com/project/badge/Coverage/9223d8d37c99428c8c06b889470327a5" /></a>
     <a href="https://opensource.org/licenses/MIT"><img alt="Build Status" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
     <a href="https://www.npmjs.com/package/resemblejs"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/resemblejs.svg" /></a>
