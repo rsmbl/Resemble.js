@@ -322,7 +322,7 @@ var isNode = function () {
                 if (event.path && event.path[0]) {
                     images.push({ error: `Failed to load image: ${event.path[0].currentSrc}`})
                 } else {
-                    images.push({ error: err ? `Failed to load image with error: ${event}` : "Failed to load image. Unknown error." });
+                    images.push({ error: event ? `Failed to load image with error: ${event}` : "Failed to load image. Unknown error." });
                 }
                 callback();
             };
