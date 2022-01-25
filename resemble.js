@@ -319,11 +319,8 @@ var isNode = function () {
             hiddenImage.onerror = function (event) {
                 hiddenImage.onload = null;
                 hiddenImage.onerror = null; // fixes pollution between calls
-                if (event.path && event.path[0]) {
-                    images.push({ error: `Failed to load image: ${event.path[0].currentSrc}`})
-                } else {
-                    images.push({ error: event ? `Failed to load image with error: ${event}` : "Failed to load image. Unknown error." });
-                }
+                const error = event ? event + "" : "Unknown error";
+                images.push({ error: `Failed to load image '${fileDataForImage}'. ${error}` });
                 callback();
             };
 

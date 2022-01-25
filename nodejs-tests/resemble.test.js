@@ -57,7 +57,9 @@ describe("resemble", () => {
             resemble("../demoassets/People.jpg")
                 .compareTo("../demoassets/404-image.jpg")
                 .onComplete((data) => {
-                    expect(data.error).toEqual("Error: ENOENT, No such file or directory '../demoassets/People.jpg'");
+                    expect(data.error).toEqual(
+                        "Failed to load image '../demoassets/People.jpg'. Error: ENOENT, No such file or directory '../demoassets/People.jpg'"
+                    );
                     resolve();
                 });
         }));
