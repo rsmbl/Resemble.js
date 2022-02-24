@@ -316,10 +316,11 @@ var isNode = function () {
                 hiddenImage.setAttribute("crossorigin", "anonymous");
             }
 
-            hiddenImage.onerror = function (err) {
+            hiddenImage.onerror = function (event) {
                 hiddenImage.onload = null;
                 hiddenImage.onerror = null; // fixes pollution between calls
-                images.push({ error: err ? err + "" : "Image load error." });
+                const error = event ? event + "" : "Unknown error";
+                images.push({ error: `Failed to load image '${fileDataForImage}'. ${error}` });
                 callback();
             };
 
