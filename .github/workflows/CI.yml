@@ -26,7 +26,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: 16
+                  node-version: 18
 
             - name: Install Node.js dependencies
               run: npm ci
@@ -50,7 +50,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: 16
+                  node-version: 18
 
             - name: Install Node.js dependencies
               run: npm ci --ignore-scripts
@@ -67,7 +67,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [12.x, 14.x]
+                node-version: [14.x, 18.x]
                 # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
