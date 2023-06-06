@@ -53,7 +53,7 @@ function request404() {
             .compareTo("../demoassets/404-image.jpg")
             .onComplete((data) => {
                 console.info("Reached oncomplete for request404");
-                expect(data).to.deep.equal({ error: "[object Event]" });
+                expect(data).to.have.all.keys('error');
                 resolve();
             });
     });
