@@ -1,4 +1,4 @@
-**Low-maintenance mode**: Two to four times a year the library author will spend some time to keep the library useful. Feel free to raise issues and contribute improvements, but please be aware that it may be sometime before a response is given.
+**Ultra low-maintenance mode**: One or two times a year the library author will spend some time to keep the library useful. Feel free to raise issues and contribute improvements, but please be aware that it may be sometime before a response is given.
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### Node.js
 
-Resemble.js uses [node-canvas](https://www.npmjs.com/package/canvas) for Node.js support. This is a pre-built dependency that may fail in certain environments. If you are using Resemble.js for in-browser analysis only, you can skip the node-canvas dependency with `npm install --no-optional`. If you need Node.js support and the Canvas dependency fails, try using a previous version of Resemble.js, or `npm install --build-from-source`.
+Resemble.js uses [node-canvas](https://www.npmjs.com/package/canvas) for Node.js support. This is a pre-built dependency that may fail in certain environments. If you are using Resemble.js for in-browser analysis only, you can skip the node-canvas dependency with `npm install --no-optional`. If you need Node.js support and the Canvas dependency fails, try: Using a previous version of Resemble.js, or [NPM overrides](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides) to specify a [more recent version of node-canvas](https://github.com/Automattic/node-canvas/releases), or `npm install --build-from-source`.
 
 ### Example
 
