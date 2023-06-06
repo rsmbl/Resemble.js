@@ -41,7 +41,7 @@
         ]
     },
     "optionalDependencies": {
-        "canvas": "2.9.0"
+        "canvas": "^2.10.2"
     },
     "devDependencies": {
         "chai": "^4.3.6",
