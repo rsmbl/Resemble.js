@@ -141,8 +141,11 @@ var isNode = function () {
         var largeImageThreshold = 1200;
         var useCrossOrigin = true;
         var data = {};
+        data.elementBox = [];
         var images = [];
         var updateCallbackArray = [];
+        var lastX;
+        var lastY;
 
         var tolerance = {
             // between 0 and 255
@@ -213,6 +216,7 @@ var isNode = function () {
             if (selected === false || ignored === false) {
                 isIncluded = false;
             }
+
             return isIncluded;
         }
 
@@ -569,6 +573,22 @@ var isNode = function () {
                 diffBounds.right = Math.max(x, diffBounds.right);
                 diffBounds.top = Math.min(y, diffBounds.top);
                 diffBounds.bottom = Math.max(y, diffBounds.bottom);
+
+                if (lastX === undefined) {
+                    data.elementBox.push({ x: x, y: y });
+                    lastX = x;
+                    lastY = y;
+                    return;
+                }
+
+                for (let i = 1; i <= 2; i++) {
+                    if (lastX === x - i) {
+                        data.elementBox.push({ x: x, y: y });
+                        lastX = x;
+                        lastY = y;
+                        return;
+                    }
+                }
             };
 
             var time = Date.now();

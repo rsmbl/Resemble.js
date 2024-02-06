@@ -26,7 +26,13 @@
         "global-require": "error",
         "comma-dangle": ["error", "never"],
         "camelcase": ["error", { "properties": "always" }],
-        "no-prototype-builtins": "off"
+        "no-prototype-builtins": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
     },
     "env": {
         "amd": true,
